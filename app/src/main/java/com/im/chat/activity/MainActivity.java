@@ -36,16 +36,16 @@ import com.baidu.location.LocationClientOption;
 public class MainActivity extends BaseActivity {
   public static final int FRAGMENT_N = 4;
   public static final int[] tabsNormalBackIds = new int[]{R.drawable.tabbar_chat,
-      R.drawable.tabbar_contacts, R.drawable.tabbar_notification, R.drawable.tabbar_me};
+          R.drawable.tabbar_contacts, R.drawable.tabbar_notification, R.drawable.tabbar_me};
   public static final int[] tabsActiveBackIds = new int[]{R.drawable.tabbar_chat_active,
-      R.drawable.tabbar_contacts_active, R.drawable.tabbar_notification_active,
-      R.drawable.tabbar_me_active};
+          R.drawable.tabbar_contacts_active, R.drawable.tabbar_notification_active,
+          R.drawable.tabbar_me_active};
   private static final String FRAGMENT_TAG_CONVERSATION = "conversation";
   private static final String FRAGMENT_TAG_CONTACT = "contact";
   private static final String FRAGMENT_TAG_NOTIFICATION = "notification";
   private static final String FRAGMENT_TAG_PROFILE = "profile";
   private static final String[] fragmentTags = new String[]{FRAGMENT_TAG_CONVERSATION, FRAGMENT_TAG_CONTACT,
-      FRAGMENT_TAG_NOTIFICATION, FRAGMENT_TAG_PROFILE};
+          FRAGMENT_TAG_NOTIFICATION, FRAGMENT_TAG_PROFILE};
 
   public LocationClient locClient;
   public MyLocationListener locationListener;
@@ -74,6 +74,7 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onResume() {
     super.onResume();
+    //更新版本
     UpdateService updateService = UpdateService.getInstance(this);
     updateService.checkUpdate();
   }
@@ -176,7 +177,7 @@ public class MainActivity extends BaseActivity {
       final LeanchatUser user = LeanchatUser.getCurrentUser();
       final AVGeoPoint location = user.getAVGeoPoint(LeanchatUser.LOCATION);
       if (location == null || !Utils.doubleEqual(location.getLatitude(), lastLocation.getLatitude())
-        || !Utils.doubleEqual(location.getLongitude(), lastLocation.getLongitude())) {
+              || !Utils.doubleEqual(location.getLongitude(), lastLocation.getLongitude())) {
         user.put(LeanchatUser.LOCATION, lastLocation);
         user.saveInBackground(new SaveCallback() {
           @Override
@@ -189,7 +190,7 @@ public class MainActivity extends BaseActivity {
                 LogUtils.e("avGeopoint is null");
               } else {
                 LogUtils.v("save location succeed latitude " + avGeoPoint.getLatitude()
-                  + " longitude " + avGeoPoint.getLongitude());
+                        + " longitude " + avGeoPoint.getLongitude());
               }
             }
           }
@@ -206,18 +207,18 @@ public class MainActivity extends BaseActivity {
       double longitude = location.getLongitude();
       int locType = location.getLocType();
       LogUtils.d("onReceiveLocation latitude=" + latitude + " longitude=" + longitude
-          + " locType=" + locType + " address=" + location.getAddrStr());
+              + " locType=" + locType + " address=" + location.getAddrStr());
       String currentUserId = LeanchatUser.getCurrentUserId();
       if (!TextUtils.isEmpty(currentUserId)) {
         PreferenceMap preferenceMap = new PreferenceMap(MainActivity.this, currentUserId);
         AVGeoPoint avGeoPoint = preferenceMap.getLocation();
         if (avGeoPoint != null && avGeoPoint.getLatitude() == location.getLatitude()
-            && avGeoPoint.getLongitude() == location.getLongitude()) {
+                && avGeoPoint.getLongitude() == location.getLongitude()) {
           updateUserLocation();
           locClient.stop();
         } else {
           AVGeoPoint newGeoPoint = new AVGeoPoint(location.getLatitude(),
-              location.getLongitude());
+                  location.getLongitude());
           if (newGeoPoint != null) {
             preferenceMap.setLocation(newGeoPoint);
           }

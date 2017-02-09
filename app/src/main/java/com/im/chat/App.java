@@ -29,7 +29,7 @@ import com.yunzhanghu.redpacketsdk.constant.RPConstant;
 import cn.leancloud.chatkit.LCChatKit;
 
 /**
- * Created by lzw on 14-5-29.
+ * Created by cjxiao
  */
 public class App extends Application {
   public static boolean debug = true;

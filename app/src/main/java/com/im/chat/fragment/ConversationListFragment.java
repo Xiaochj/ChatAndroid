@@ -11,7 +11,8 @@ import com.im.chat.view.HeaderLayout;
 import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
 
 /**
- * Created by wli on 16/3/29.
+ * 对话列表页面
+ * Created by cjxiao
  */
 public class ConversationListFragment extends LCIMConversationListFragment {
 

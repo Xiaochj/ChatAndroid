@@ -1,7 +1,7 @@
 package com.im.chat.event;
 
 /**
- * Created by wli on 15/8/24.
+ * Created by cjxiao
  */
 public class MemberLetterEvent {
   public Character letter;

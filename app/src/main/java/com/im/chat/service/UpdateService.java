@@ -20,7 +20,8 @@ import com.im.chat.util.Utils;
 import java.util.List;
 
 /**
- * Created by lzw on 14-6-24.
+ * 版本更新
+ * Created by cjxiao
  */
 public class UpdateService {
   private static final String LAST_VERSION = "lastVersion";

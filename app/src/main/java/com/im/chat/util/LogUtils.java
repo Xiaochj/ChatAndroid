@@ -3,10 +3,10 @@ package com.im.chat.util;
 import android.util.Log;
 
 /**
- * Created by lzw on 15/7/14.
+ * Created by cjxiao
  */
 public class LogUtils {
-  public static final String LOGTAG = "leanchat";
+  public static final String LOGTAG = "chatandroid";
   public static boolean debugEnabled;
 
   public LogUtils() {
