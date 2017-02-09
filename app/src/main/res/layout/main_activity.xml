@@ -85,17 +85,17 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btn_discover"
+            android:id="@+id/btn_notification"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@drawable/tabbar_discover"
+            android:drawableTop="@drawable/tabbar_notification"
             android:onClick="onTabSelect"
             android:paddingBottom="2dip"
             android:paddingTop="7dip"
             android:scaleType="matrix"
-            android:text="@string/discover_title"
+            android:text="@string/notification_title"
             android:textColor="@drawable/tab_textcolor"
             android:textSize="12sp" />
 

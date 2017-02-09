@@ -18,7 +18,7 @@
     <string name="contact">通讯录</string>
     <string name="profile_settings">Settings</string>
     <string name="profile_title">我</string>
-    <string name="discover_title">通告</string>
+    <string name="notification_title">通告</string>
 
     <string name="login_username_hint">请输入用户名</string>
     <string name="ensurePasswordHint">请在此输入密码</string>
@@ -34,9 +34,9 @@
 
     <string name="not_have_account">还没有账号？</string>
     <string name="register_rightnow">立即注册 &gt;</string>
-    <string name="discover_metres">米</string>
-    <string name="discover_unknown">未知</string>
-    <string name="discover_recent_login_time">最近登录时间:</string>
+    <string name="notification_metres">米</string>
+    <string name="notification_unknown">未知</string>
+    <string name="notification_recent_login_time">最近登录时间:</string>
     <string name="contact_account">账号 </string>
     <string name="contact_search">搜索</string>
     <string name="profile_vibrate">震动</string>
@@ -70,9 +70,9 @@
     
     <string name="utils_kilometres">公里</string>
     <string name="profile_fragment_checkUpdate">检查更新</string>
-    <string name="discover_fragment_sort">排序</string>
-    <string name="discover_fragment_loginTime">登录时间</string>
-    <string name="discover_fragment_distance">距离</string>
+    <string name="notification_fragment_sort">排序</string>
+    <string name="notification_fragment_loginTime">登录时间</string>
+    <string name="notification_fragment_distance">距离</string>
     <string name="contact_alreadyCreateAddRequest">请求已发送</string>
     <string name="conversation_alreadyQuitConv">已退出群</string>
     <string name="conversation_detail_kickSucceed">已踢走该成员</string>

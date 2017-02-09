@@ -14,7 +14,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.fragment.ConversationListFragment;
-import com.im.chat.fragment.DiscoverFragment;
+import com.im.chat.fragment.NotificationFragment;
 import com.im.chat.fragment.ProfileFragment;
 import com.im.chat.friends.ContactFragment;
 import com.im.chat.model.LeanchatUser;
@@ -36,23 +36,23 @@ import com.baidu.location.LocationClientOption;
 public class MainActivity extends BaseActivity {
   public static final int FRAGMENT_N = 4;
   public static final int[] tabsNormalBackIds = new int[]{R.drawable.tabbar_chat,
-      R.drawable.tabbar_contacts, R.drawable.tabbar_discover, R.drawable.tabbar_me};
+      R.drawable.tabbar_contacts, R.drawable.tabbar_notification, R.drawable.tabbar_me};
   public static final int[] tabsActiveBackIds = new int[]{R.drawable.tabbar_chat_active,
-      R.drawable.tabbar_contacts_active, R.drawable.tabbar_discover_active,
+      R.drawable.tabbar_contacts_active, R.drawable.tabbar_notification_active,
       R.drawable.tabbar_me_active};
   private static final String FRAGMENT_TAG_CONVERSATION = "conversation";
   private static final String FRAGMENT_TAG_CONTACT = "contact";
-  private static final String FRAGMENT_TAG_DISCOVER = "discover";
+  private static final String FRAGMENT_TAG_NOTIFICATION = "notification";
   private static final String FRAGMENT_TAG_PROFILE = "profile";
   private static final String[] fragmentTags = new String[]{FRAGMENT_TAG_CONVERSATION, FRAGMENT_TAG_CONTACT,
-      FRAGMENT_TAG_DISCOVER, FRAGMENT_TAG_PROFILE};
+      FRAGMENT_TAG_NOTIFICATION, FRAGMENT_TAG_PROFILE};
 
   public LocationClient locClient;
   public MyLocationListener locationListener;
-  Button conversationBtn, contactBtn, discoverBtn, mySpaceBtn;
+  Button conversationBtn, contactBtn, notificationBtn, mySpaceBtn;
   View fragmentContainer;
   ContactFragment contactFragment;
-  DiscoverFragment discoverFragment;
+  NotificationFragment notificationFragment;
   ConversationListFragment conversationListFragment;
   ProfileFragment profileFragment;
   Button[] tabs;
@@ -95,13 +95,13 @@ public class MainActivity extends BaseActivity {
   }
 
   private void init() {
-    tabs = new Button[]{conversationBtn, contactBtn, discoverBtn, mySpaceBtn};
+    tabs = new Button[]{conversationBtn, contactBtn, notificationBtn, mySpaceBtn};
   }
 
   private void findView() {
     conversationBtn = (Button) findViewById(R.id.btn_message);
     contactBtn = (Button) findViewById(R.id.btn_contact);
-    discoverBtn = (Button) findViewById(R.id.btn_discover);
+    notificationBtn = (Button) findViewById(R.id.btn_notification);
     mySpaceBtn = (Button) findViewById(R.id.btn_my_space);
     fragmentContainer = findViewById(R.id.fragment_container);
     recentTips = findViewById(R.id.iv_recent_tips);
@@ -126,12 +126,12 @@ public class MainActivity extends BaseActivity {
         transaction.add(R.id.fragment_container, contactFragment, FRAGMENT_TAG_CONTACT);
       }
       transaction.show(contactFragment);
-    } else if (id == R.id.btn_discover) {
-      if (discoverFragment == null) {
-        discoverFragment = new DiscoverFragment();
-        transaction.add(R.id.fragment_container, discoverFragment, FRAGMENT_TAG_DISCOVER);
+    } else if (id == R.id.btn_notification) {
+      if (notificationFragment == null) {
+        notificationFragment = new NotificationFragment();
+        transaction.add(R.id.fragment_container, notificationFragment, FRAGMENT_TAG_NOTIFICATION);
       }
-      transaction.show(discoverFragment);
+      transaction.show(notificationFragment);
     } else if (id == R.id.btn_my_space) {
       if (profileFragment == null) {
         profileFragment = new ProfileFragment();

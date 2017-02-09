@@ -63,7 +63,7 @@ public class Utils {
   public static String getPrettyDistance(double distance) {
     if (distance < 1000) {
       int metres = (int) distance;
-      return String.valueOf(metres) + App.ctx.getString(com.im.chat.R.string.discover_metres);
+      return String.valueOf(metres) + App.ctx.getString(com.im.chat.R.string.notification_metres);
     } else {
       String num = String.format("%.1f", distance / 1000);
       return num + App.ctx.getString(com.im.chat.R.string.utils_kilometres);

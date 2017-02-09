@@ -26,7 +26,7 @@ import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 /**
  * Created by wli on 15/11/24.
  */
-public class DiscoverItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
+public class NotificationItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
 
   private static final double EARTH_RADIUS = 6378137;
   private PrettyTime prettyTime;
@@ -38,8 +38,8 @@ public class DiscoverItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
   private ImageView avatarView;
   private LeanchatUser leanchatUser;
 
-  public DiscoverItemHolder(Context context, ViewGroup root) {
-    super(context, root, R.layout.discover_near_people_item);
+  public NotificationItemHolder(Context context, ViewGroup root) {
+    super(context, root, R.layout.notification_near_people_item);
 
     prettyTime = new PrettyTime();
     PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(context);
@@ -80,12 +80,12 @@ public class DiscoverItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
         user.getAVGeoPoint(LeanchatUser.LOCATION).getLongitude());
         distanceView.setText(Utils.getPrettyDistance(distance));
       } else {
-        distanceView.setText(App.ctx.getString(R.string.discover_unknown));
+        distanceView.setText(App.ctx.getString(R.string.notification_unknown));
       }
       nameView.setText(user.getUsername());
       Date updatedAt = user.getUpdatedAt();
       String prettyTimeStr = this.prettyTime.format(updatedAt);
-      loginTimeView.setText(App.ctx.getString(R.string.discover_recent_login_time) + prettyTimeStr);
+      loginTimeView.setText(App.ctx.getString(R.string.notification_recent_login_time) + prettyTimeStr);
     } else {
       nameView.setText("");
       distanceView.setText("");
@@ -120,10 +120,10 @@ public class DiscoverItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
     return d * Math.PI / 180.0;
   }
 
-  public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<DiscoverItemHolder>() {
+  public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<NotificationItemHolder>() {
     @Override
-    public DiscoverItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
-      return new DiscoverItemHolder(parent.getContext(), parent);
+    public NotificationItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
+      return new NotificationItemHolder(parent.getContext(), parent);
     }
   };
 }

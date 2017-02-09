@@ -9,29 +9,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.im.chat.App;
 import com.im.chat.adapter.HeaderListAdapter;
+import com.im.chat.model.LeanchatUser;
+import com.im.chat.service.PreferenceMap;
 import com.im.chat.util.Constants;
 import com.im.chat.util.LogUtils;
 import com.im.chat.util.UserCacheUtils;
-import com.im.chat.service.PreferenceMap;
 import com.im.chat.view.RefreshableRecyclerView;
-import com.im.chat.viewholder.DiscoverItemHolder;
-import com.im.chat.model.LeanchatUser;
+import com.im.chat.viewholder.NotificationItemHolder;
 
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by lzw on 14-9-17.
  */
-public class DiscoverFragment extends BaseFragment {
+public class NotificationFragment extends BaseFragment {
 
   private final SortDialogListener distanceListener = new SortDialogListener(Constants.ORDER_DISTANCE);
   private final SortDialogListener updatedAtListener = new SortDialogListener(Constants.ORDER_UPDATED_AT);
@@ -44,26 +44,26 @@ public class DiscoverFragment extends BaseFragment {
 
   protected LinearLayoutManager layoutManager;
 
-  HeaderListAdapter<LeanchatUser> discoverAdapter;
+  HeaderListAdapter<LeanchatUser> notificationAdapter;
   int orderType;
   PreferenceMap preferenceMap;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(com.im.chat.R.layout.discover_fragment, container, false);
+    View view = inflater.inflate(com.im.chat.R.layout.notification_fragment, container, false);
     ButterKnife.bind(this, view);
 
     layoutManager = new LinearLayoutManager(getActivity());
-    discoverAdapter = new HeaderListAdapter<>(DiscoverItemHolder.class);
+    notificationAdapter = new HeaderListAdapter<>(NotificationItemHolder.class);
     recyclerView.setOnLoadDataListener(new RefreshableRecyclerView.OnLoadDataListener() {
       @Override
       public void onLoad(int skip, int limit, boolean isRefresh) {
-        loadMoreDiscoverData(skip, limit, isRefresh);
+        loadMoreNotificationData(skip, limit, isRefresh);
       }
     });
     recyclerView.setRelationSwipeLayout(refreshLayout);
     recyclerView.setLayoutManager(layoutManager);
-    recyclerView.setAdapter(discoverAdapter);
+    recyclerView.setAdapter(notificationAdapter);
     return view;
   }
 
@@ -72,13 +72,13 @@ public class DiscoverFragment extends BaseFragment {
     super.onActivityCreated(savedInstanceState);
     preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
     orderType = preferenceMap.getNearbyOrder();
-    headerLayout.showTitle(com.im.chat.R.string.discover_title);
+    headerLayout.showTitle(com.im.chat.R.string.notification_title);
     headerLayout.showRightImageButton(com.im.chat.R.drawable.nearby_order, new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(com.im.chat.R.string.discover_fragment_sort).setPositiveButton(com.im.chat.R.string.discover_fragment_loginTime,
-          updatedAtListener).setNegativeButton(com.im.chat.R.string.discover_fragment_distance, distanceListener).show();
+        builder.setTitle(com.im.chat.R.string.notification_fragment_sort).setPositiveButton(com.im.chat.R.string.notification_fragment_loginTime,
+          updatedAtListener).setNegativeButton(com.im.chat.R.string.notification_fragment_distance, distanceListener).show();
       }
     });
     recyclerView.refreshData();
@@ -90,7 +90,7 @@ public class DiscoverFragment extends BaseFragment {
    * @param limit
    * @param isRefresh
    */
-  private void loadMoreDiscoverData(final int skip, final int limit, final boolean isRefresh) {
+  private void loadMoreNotificationData(final int skip, final int limit, final boolean isRefresh) {
     PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
     AVGeoPoint geoPoint = preferenceMap.getLocation();
     if (geoPoint == null) {
@@ -132,7 +132,7 @@ public class DiscoverFragment extends BaseFragment {
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-      DiscoverFragment.this.orderType = orderType;
+      NotificationFragment.this.orderType = orderType;
       recyclerView.refreshData();
     }
   }
