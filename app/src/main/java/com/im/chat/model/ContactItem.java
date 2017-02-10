@@ -1,7 +1,7 @@
 package com.im.chat.model;
 
 /**
- * Created by wli on 16/3/10.
+ * Created by cjxiao
  */
 public class ContactItem {
   public LeanchatUser user;

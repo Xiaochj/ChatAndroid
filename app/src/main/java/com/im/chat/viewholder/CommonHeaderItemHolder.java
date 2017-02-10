@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
 /**
- * Created by wli on 15/11/26.
+ * Created by cjxiao
  */
 public class CommonHeaderItemHolder extends LCIMCommonViewHolder {
   LinearLayout rootLayout;

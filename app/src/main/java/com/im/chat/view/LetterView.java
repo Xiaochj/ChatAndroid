@@ -2,6 +2,7 @@ package com.im.chat.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import com.im.chat.event.MemberLetterEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import de.greenrobot.event.EventBus;
 
 
@@ -45,6 +47,8 @@ public class LetterView extends LinearLayout {
     removeAllViews();
     for(Character content : letters) {
       TextView view = new TextView(getContext());
+      view.setGravity(Gravity.CENTER);
+      view.setIncludeFontPadding(false);
       view.setText(content.toString());
       addView(view);
     }
@@ -52,6 +56,7 @@ public class LetterView extends LinearLayout {
     setOnTouchListener(new OnTouchListener() {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
+        LetterView.this.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
         int x = Math.round(event.getX());
         int y = Math.round(event.getY());
         for (int i = 0; i < getChildCount(); i++) {
@@ -62,16 +67,19 @@ public class LetterView extends LinearLayout {
             EventBus.getDefault().post(letterEvent);
           }
         }
+        if(event.getAction() == MotionEvent.ACTION_UP)
+          LetterView.this.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         return true;
       }
     });
   }
 
   /**
-   * 默认的只包含 A-Z 的字母
+   * 默认的只包含 # 和 A-Z 的字母
    */
   private List<Character> getSortLetters() {
     List<Character> letterList = new ArrayList<Character>();
+//    letterList.add('#');
     for (char c = 'A'; c <= 'Z'; c++) {
       letterList.add(c);
     }

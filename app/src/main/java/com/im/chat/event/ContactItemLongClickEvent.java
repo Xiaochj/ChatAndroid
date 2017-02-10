@@ -1,7 +1,7 @@
 package com.im.chat.event;
 
 /**
- * Created by wli on 15/11/26.
+ * Created by cjxiao
  */
 public class ContactItemLongClickEvent {
   public String memberId;

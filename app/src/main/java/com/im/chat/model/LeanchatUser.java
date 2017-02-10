@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by wli on 15/9/30.
+ * Created by cjxiao
  * 自定义的 AVUser
  */
 public class LeanchatUser extends AVUser {

@@ -20,7 +20,7 @@ import com.im.chat.model.LeanchatUser;
 import java.util.List;
 
 /**
- * Created by lzw on 14-9-27.
+ * Created by cjxiao
  */
 class AddRequestManager {
   private static AddRequestManager addRequestManager;

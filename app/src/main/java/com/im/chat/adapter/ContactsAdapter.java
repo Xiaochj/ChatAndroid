@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by wli on 15/11/24.
+ * Created by cjxiao
  */
 public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
 
@@ -47,10 +47,12 @@ public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
       for (LeanchatUser user : list) {
         ContactItem item = new ContactItem();
         item.user = user;
-        item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE);
+        //去掉两边的空格
+        item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE).trim();
         contactList.add(item);
       }
     }
+    //排序
     Collections.sort(contactList, new SortChineseName());
     indexMap = updateIndex(contactList);
     updateInitialsVisible(contactList);
@@ -65,7 +67,7 @@ public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
   }
 
   /**
-   * 更新索引 Map
+   * 更新索引 Map,将首字母相同的名字归为一档
    */
   private Map<Character, Integer> updateIndex(List<ContactItem> list) {
     Character lastCharcter = '#';

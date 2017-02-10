@@ -105,6 +105,9 @@ public class ContactFragment extends BaseFragment {
     updateNewRequestBadge();
   }
 
+  /**
+   * 新朋友item和群聊item
+   */
   private void initHeaderView() {
     msgTipsView = (ImageView) headerView.findViewById(R.id.iv_msg_tips);
     View newView = headerView.findViewById(R.id.layout_new);
@@ -137,6 +140,9 @@ public class ContactFragment extends BaseFragment {
     });
   }
 
+  /**
+   * 初始化标题栏
+   */
   private void initHeader() {
     headerLayout.showTitle(App.ctx.getString(R.string.contact));
     headerLayout.showRightImageButton(R.drawable.base_action_bar_add_bg_selector, new View.OnClickListener() {
@@ -190,12 +196,20 @@ public class ContactFragment extends BaseFragment {
     updateNewRequestBadge();
   }
 
+  /**
+   * 点击item
+   * @param event
+     */
   public void onEvent(ContactItemClickEvent event) {
     Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
     intent.putExtra(LCIMConstants.PEER_ID, event.memberId);
     startActivity(intent);
   }
 
+  /**
+   * 长按item
+   * @param event
+     */
   public void onEvent(ContactItemLongClickEvent event) {
     showDeleteDialog(event.memberId);
   }

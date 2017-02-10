@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
-import butterknife.Bind;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
@@ -17,19 +16,23 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.im.chat.activity.BaseActivity;
 import com.im.chat.adapter.HeaderListAdapter;
+import com.im.chat.event.ContactRefreshEvent;
 import com.im.chat.event.NewFriendItemClickEvent;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PreferenceMap;
-import com.im.chat.event.ContactRefreshEvent;
 import com.im.chat.util.ConversationUtils;
 import com.im.chat.view.RefreshableRecyclerView;
 import com.im.chat.viewholder.NewFriendItemHolder;
 
-import de.greenrobot.event.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import de.greenrobot.event.EventBus;
+
+/**
+ * 新朋友列表
+ */
 public class ContactNewFriendActivity extends BaseActivity {
 
   @Bind(com.im.chat.R.id.newfriendList)

@@ -11,7 +11,7 @@ import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
 
 /**
- * Created by wli on 15/11/25.
+ * Created by cjxiao
  * 现在还仅仅支持单类型 item，多类型 item 稍后在重构
  */
 public class HeaderListAdapter<T> extends LCIMCommonListAdapter<T> {

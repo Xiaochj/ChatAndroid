@@ -23,11 +23,9 @@
         <com.im.chat.view.LetterView
             android:id="@+id/activity_square_members_letterview"
             android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
-
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
         </com.im.chat.view.LetterView>
 
     </RelativeLayout>

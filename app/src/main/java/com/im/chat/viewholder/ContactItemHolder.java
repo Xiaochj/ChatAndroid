@@ -17,7 +17,8 @@ import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by wli on 15/11/24.
+ * 通讯录的列表页item viewholder
+ * Created by cjxiao
  */
 public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
 
@@ -37,6 +38,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
     nameView = (TextView)itemView.findViewById(R.id.tv_friend_name);
     avatarView = (ImageView)itemView.findViewById(R.id.img_friend_avatar);
 
+    //点击
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -44,6 +46,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
       }
     });
 
+    //长按
     itemView.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View v) {
@@ -56,6 +59,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
   @Override
   public void bindData(ContactItem memberItem) {
     contactItem = memberItem;
+    //索引行
     alpha.setVisibility(memberItem.initialVisible ? View.VISIBLE : View.GONE);
     if (!TextUtils.isEmpty(memberItem.sortContent)) {
       alpha.setText(String.valueOf(Character.toUpperCase(memberItem.sortContent.charAt(0))));

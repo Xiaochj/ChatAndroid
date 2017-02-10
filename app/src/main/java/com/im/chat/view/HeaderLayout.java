@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.*;
 
 /**
- * Created by lzw on 14-9-17.
+ * 标题栏
+ * Created by cjxiao
  */
 public class HeaderLayout extends LinearLayout {
   LayoutInflater mInflater;
