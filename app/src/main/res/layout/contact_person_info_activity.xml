@@ -85,7 +85,8 @@
             <TextView
                 android:id="@+id/sexView"
                 style="@style/My.TextView._Black"
-                android:drawablePadding="10dp" />
+                android:drawablePadding="10dp"
+                android:text="男"/>
 
         </LinearLayout>
     </RelativeLayout>

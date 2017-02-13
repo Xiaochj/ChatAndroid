@@ -19,22 +19,21 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.im.chat.App;
 import com.im.chat.R;
-import com.im.chat.activity.ChatRoomActivity;
 import com.im.chat.activity.ConversationGroupListActivity;
 import com.im.chat.adapter.ContactsAdapter;
-import com.im.chat.event.MemberLetterEvent;
-import com.im.chat.fragment.BaseFragment;
 import com.im.chat.event.ContactItemClickEvent;
 import com.im.chat.event.ContactItemLongClickEvent;
 import com.im.chat.event.ContactRefreshEvent;
 import com.im.chat.event.InvitationEvent;
+import com.im.chat.event.MemberLetterEvent;
+import com.im.chat.fragment.BaseFragment;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.util.Constants;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.leancloud.chatkit.utils.LCIMConstants;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -197,12 +196,13 @@ public class ContactFragment extends BaseFragment {
   }
 
   /**
-   * 点击item
+   * 点击item,跳转到朋友资料页面
    * @param event
      */
   public void onEvent(ContactItemClickEvent event) {
-    Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
-    intent.putExtra(LCIMConstants.PEER_ID, event.memberId);
+    Intent intent = new Intent(getActivity(), ContactPersonInfoActivity.class);
+//    intent.putExtra(LCIMConstants.PEER_ID, event.memberId);
+    intent.putExtra(Constants.LEANCHAT_USER_ID, event.memberId);
     startActivity(intent);
   }
 
@@ -222,7 +222,7 @@ public class ContactFragment extends BaseFragment {
     Character targetChar = Character.toLowerCase(event.letter);
     if (itemAdapter.getIndexMap().containsKey(targetChar)) {
       int index = itemAdapter.getIndexMap().get(targetChar);
-      if (index > 0 && index < itemAdapter.getItemCount()) {
+      if (index >= 0 && index < itemAdapter.getItemCount()) {
         // 此处 index + 1 是因为 ContactsAdapter 有 header
         layoutManager.scrollToPositionWithOffset(index + 1, 0);
       }

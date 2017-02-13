@@ -73,12 +73,22 @@ public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
     Character lastCharcter = '#';
     Map<Character, Integer> map = new HashMap<>();
     for (int i = 0; i < list.size(); i++) {
-      if (!TextUtils.isEmpty(list.get(i).sortContent)) {
-        Character curChar = Character.toLowerCase(list.get(i).sortContent.charAt(0));
-        if (!lastCharcter.equals(curChar)) {
-          map.put(curChar, i);
+      String str = list.get(i).sortContent;
+      if (!TextUtils.isEmpty(str)) {
+        Character curChar = Character.toLowerCase(str.charAt(0));
+        //如果不是a-z的字母
+        if(curChar < 97 || curChar > 122 ){
+          //如果在第一个位置
+          if(i == 0)
+            //存到map中
+            map.put(lastCharcter,i);
+        }else {//如果是a-z
+          //将字母表分组,分别存到map中
+          if (!lastCharcter.equals(curChar)) {
+            map.put(curChar, i);
+            lastCharcter = curChar;
+          }
         }
-        lastCharcter = curChar;
       }
     }
     return map;
@@ -91,12 +101,18 @@ public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
   private void updateInitialsVisible(List<ContactItem> list) {
     if (null != list && list.size() > 0) {
       char lastInitial = ' ';
-      for (ContactItem item : list) {
-        if (!TextUtils.isEmpty(item.sortContent)) {
-          item.initialVisible = (lastInitial != item.sortContent.charAt(0));
-          lastInitial = item.sortContent.charAt(0);
+      for (int i = 0; i < list.size(); i++) {
+        String str = list.get(i).sortContent;
+        if (!TextUtils.isEmpty(str)) {
+          //通过比较ascii码,如果不是26个字母且不是第一个索引,就把他们的索引行统一置为不可见
+          if((str.charAt(0) < 97 || str.charAt(0) > 122 ) && i > 0) {
+            list.get(i).initialVisible = false;
+          }else {//反之,索引行都可见
+            list.get(i).initialVisible = (lastInitial != str.charAt(0));
+            lastInitial = str.charAt(0);
+          }
         } else {
-          item.initialVisible = true;
+          list.get(i).initialVisible = true;
           lastInitial = ' ';
         }
       }

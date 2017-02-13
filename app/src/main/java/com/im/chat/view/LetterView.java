@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.im.chat.R;
 import com.im.chat.event.MemberLetterEvent;
 
 import java.util.ArrayList;
@@ -56,7 +57,8 @@ public class LetterView extends LinearLayout {
     setOnTouchListener(new OnTouchListener() {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
-        LetterView.this.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_bright));
+        //触摸变色
+        LetterView.this.setBackgroundColor(getResources().getColor(R.color.color_bottom_text_normal));
         int x = Math.round(event.getX());
         int y = Math.round(event.getY());
         for (int i = 0; i < getChildCount(); i++) {
@@ -67,6 +69,7 @@ public class LetterView extends LinearLayout {
             EventBus.getDefault().post(letterEvent);
           }
         }
+        //手抬起来变成透明色
         if(event.getAction() == MotionEvent.ACTION_UP)
           LetterView.this.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         return true;
@@ -79,7 +82,7 @@ public class LetterView extends LinearLayout {
    */
   private List<Character> getSortLetters() {
     List<Character> letterList = new ArrayList<Character>();
-//    letterList.add('#');
+    letterList.add('#');
     for (char c = 'A'; c <= 'Z'; c++) {
       letterList.add(c);
     }

@@ -35,7 +35,8 @@ import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
 
 /**
- * Created by lzw on 14-9-17.
+ * 我的页
+ * Created by cjxiao
  */
 public class ProfileFragment extends BaseFragment {
   private static final int IMAGE_PICK_REQUEST = 1;

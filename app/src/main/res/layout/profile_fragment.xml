@@ -21,7 +21,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
                 <View style="@style/LCIMDividerLine.Horizontal"/>
 
                 <LinearLayout
@@ -49,6 +50,15 @@
                 </LinearLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+                <View style="@style/LCIMDividerLine.Horizontal"/>
 
                 <TextView
                     android:id="@+id/profile_notifysetting_view"
@@ -75,17 +85,71 @@
                     android:drawableRight="@drawable/common_view_right_arrow_pic"/>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+                <View style="@style/LCIMDividerLine.Horizontal"/>
 
                 <TextView
-                    android:id="@+id/profile_redpacket_view"
+                    android:id="@+id/profile_notifysetting_view"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
                     android:layout_height="@dimen/setting_item_height"
-                    android:text="@string/title_small_change"
+                    android:text="@string/profile_notifySetting"
                     android:background="@drawable/btn_selector"
                     android:paddingLeft="@dimen/common_horizontal_margin"
                     android:paddingRight="@dimen/common_horizontal_margin"
                     android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+
+                <TextView
+                    android:id="@+id/profile_checkupdate_view"
+                    android:layout_width="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="@dimen/setting_item_height"
+                    android:text="@string/profile_fragment_checkUpdate"
+                    android:background="@drawable/btn_selector"
+                    android:paddingLeft="@dimen/common_horizontal_margin"
+                    android:paddingRight="@dimen/common_horizontal_margin"
+                    android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/btn_selector">
+                    <TextView
+                        android:id="@+id/profile_version_view"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="@string/profile_version"
+                        android:paddingLeft="@dimen/common_horizontal_margin" />
+                    <TextView
+                        android:id="@+id/profile_version"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="6.72"
+                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
             </LinearLayout>
@@ -99,7 +163,7 @@
                 android:layout_marginLeft="@dimen/common_horizontal_margin"
                 android:layout_marginRight="@dimen/common_horizontal_margin"
                 android:gravity="center"
-                android:text="注销" />
+                android:text="退出登录" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

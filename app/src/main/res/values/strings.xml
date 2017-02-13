@@ -57,6 +57,8 @@
     <string name="contact_female">女</string>
     <string name="profile_notifySetting">提醒设置</string>
     <string name="profile_notifyWhenNews">接收新消息通知</string>
+    <string name="profile_fragment_checkUpdate">检查更新</string>
+    <string name="profile_version">版本号</string>
     <string name="conversation_group">群组</string>
     <string name="conversation_name">群组名称</string>
     <string name="conversation_create">创建</string>
@@ -69,7 +71,6 @@
     <string name="conversation_quit_group_tip">确定要退出该群组？</string>
     
     <string name="utils_kilometres">公里</string>
-    <string name="profile_fragment_checkUpdate">检查更新</string>
     <string name="notification_fragment_sort">排序</string>
     <string name="notification_fragment_loginTime">登录时间</string>
     <string name="notification_fragment_distance">距离</string>

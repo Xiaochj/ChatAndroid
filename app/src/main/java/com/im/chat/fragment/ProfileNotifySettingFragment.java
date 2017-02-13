@@ -8,7 +8,8 @@ import com.im.chat.R;
 import com.im.chat.service.PreferenceMap;
 
 /**
- * Created by lzw on 14-9-24.
+ * 提醒通知
+ * Created by cjxiao
  */
 public class ProfileNotifySettingFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
   public static final String NOTIFY_WHEN_NEWS = "notifyWhenNews";
