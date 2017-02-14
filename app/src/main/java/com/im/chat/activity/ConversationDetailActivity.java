@@ -37,7 +37,8 @@ import cn.leancloud.chatkit.cache.LCIMConversationItemCache;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 
 /**
- * Created by lzw on 14-10-11.
+ * 聊天邀请页
+ * Created by cjxiao
  */
 public class ConversationDetailActivity extends BaseActivity {
   private static final int ADD_MEMBERS = 0;

@@ -15,7 +15,7 @@ import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 
 /**
- * Created by lzw on 15/4/24.
+ * Created by cjxiao
  */
 public class ChatRoomActivity extends LCIMConversationActivity {
 
