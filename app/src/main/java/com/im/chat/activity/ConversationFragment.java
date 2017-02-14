@@ -15,15 +15,6 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.messages.AVIMLocationMessage;
 import com.im.chat.R;
 import com.im.chat.adapter.ChatAdapter;
-import com.im.chat.event.InputRedPacketClickEvent;
-import com.im.chat.event.InputTransferClickEvent;
-import com.im.chat.event.RedPacketAckEvent;
-import com.im.chat.model.ConversationType;
-import com.im.chat.redpacket.RedPacketUtils;
-import com.im.chat.util.ConversationUtils;
-import com.yunzhanghu.redpacketsdk.RPSendPacketCallback;
-import com.yunzhanghu.redpacketsdk.bean.RedPacketInfo;
-import com.yunzhanghu.redpacketsdk.constant.RPConstant;
 
 import cn.leancloud.chatkit.activity.LCIMConversationFragment;
 import cn.leancloud.chatkit.adapter.LCIMChatAdapter;
@@ -43,34 +34,11 @@ public class ConversationFragment extends LCIMConversationFragment {
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     addBaiduView();
-    addRedPacketView();
   }
 
   @Override
   protected LCIMChatAdapter getAdpter() {
     return new ChatAdapter();
-  }
-
-  private void addTransferView() {
-    View transferView = LayoutInflater.from(getContext()).inflate(R.layout.input_bottom_transfer_view, null);
-    transferView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        EventBus.getDefault().post(new InputTransferClickEvent(imConversation.getConversationId()));
-      }
-    });
-    inputBottomBar.addActionView(transferView);
-  }
-
-  private void addRedPacketView() {
-    View readPacketView = LayoutInflater.from(getContext()).inflate(R.layout.input_bottom_redpacket_view, null);
-    readPacketView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        EventBus.getDefault().post(new InputRedPacketClickEvent(imConversation.getConversationId()));
-      }
-    });
-    inputBottomBar.addActionView(readPacketView);
   }
 
   private void addBaiduView() {
@@ -83,44 +51,6 @@ public class ConversationFragment extends LCIMConversationFragment {
       }
     });
     inputBottomBar.addActionView(mapView);
-  }
-
-  public void onEvent(InputTransferClickEvent clickEvent) {
-    if (null != imConversation && null != clickEvent
-            && imConversation.getConversationId().equals(clickEvent.tag)) {
-      String toUserId = ConversationUtils.getConversationPeerId(imConversation);
-      RedPacketUtils.getInstance().startRedPacket(getActivity(), imConversation, RPConstant.RP_ITEM_TYPE_TRANSFER, toUserId, new RPSendPacketCallback() {
-        @Override
-        public void onSendPacketSuccess(RedPacketInfo redPacketInfo) {
-          sendMessage(RedPacketUtils.getInstance().createTRMessage(redPacketInfo));
-        }
-      });
-    }
-  }
-
-  public void onEvent(InputRedPacketClickEvent clickEvent) {
-    if (null != imConversation && null != clickEvent
-            && imConversation.getConversationId().equals(clickEvent.tag)) {
-      int itemType = RPConstant.RP_ITEM_TYPE_SINGLE;
-      String toChatId = "";
-      if (ConversationUtils.typeOfConversation(imConversation) == ConversationType.Single) {
-        toChatId = ConversationUtils.getConversationPeerId(imConversation);
-        itemType = RPConstant.RP_ITEM_TYPE_SINGLE;
-      } else if (ConversationUtils.typeOfConversation(imConversation) == ConversationType.Group) {
-        itemType = RPConstant.RP_ITEM_TYPE_GROUP;
-        toChatId = imConversation.getConversationId();
-      }
-      RedPacketUtils.getInstance().startRedPacket(getActivity(), imConversation, itemType, toChatId, new RPSendPacketCallback() {
-        @Override
-        public void onSendPacketSuccess(RedPacketInfo redPacketInfo) {
-          sendMessage(RedPacketUtils.getInstance().createRPMessage(getActivity(), redPacketInfo));
-        }
-      });
-    }
-  }
-
-  public void onEvent(RedPacketAckEvent event) {
-    sendMessage(event.ackMessage);
   }
 
   public void onEvent(LCIMInputBottomBarLocationClickEvent event) {

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -25,7 +24,6 @@ import com.im.chat.service.UpdateService;
 import com.im.chat.util.PathUtils;
 import com.im.chat.util.Utils;
 import com.squareup.picasso.Picasso;
-import com.yunzhanghu.redpacketui.utils.RPRedPacketUtil;
 
 import java.io.File;
 
@@ -83,12 +81,6 @@ public class ProfileFragment extends BaseFragment {
   public void onNotifySettingClick() {
     Intent intent = new Intent(ctx, ProfileNotifySettingActivity.class);
     ctx.startActivity(intent);
-  }
-
-
-  @OnClick(R.id.profile_redpacket_view)
-  public void onRPClick() {
-    RPRedPacketUtil.getInstance().startChangeActivity(getActivity());
   }
 
   @OnClick(R.id.profile_logout_btn)

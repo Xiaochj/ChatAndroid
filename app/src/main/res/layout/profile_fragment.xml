@@ -59,31 +59,135 @@
                 android:orientation="vertical"
                 android:paddingBottom="20dp">
                 <View style="@style/LCIMDividerLine.Horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/profile_notifysetting_view"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_height="@dimen/setting_item_height"
-                    android:text="@string/profile_notifySetting"
+                    android:text="姓名"
                     android:background="@drawable/btn_selector"
                     android:paddingLeft="@dimen/common_horizontal_margin"
-                    android:paddingRight="@dimen/common_horizontal_margin"
-                    android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                    android:paddingRight="@dimen/common_horizontal_margin"/>
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="肖长剑"
+                        android:background="@drawable/btn_selector"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                </LinearLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
 
-                <TextView
-                    android:id="@+id/profile_checkupdate_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_height="@dimen/setting_item_height"
-                    android:text="@string/profile_fragment_checkUpdate"
-                    android:background="@drawable/btn_selector"
-                    android:paddingLeft="@dimen/common_horizontal_margin"
-                    android:paddingRight="@dimen/common_horizontal_margin"
-                    android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="性别"
+                        android:background="@drawable/btn_selector"
+                        android:paddingLeft="@dimen/common_horizontal_margin"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                    <TextView
+                        android:id="@+id/profile_sex"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="男"
+                        android:background="@drawable/btn_selector"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                </LinearLayout>
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="简介"
+                        android:background="@drawable/btn_selector"
+                        android:paddingLeft="@dimen/common_horizontal_margin"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                    <TextView
+                        android:id="@+id/profile_introduce"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="我是一只来自北方的雄狮,匍匐在中国人民的怀抱。"
+                        android:background="@drawable/btn_selector"
+                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                </LinearLayout>
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="手机号"
+                        android:background="@drawable/btn_selector"
+                        android:paddingLeft="@dimen/common_horizontal_margin"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                    <TextView
+                        android:id="@+id/profile_phone"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="12390807564"
+                        android:background="@drawable/btn_selector"
+                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                </LinearLayout>
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="邮箱"
+                        android:background="@drawable/btn_selector"
+                        android:paddingLeft="@dimen/common_horizontal_margin"
+                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                    <TextView
+                        android:id="@+id/profile_email"
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="12@qq.com"
+                        android:background="@drawable/btn_selector"
+                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                </LinearLayout>
+                <View style="@style/LCIMDividerLine.Horizontal"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/setting_item_height"
+                        android:text="修改密码"
+                        android:background="@drawable/btn_selector"
+                        android:paddingLeft="@dimen/common_horizontal_margin"
+                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
             </LinearLayout>
 
