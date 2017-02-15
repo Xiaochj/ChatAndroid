@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.im.chat.R;
 import com.im.chat.event.ConversationMemberClickEvent;
 import com.im.chat.model.LeanchatUser;
 import com.squareup.picasso.Picasso;
@@ -14,7 +15,8 @@ import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by wli on 15/12/2.
+ * image和textview的viewholder
+ * Created by cjxiao
  */
 public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
 
@@ -51,7 +53,7 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatU
   public void bindData(LeanchatUser user) {
     leanchatUser = user;
     if (null != user) {
-      Picasso.with(getContext()).load(user.getAvatarUrl()).into(avatarView);
+      Picasso.with(getContext()).load(user.getAvatarUrl()).placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
       nameView.setText(user.getUsername());
     } else {
       avatarView.setImageResource(0);
