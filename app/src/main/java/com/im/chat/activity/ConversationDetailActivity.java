@@ -93,6 +93,8 @@ public class ConversationDetailActivity extends BaseActivity {
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(listAdapter);
     setTitle(R.string.conversation_detail_title);
+    //显示左上角的返回按钮
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     conversationType = ConversationUtils.typeOfConversation(conversation);
     setViewByConvType(conversationType);
   }
@@ -122,6 +124,11 @@ public class ConversationDetailActivity extends BaseActivity {
 
   public boolean onOptionsItemSelected(MenuItem item) {
     int menuId = item.getItemId();
+    //返回按钮触发
+    if(menuId == android.R.id.home) {
+      this.onBackPressed();
+      return true;
+    }
     if (menuId == ADD_MEMBERS) {
       Intent intent = new Intent(this, ConversationAddMembersActivity.class);
       intent.putExtra(LCIMConstants.CONVERSATION_ID, conversation.getConversationId());

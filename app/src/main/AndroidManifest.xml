@@ -119,7 +119,7 @@
             android:name="com.im.chat.activity.ConversationGroupListActivity"
             android:label="@string/conversation_group"/>
 
-        <activity android:name="com.im.chat.activity.ConversationDetailActivity"/>
+        <activity android:name="com.im.chat.activity.ConversationDetailActivity" />
 
         <activity
             android:name="com.im.chat.activity.ConversationAddMembersActivity"
