@@ -33,14 +33,14 @@ android {
 }
 
 dependencies {
+    compile project(":leancloudchatkit")
+
     compile files('libs/baidumapapi_v3_0_0.jar')
     compile files('libs/locSDK_4.2.jar')
     compile files('libs/alipaySdk-20160516.jar')
     compile files('libs/glide-3.6.1.jar')
     compile files('libs/volley-1.0.19.jar')
     compile files('libs/libammsdk.jar')
-
-    compile('cn.leancloud.android:chatkit:1.0.+')
 
     compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
     compile 'cn.leancloud.android:avoscloud-statistics:v3.4.5@aar'
