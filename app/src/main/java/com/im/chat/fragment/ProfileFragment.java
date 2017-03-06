@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -43,9 +42,6 @@ public class ProfileFragment extends BaseFragment {
   @Bind(R.id.profile_avatar_view)
   ImageView avatarView;
 
-  @Bind(R.id.profile_username_view)
-  TextView userNameView;
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.profile_fragment, container, false);
@@ -67,7 +63,6 @@ public class ProfileFragment extends BaseFragment {
 
   private void refresh() {
     LeanchatUser curUser = LeanchatUser.getCurrentUser();
-    userNameView.setText(curUser.getUsername());
     Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(avatarView);
   }
 

@@ -31,22 +31,17 @@
                     android:layout_height="@dimen/setting_item_height"
                     android:background="@drawable/btn_selector"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/common_horizontal_margin"
                     android:paddingRight="@dimen/common_horizontal_margin">
-                    <ImageView
+                    <com.im.chat.view.RoundImageView
                         android:id="@+id/profile_avatar_view"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/lcim_default_avatar_icon" />
-
-                    <TextView
-                        android:id="@+id/profile_username_view"
-                        android:layout_marginLeft="30dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="username"
-                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/contact_new_friends_icon" />
                 </LinearLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>

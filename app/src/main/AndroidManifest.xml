@@ -109,8 +109,6 @@
 
         <activity android:name="com.im.chat.friends.ContactNewFriendActivity"/>
 
-        <activity android:name="com.im.chat.friends.ContactAddFriendActivity"/>
-
         <activity android:name="com.im.chat.friends.ContactPersonInfoActivity"/>
 
         <activity android:name="com.im.chat.activity.ProfileNotifySettingActivity"/>

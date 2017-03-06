@@ -144,13 +144,6 @@ public class ContactFragment extends BaseFragment {
    */
   private void initHeader() {
     headerLayout.showTitle(App.ctx.getString(R.string.contact));
-    headerLayout.showRightImageButton(R.drawable.base_action_bar_add_bg_selector, new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(ctx, ContactAddFriendActivity.class);
-        ctx.startActivity(intent);
-      }
-    });
   }
 
   private void updateNewRequestBadge() {
