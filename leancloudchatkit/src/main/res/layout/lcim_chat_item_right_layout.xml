@@ -62,7 +62,7 @@
             android:paddingLeft="40dp">
         </LinearLayout>
 
-        <ImageView
+        <cn.leancloud.chatkit.view.RoundImageView
             android:id="@+id/chat_right_iv_avatar"
             style="@style/LCIMAvatar"
             android:layout_alignParentBottom="true"

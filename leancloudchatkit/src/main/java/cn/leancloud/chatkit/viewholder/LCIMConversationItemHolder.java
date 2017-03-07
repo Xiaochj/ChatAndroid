@@ -9,11 +9,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
@@ -23,14 +21,11 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMReservedMessageType;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMSingleMessageQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import cn.leancloud.chatkit.LCChatMessageInterface;
 import cn.leancloud.chatkit.R;
@@ -39,6 +34,7 @@ import cn.leancloud.chatkit.event.LCIMConversationItemLongClickEvent;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMConversationUtils;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
+import cn.leancloud.chatkit.view.RoundImageView;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -47,7 +43,7 @@ import de.greenrobot.event.EventBus;
  */
 public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
 
-  ImageView avatarView;
+  RoundImageView avatarView;
   TextView unreadView;
   TextView messageView;
   TextView timeView;
@@ -61,7 +57,7 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
   }
 
   public void initView() {
-    avatarView = (ImageView) itemView.findViewById(R.id.conversation_item_iv_avatar);
+    avatarView = (RoundImageView) itemView.findViewById(R.id.conversation_item_iv_avatar);
     nameView = (TextView) itemView.findViewById(R.id.conversation_item_tv_name);
     timeView = (TextView) itemView.findViewById(R.id.conversation_item_tv_time);
     unreadView = (TextView) itemView.findViewById(R.id.conversation_item_tv_unread);

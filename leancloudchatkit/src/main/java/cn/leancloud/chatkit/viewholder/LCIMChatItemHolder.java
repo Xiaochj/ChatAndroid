@@ -27,6 +27,7 @@ import cn.leancloud.chatkit.cache.LCIMProfileCache;
 import cn.leancloud.chatkit.event.LCIMMessageResendEvent;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
+import cn.leancloud.chatkit.view.RoundImageView;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -38,7 +39,7 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
   protected boolean isLeft;
 
   protected AVIMMessage message;
-  protected ImageView avatarView;
+  protected RoundImageView avatarView;
   protected TextView timeView;
   protected TextView nameView;
   protected LinearLayout conventLayout;
@@ -55,7 +56,7 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
 
   public void initView() {
     if (isLeft) {
-      avatarView = (ImageView) itemView.findViewById(R.id.chat_left_iv_avatar);
+      avatarView = (RoundImageView) itemView.findViewById(R.id.chat_left_iv_avatar);
       timeView = (TextView) itemView.findViewById(R.id.chat_left_tv_time);
       nameView = (TextView) itemView.findViewById(R.id.chat_left_tv_name);
       conventLayout = (LinearLayout) itemView.findViewById(R.id.chat_left_layout_content);
@@ -64,7 +65,7 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
       progressBar = (ProgressBar) itemView.findViewById(R.id.chat_left_progressbar);
       errorView = (ImageView) itemView.findViewById(R.id.chat_left_tv_error);
     } else {
-      avatarView = (ImageView) itemView.findViewById(R.id.chat_right_iv_avatar);
+      avatarView = (RoundImageView) itemView.findViewById(R.id.chat_right_iv_avatar);
       timeView = (TextView) itemView.findViewById(R.id.chat_right_tv_time);
       nameView = (TextView) itemView.findViewById(R.id.chat_right_tv_name);
       conventLayout = (LinearLayout) itemView.findViewById(R.id.chat_right_layout_content);

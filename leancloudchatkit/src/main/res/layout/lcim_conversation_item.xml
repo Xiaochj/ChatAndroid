@@ -13,7 +13,7 @@
         android:layout_width="60dp"
         android:layout_height="match_parent">
 
-        <ImageView
+        <cn.leancloud.chatkit.view.RoundImageView
             android:id="@+id/conversation_item_iv_avatar"
             style="@style/LCIMAvatar.Large"
             android:layout_alignParentLeft="true"
