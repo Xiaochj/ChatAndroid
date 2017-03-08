@@ -2,6 +2,7 @@ package com.im.chat.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Observable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,12 +17,17 @@ import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.App;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.engine.AppService;
+import com.im.chat.model.BaseResponse;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.UserBean;
 import com.im.chat.util.Utils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class EntryLoginActivity extends BaseActivity {
 
@@ -59,7 +65,10 @@ public class EntryLoginActivity extends BaseActivity {
 
     final ProgressDialog dialog = showSpinnerDialog();
     //发送账号密码，请求自家服务器，验证通过
-    //AppEngine.getInstance().getAppService().login().doOnNext(new onNext)
+    //UserBean userBean = new UserBean(name,password);
+    //AppEngine.getInstance().getAppService().login(userBean).subscribeOn(Schedulers.io())
+    //    .observeOn(AndroidSchedulers.mainThread())
+
     LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
       @Override
       public void done(LeanchatUser avUser, AVException e) {

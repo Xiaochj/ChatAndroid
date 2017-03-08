@@ -1,6 +1,8 @@
 package com.im.chat.engine;
 
+import com.im.chat.model.BaseResponse;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.UserBean;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,5 +18,5 @@ import rx.Observable;
  */
 public interface AppService {
 
-  @POST("login/in") Observable<LeanchatUser> login(@Body LeanchatUser loginInBean);
+  @POST("login/in") Observable<BaseResponse> login(@Body UserBean loginInBean);
 }
