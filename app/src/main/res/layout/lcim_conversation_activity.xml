@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_chat"
-        android:name="com.im.chat.activity.ConversationFragment"
+        android:name="com.im.chat.fragment.ConversationFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.im.chat.activity;
+package com.im.chat.fragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -14,6 +14,7 @@ import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.messages.AVIMLocationMessage;
 import com.im.chat.R;
+import com.im.chat.activity.LocationActivity;
 import com.im.chat.adapter.ChatAdapter;
 
 import cn.leancloud.chatkit.activity.LCIMConversationFragment;

@@ -1,7 +1,5 @@
 package com.im.chat.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +12,7 @@ import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.im.chat.App;
+import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PreferenceMap;
@@ -21,7 +20,7 @@ import com.im.chat.util.Constants;
 import com.im.chat.util.LogUtils;
 import com.im.chat.util.UserCacheUtils;
 import com.im.chat.view.RefreshableRecyclerView;
-import com.im.chat.viewholder.NotificationItemHolder;
+import com.im.chat.viewholder.NotifyItemHolder;
 
 import java.util.List;
 
@@ -29,17 +28,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by lzw on 14-9-17.
+ * 通告页
+ * Created by xiaochj on 14-9-17.
  */
 public class NotificationFragment extends BaseFragment {
-
-  private final SortDialogListener distanceListener = new SortDialogListener(Constants.ORDER_DISTANCE);
-  private final SortDialogListener updatedAtListener = new SortDialogListener(Constants.ORDER_UPDATED_AT);
-
-  @Bind(com.im.chat.R.id.fragment_near_srl_pullrefresh)
+  @Bind(R.id.notify_pullrefresh)
   protected SwipeRefreshLayout refreshLayout;
 
-  @Bind(com.im.chat.R.id.fragment_near_srl_view)
+  @Bind(R.id.notify_view)
   protected RefreshableRecyclerView recyclerView;
 
   protected LinearLayoutManager layoutManager;
@@ -50,15 +46,16 @@ public class NotificationFragment extends BaseFragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(com.im.chat.R.layout.notification_fragment, container, false);
+    View view = inflater.inflate(com.im.chat.R.layout.notify_fragment, container, false);
     ButterKnife.bind(this, view);
 
     layoutManager = new LinearLayoutManager(getActivity());
-    notificationAdapter = new HeaderListAdapter<>(NotificationItemHolder.class);
+    notificationAdapter = new HeaderListAdapter<>(NotifyItemHolder.class);
     recyclerView.setOnLoadDataListener(new RefreshableRecyclerView.OnLoadDataListener() {
       @Override
       public void onLoad(int skip, int limit, boolean isRefresh) {
-        loadMoreNotificationData(skip, limit, isRefresh);
+//        loadMoreNotificationData(skip, limit, isRefresh);
+        loadMoreData(skip,limit,isRefresh);
       }
     });
     recyclerView.setRelationSwipeLayout(refreshLayout);
@@ -70,18 +67,14 @@ public class NotificationFragment extends BaseFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
-    orderType = preferenceMap.getNearbyOrder();
+//    preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
+//    orderType = preferenceMap.getNearbyOrder();
     headerLayout.showTitle(com.im.chat.R.string.notification_title);
-    headerLayout.showRightImageButton(com.im.chat.R.drawable.nearby_order, new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(com.im.chat.R.string.notification_fragment_sort).setPositiveButton(com.im.chat.R.string.notification_fragment_loginTime,
-          updatedAtListener).setNegativeButton(com.im.chat.R.string.notification_fragment_distance, distanceListener).show();
-      }
-    });
     recyclerView.refreshData();
+  }
+
+  private void loadMoreData(int skip,int limit,boolean isRefresh){
+    //调用retrofit自己的服务器接口
   }
 
   /**
@@ -120,20 +113,6 @@ public class NotificationFragment extends BaseFragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    preferenceMap.setNearbyOrder(orderType);
-  }
-
-  public class SortDialogListener implements DialogInterface.OnClickListener {
-    int orderType;
-
-    public SortDialogListener(int orderType) {
-      this.orderType = orderType;
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-      NotificationFragment.this.orderType = orderType;
-      recyclerView.refreshData();
-    }
+//    preferenceMap.setNearbyOrder(orderType);
   }
 }

@@ -11,12 +11,12 @@
     <include layout="@layout/chat_client_state_view" />
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/fragment_near_srl_pullrefresh"
+        android:id="@+id/notify_pullrefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.im.chat.view.RefreshableRecyclerView
-            android:id="@+id/fragment_near_srl_view"
+            android:id="@+id/notify_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -51,12 +51,13 @@ public class MainActivity extends BaseActivity {
   public MyLocationListener locationListener;
   Button conversationBtn, contactBtn, notificationBtn, mySpaceBtn;
   View fragmentContainer;
-  ContactFragment contactFragment;
-  NotificationFragment notificationFragment;
-  ConversationListFragment conversationListFragment;
-  ProfileFragment profileFragment;
   Button[] tabs;
   View recentTips, contactTips;
+
+  ConversationListFragment conversationListFragment;//聊天列表
+  ContactFragment contactFragment;//通讯录
+  NotificationFragment notificationFragment;//通告
+  ProfileFragment profileFragment;//我
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
