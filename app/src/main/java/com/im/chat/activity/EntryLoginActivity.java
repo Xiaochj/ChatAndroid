@@ -9,9 +9,13 @@ import android.widget.EditText;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.im.chat.App;
+import com.im.chat.engine.AppEngine;
+import com.im.chat.engine.AppService;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.util.Utils;
 
@@ -39,12 +43,6 @@ public class EntryLoginActivity extends BaseActivity {
     login();
   }
 
-  @OnClick(com.im.chat.R.id.activity_login_btn_register)
-  public void onRegisterClick(View v) {
-    Intent intent = new Intent(this, EntryRegisterActivity.class);
-    startActivity(intent);
-  }
-
   private void login() {
     final String name = userNameView.getText().toString().trim();
     final String password = passwordView.getText().toString().trim();
@@ -60,12 +58,26 @@ public class EntryLoginActivity extends BaseActivity {
     }
 
     final ProgressDialog dialog = showSpinnerDialog();
+    //发送账号密码，请求自家服务器，验证通过
+    //AppEngine.getInstance().getAppService().login().doOnNext(new onNext)
     LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
       @Override
       public void done(LeanchatUser avUser, AVException e) {
-        dialog.dismiss();
-        if (filterException(e)) {
+        //请求leancloud服务器，如果登陆成功,直接进行实时通讯
+        if (e == null) {
+          dialog.dismiss();
           imLogin();
+        }else{//如果登录失败，那么请求leancloud的注册接口，假装注册leancloud
+          LeanchatUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
+            @Override
+            public void done(AVException e) {
+              dialog.dismiss();
+              //再进行实时通讯
+              if(e == null) {
+                imLogin();
+              }
+            }
+          });
         }
       }
     }, LeanchatUser.class);

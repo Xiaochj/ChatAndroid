@@ -44,6 +44,15 @@
         android:theme="@style/LCIMKitTheme">
 
         <activity
+            android:name="com.im.chat.activity.EntrySplashActivity"
+            android:theme="@style/LCIMActivity.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="com.im.chat.activity.ChatRoomActivity"
             android:launchMode="singleTask">
             <intent-filter>
@@ -87,15 +96,6 @@
         </activity>
 
         <activity android:name="com.im.chat.activity.UpdateContentActivity"/>
-
-        <activity
-            android:name="com.im.chat.activity.EntrySplashActivity"
-            android:theme="@style/LCIMActivity.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
 
         <activity android:name="com.im.chat.activity.LocationActivity"/>
 
