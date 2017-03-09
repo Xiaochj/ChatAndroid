@@ -66,12 +66,6 @@ public class ProfileFragment extends BaseFragment {
     Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(avatarView);
   }
 
-  @OnClick(R.id.profile_checkupdate_view)
-  public void onCheckUpdateClick() {
-    UpdateService updateService = UpdateService.getInstance(getActivity());
-    updateService.showSureUpdateDialog();
-  }
-
   @OnClick(R.id.profile_notifysetting_view)
   public void onNotifySettingClick() {
     Intent intent = new Intent(ctx, ProfileNotifySettingActivity.class);
