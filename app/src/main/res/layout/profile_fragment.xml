@@ -36,7 +36,7 @@
                     android:layout_below="@id/top_view"/>
 
                 <cn.leancloud.chatkit.view.RoundImageView
-                    android:id="@+id/contact_detail_avatar"
+                    android:id="@+id/profile_avatar"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/icon"
@@ -108,7 +108,7 @@
                         android:paddingLeft="@dimen/common_horizontal_margin"
                         android:paddingRight="@dimen/common_horizontal_margin"/>
                     <TextView
-                        android:id="@+id/profile_introduce"
+                        android:id="@+id/profile_mark"
                         android:layout_width="match_parent"
                         android:gravity="center_vertical"
                         android:layout_height="@dimen/setting_item_height"

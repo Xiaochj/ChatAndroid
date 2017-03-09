@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -19,7 +20,6 @@ import com.im.chat.activity.EntryLoginActivity;
 import com.im.chat.activity.ProfileNotifySettingActivity;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PushManager;
-import com.im.chat.service.UpdateService;
 import com.im.chat.util.PathUtils;
 import com.im.chat.util.Utils;
 import com.squareup.picasso.Picasso;
@@ -39,8 +39,22 @@ public class ProfileFragment extends BaseFragment {
   private static final int IMAGE_PICK_REQUEST = 1;
   private static final int CROP_REQUEST = 2;
 
-  @Bind(R.id.profile_avatar_view)
-  ImageView avatarView;
+  @Bind(R.id.profile_avatar)
+  ImageView mAvatarView;
+  @Bind(R.id.profile_name)
+  TextView mNameTv;
+  @Bind(R.id.profile_sex)
+  TextView mSexTv;
+  @Bind(R.id.profile_mark)
+  TextView mMarkTv;
+  @Bind(R.id.profile_phone)
+  TextView mPhoneTv;
+  @Bind(R.id.profile_email)
+  TextView mEmailTv;
+  @Bind(R.id.profile_version)
+  TextView mVersion;
+  @Bind(R.id.profile_logout_btn)
+  TextView mLogoutBtn;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +77,7 @@ public class ProfileFragment extends BaseFragment {
 
   private void refresh() {
     LeanchatUser curUser = LeanchatUser.getCurrentUser();
-    Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(avatarView);
+    Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
   }
 
   @OnClick(R.id.profile_notifysetting_view)
@@ -86,7 +100,7 @@ public class ProfileFragment extends BaseFragment {
     ctx.startActivity(intent);
   }
 
-  @OnClick(R.id.profile_avatar_layout)
+  @OnClick(R.id.profile_avatar)
   public void onAvatarClick() {
     Intent intent = new Intent(Intent.ACTION_PICK, null);
     intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
