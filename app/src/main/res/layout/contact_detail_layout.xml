@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FF00">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#FFFFFF"
+      android:layout_marginTop="90dp">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:background="#00FF00"/>
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000"
+        android:layout_below="@id/top_view"/>
+
+    <cn.leancloud.chatkit.view.RoundImageView
+        android:id="@+id/contact_detail_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon"
+        android:layout_centerInParent="true"/>
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="#FFFFFF"
+      android:gravity="center_horizontal">
+    <RelativeLayout
+        android:id="@+id/contact_detail_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp"
+        android:gravity="center_horizontal">
+      <TextView
+          android:id="@+id/contact_detail_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="周晓龙"
+          android:layout_marginRight="10dp"/>
+      <TextView
+          android:id="@+id/contact_detail_sex"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@id/contact_detail_name"
+          android:text="/男"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/contact_detail_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_detail_layout1"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="我走过高山火海，看过人来人往，一成不变的，还是那颗永不言弃的初心。"/>
+
+    <TextView
+        android:id="@+id/contact_detail_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_detail_mark"
+        android:drawableLeft="@drawable/abc_ic_star_black_16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="13883831122"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+      android:id="@+id/contact_detail_mail"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/contact_detail_phone"
+      android:drawableLeft="@drawable/abc_ic_star_black_16dp"
+      android:text="222@qq.com"
+      android:gravity="center"
+      android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/contact_detail_btn"
+        style="@style/My.Button.theme"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="30dp"
+        android:text="发消息"
+        android:layout_below="@id/contact_detail_mail"/>
+  </RelativeLayout>
+
+</LinearLayout>
