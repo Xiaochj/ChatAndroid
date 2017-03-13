@@ -28,6 +28,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * 登录页
+ * created by cjxiao
  */
 public class EntryLoginActivity extends BaseActivity {
 

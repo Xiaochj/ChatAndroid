@@ -42,27 +42,21 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:orientation="vertical"
-                android:paddingBottom="20dp">
+                android:paddingTop="@dimen/dp15"
+                android:paddingBottom="@dimen/dp12">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_height="@dimen/setting_item_height"
-                    android:text="姓名"
-                    android:background="@drawable/btn_selector"
-                    android:paddingLeft="@dimen/common_horizontal_margin"
-                    android:paddingRight="@dimen/common_horizontal_margin"/>
+                    style="@style/profile_text_left_item"
+                    android:text="姓名："
+                    android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_name"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        style="@style/profile_text_right_item"
                         android:text="肖长剑"
-                        android:background="@drawable/btn_selector"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        android:background="@drawable/btn_selector" />
                 </LinearLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -73,16 +67,13 @@
 
                     <TextView
                         android:text="性别："
-                        style="@style/profile_text_item"
+                        style="@style/profile_text_left_item"
                         android:background="@drawable/btn_selector"/>
                     <TextView
                         android:id="@+id/profile_sex"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        style="@style/profile_text_right_item"
                         android:text="男"
-                        android:background="@drawable/btn_selector"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        android:background="@drawable/btn_selector" />
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
                 <LinearLayout
@@ -90,21 +81,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
-                        android:text="简介"
-                        android:background="@drawable/btn_selector"
-                        android:paddingLeft="@dimen/common_horizontal_margin"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        style="@style/profile_text_left_item"
+                        android:text="简介："
+                        android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_mark"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        style="@style/profile_text_right_item"
                         android:text="我是一只来自北方的雄狮,匍匐在中国人民的怀抱。"
                         android:background="@drawable/btn_selector"
-                        android:paddingRight="@dimen/common_horizontal_margin"
                         android:drawableRight="@drawable/common_view_right_arrow_pic"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -113,21 +97,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
-                        android:text="手机号"
-                        android:background="@drawable/btn_selector"
-                        android:paddingLeft="@dimen/common_horizontal_margin"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        style="@style/profile_text_left_item"
+                        android:text="手机："
+                        android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_phone"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        style="@style/profile_text_right_item"
                         android:text="12390807564"
                         android:background="@drawable/btn_selector"
-                        android:paddingRight="@dimen/common_horizontal_margin"
                         android:drawableRight="@drawable/common_view_right_arrow_pic"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -136,21 +113,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
-                        android:text="邮箱"
-                        android:background="@drawable/btn_selector"
-                        android:paddingLeft="@dimen/common_horizontal_margin"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        style="@style/profile_text_left_item"
+                        android:text="邮箱："
+                        android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_email"
-                        android:layout_width="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        style="@style/profile_text_right_item"
                         android:text="12@qq.com"
                         android:background="@drawable/btn_selector"
-                        android:paddingRight="@dimen/common_horizontal_margin"
                         android:drawableRight="@drawable/common_view_right_arrow_pic"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -161,11 +131,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        android:layout_height="wrap_content"
                         android:text="修改密码"
                         android:background="@drawable/btn_selector"
-                        android:paddingLeft="@dimen/common_horizontal_margin"
-                        android:paddingRight="@dimen/common_horizontal_margin"
+                        android:paddingLeft="@dimen/dp10"
+                        android:paddingRight="@dimen/dp18"
+                        android:paddingTop="@dimen/dp13"
+                        android:paddingBottom="@dimen/dp13"
+                        android:textSize="@dimen/sp10"
                         android:drawableRight="@drawable/common_view_right_arrow_pic"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -176,18 +149,21 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:orientation="vertical"
-                android:paddingBottom="20dp">
+                android:paddingBottom="@dimen/dp12">
                 <View style="@style/LCIMDividerLine.Horizontal"/>
 
                 <TextView
                     android:id="@+id/profile_notifysetting_view"
                     android:layout_width="match_parent"
                     android:gravity="center_vertical"
-                    android:layout_height="@dimen/setting_item_height"
+                    android:layout_height="wrap_content"
                     android:text="@string/profile_notifySetting"
                     android:background="@drawable/btn_selector"
-                    android:paddingLeft="@dimen/common_horizontal_margin"
-                    android:paddingRight="@dimen/common_horizontal_margin"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp18"
+                    android:paddingTop="@dimen/dp13"
+                    android:paddingBottom="@dimen/dp13"
+                    android:textSize="@dimen/sp10"
                     android:drawableRight="@drawable/common_view_right_arrow_pic"/>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -208,19 +184,20 @@
                     android:background="@drawable/btn_selector">
                     <TextView
                         android:id="@+id/profile_version_view"
-                        android:layout_width="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
-                        android:text="@string/profile_version"
-                        android:paddingLeft="@dimen/common_horizontal_margin" />
+                        style="@style/profile_text_left_item"
+                        android:text="@string/profile_version" />
                     <TextView
                         android:id="@+id/profile_version"
                         android:layout_width="wrap_content"
                         android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
+                        android:layout_height="wrap_content"
                         android:text="6.72"
-                        android:paddingRight="@dimen/common_horizontal_margin"
-                        android:layout_alignParentRight="true"/>
+                        android:paddingLeft="@dimen/dp10"
+                        android:paddingRight="@dimen/dp18"
+                        android:paddingTop="@dimen/dp13"
+                        android:paddingBottom="@dimen/dp13"
+                        android:layout_alignParentRight="true"
+                        android:textSize="@dimen/sp10"/>
                 </RelativeLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -230,12 +207,16 @@
                 android:id="@+id/profile_logout_btn"
                 style="@style/My.Button.logout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="@dimen/activity_top_margin"
-                android:layout_marginLeft="@dimen/common_horizontal_margin"
-                android:layout_marginRight="@dimen/common_horizontal_margin"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp27.5"
+                android:layout_marginBottom="@dimen/dp55"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp10"
+                android:layout_marginLeft="@dimen/dp55"
+                android:layout_marginRight="@dimen/dp55"
                 android:gravity="center"
-                android:text="退出登录" />
+                android:text="退出登录"
+                android:textSize="@dimen/sp10"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

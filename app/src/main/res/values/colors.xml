@@ -11,6 +11,12 @@
     <color name="chat_common_guide_color">#898989</color>
 
     <color name="light_white">#f1f0ed</color>
+    <color name="light_text">#c3c5c4</color>
+    <color name="black">#000000</color>
     <color name="green">#79be70</color>
+    <color name="red">#dd5c46</color>
     <color name="white">#FFFFFF</color>
+    <color name="high_green">#79be60</color>
+    <color name="high_text">#615a57</color>
+    <color name="line">#e7e9e7</color>
 </resources>

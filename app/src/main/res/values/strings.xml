@@ -17,10 +17,11 @@
     <string name="conversation_messages">聊天</string>
     <string name="contact">通讯录</string>
     <string name="profile_settings">Settings</string>
-    <string name="profile_title">我</string>
+    <string name="profile_title">我的资料</string>
     <string name="notification_title">通告</string>
 
-    <string name="login_username_hint">请输入用户名</string>
+    <string name="login_username_hint">请输入账号</string>
+    <string name="password_ischecked">密码可见</string>
     <string name="ensurePasswordHint">请在此输入密码</string>
     <string name="login_password_hint">请输入密码</string>
     <string name="ensurePassword">确认密码 </string>
