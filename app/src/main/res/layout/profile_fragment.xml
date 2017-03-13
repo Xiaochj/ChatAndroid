@@ -15,30 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#00FF00">
+            android:background="@color/light_white">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:layout_marginTop="90dp">
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/dp25">
 
                 <View
                     android:id="@+id/top_view"
                     android:layout_width="match_parent"
-                    android:layout_height="29dp"
-                    android:background="#00FF00"/>
-                <View
-                    android:id="@+id/line_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#000000"
-                    android:layout_below="@id/top_view"/>
+                    android:layout_height="@dimen/dp27.5"
+                    android:background="@color/light_white"/>
 
                 <cn.leancloud.chatkit.view.RoundImageView
                     android:id="@+id/profile_avatar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/dp55"
+                    android:layout_height="@dimen/dp55"
                     android:src="@drawable/icon"
                     android:layout_centerInParent="true"/>
             </RelativeLayout>
@@ -78,13 +72,9 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_height="@dimen/setting_item_height"
-                        android:text="性别"
-                        android:background="@drawable/btn_selector"
-                        android:paddingLeft="@dimen/common_horizontal_margin"
-                        android:paddingRight="@dimen/common_horizontal_margin"/>
+                        android:text="性别："
+                        style="@style/profile_text_item"
+                        android:background="@drawable/btn_selector"/>
                     <TextView
                         android:id="@+id/profile_sex"
                         android:layout_width="match_parent"

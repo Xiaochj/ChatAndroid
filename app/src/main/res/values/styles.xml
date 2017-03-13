@@ -145,4 +145,15 @@
     <style name="LCIMActivity.FullScreen" >
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="profile_text_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/dp10</item>
+        <item name="android:paddingRight">@dimen/dp10</item>
+        <item name="android:paddingBottom">@dimen/dp13</item>
+        <item name="android:paddingTop">@dimen/dp13</item>
+    </style>
+
 </resources>

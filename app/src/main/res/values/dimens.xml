@@ -17,4 +17,13 @@
     <dimen name="activity_top_margin">@dimen/common_vertical_margin</dimen>
 
     <dimen name="setting_item_height">60dp</dimen>
+
+
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp13">13dp</dimen>
+    <dimen name="dp25">25dp</dimen>
+    <dimen name="dp27.5">27.5dp</dimen>
+    <dimen name="dp55">55dp</dimen>
+
+    <dimen name="sp10">10sp</dimen>
 </resources>

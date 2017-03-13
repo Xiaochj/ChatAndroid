@@ -9,4 +9,8 @@
     <color name="chat_transparent">#ffff</color>
     <color name="chat_base_color_text_black">#3e3e39</color>
     <color name="chat_common_guide_color">#898989</color>
+
+    <color name="light_white">#f1f0ed</color>
+    <color name="green">#79be70</color>
+    <color name="white">#FFFFFF</color>
 </resources>
