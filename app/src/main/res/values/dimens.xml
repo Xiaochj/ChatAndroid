@@ -19,6 +19,7 @@
     <dimen name="setting_item_height">60dp</dimen>
 
 
+    <dimen name="dp8">8dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp12">12dp</dimen>
     <dimen name="dp13">13dp</dimen>
@@ -32,6 +33,7 @@
     <dimen name="dp69">69dp</dimen>
 
     <dimen name="sp6">6sp</dimen>
+    <dimen name="sp9">9sp</dimen>
     <dimen name="sp10">10sp</dimen>
     <dimen name="sp11">11sp</dimen>
     <dimen name="sp13">13sp</dimen>
