@@ -20,6 +20,7 @@
     <string name="profile_settings">Settings</string>
     <string name="profile_title">我的资料</string>
     <string name="notification_title">通告</string>
+    <string name="person_detail_title">会员资料</string>
 
     <string name="login_username_hint">请输入账号</string>
     <string name="password_ischecked">密码可见</string>

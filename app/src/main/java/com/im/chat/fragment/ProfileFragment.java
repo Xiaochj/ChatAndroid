@@ -77,7 +77,8 @@ public class ProfileFragment extends BaseFragment {
 
   private void refresh() {
     LeanchatUser curUser = LeanchatUser.getCurrentUser();
-    Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
+    if(curUser.getAvatarUrl() != null)
+      Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
   }
 
   @OnClick(R.id.profile_notifysetting_view)

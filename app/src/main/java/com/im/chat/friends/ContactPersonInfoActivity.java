@@ -4,22 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import butterknife.Bind;
-import com.baidu.mapapi.map.Text;
 import com.im.chat.R;
-import cn.leancloud.chatkit.view.RoundImageView;
 import com.im.chat.activity.BaseActivity;
 import com.im.chat.activity.ChatRoomActivity;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.util.Constants;
 import com.im.chat.util.UserCacheUtils;
-import com.squareup.picasso.Picasso;
+import com.im.chat.view.HeaderLayout;
 
-import java.util.List;
-
+import butterknife.Bind;
 import cn.leancloud.chatkit.utils.LCIMConstants;
+import cn.leancloud.chatkit.view.RoundImageView;
 
 /**
  * 用户详情页，从对话详情页面和发现页面跳转过来
@@ -41,6 +40,8 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
   TextView mPhone;
   @Bind(R.id.contact_detail_btn)
   Button mButton;
+  @Bind(R.id.title_layout)
+  protected LinearLayout mHeaderLinearLayout;
 
   String userId = "";
   LeanchatUser user;
@@ -50,6 +51,18 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
     setContentView(R.layout.contact_detail_layout);
+    HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
+    TextView tv = (TextView)headerLayout.findViewById(R.id.titleView);
+    Button backBtn = (Button)headerLayout.findViewById(R.id.backBtn);
+    tv.setText(R.string.person_detail_title);
+    backBtn.setVisibility(View.VISIBLE);
+    backBtn.setText(R.string.contact);
+    backBtn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        finish();
+      }
+    });
     initData();//获取传递过来的intent
     initView();//初始化view，塞给那些textview
   }

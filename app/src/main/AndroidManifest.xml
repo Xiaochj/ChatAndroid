@@ -109,9 +109,11 @@
 
         <activity android:name="com.im.chat.friends.ContactNewFriendActivity"/>
 
-        <activity android:name="com.im.chat.activity.SearchActivity"/>
+        <activity android:name="com.im.chat.activity.SearchActivity"
+            android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity android:name="com.im.chat.friends.ContactPersonInfoActivity"/>
+        <activity android:name="com.im.chat.friends.ContactPersonInfoActivity"
+            android:theme="@style/LCIMActivity.NoActionBar"/>
 
         <activity android:name="com.im.chat.activity.ProfileNotifySettingActivity"/>
 

@@ -3,32 +3,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FF00">
+    android:background="@color/light_white">
 
-  <include layout="@layout/common_header_layout" />
+  <include layout="@layout/common_header_layout"
+      android:id="@+id/title_layout"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#FFFFFF"
-      android:layout_marginTop="90dp">
+      android:background="@color/white"
+      android:layout_marginTop="@dimen/dp25">
 
     <View
         android:id="@+id/top_view"
         android:layout_width="match_parent"
-        android:layout_height="29dp"
-        android:background="#00FF00"/>
-    <View
-        android:id="@+id/line_view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#000000"
-        android:layout_below="@id/top_view"/>
+        android:layout_height="@dimen/dp27.5"
+        android:background="@color/light_white"/>
 
     <cn.leancloud.chatkit.view.RoundImageView
         android:id="@+id/contact_detail_avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/dp55"
+        android:layout_height="@dimen/dp55"
         android:src="@drawable/icon"
         android:layout_centerInParent="true"/>
   </RelativeLayout>
