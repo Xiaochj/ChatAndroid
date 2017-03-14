@@ -7,12 +7,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.im.chat.R;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseResponse;
 import com.im.chat.model.LeanchatUser;
@@ -22,6 +25,7 @@ import com.im.chat.util.Utils;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
+import com.im.chat.view.HeaderLayout;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -38,11 +42,17 @@ public class EntryLoginActivity extends BaseActivity {
   @Bind(com.im.chat.R.id.activity_login_et_password)
   public EditText passwordView;
 
+  @Bind(R.id.title_layout)
+  protected LinearLayout mHeaderLinearLayout;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
     setContentView(com.im.chat.R.layout.entry_login_activity);
+    HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
+    TextView tv = (TextView)headerLayout.findViewById(R.id.titleView);
+    tv.setText(R.string.login_title);
   }
 
   @OnClick(com.im.chat.R.id.activity_login_btn_login)

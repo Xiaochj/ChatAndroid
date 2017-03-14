@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <include layout="@layout/common_header_layout" />
+    <include layout="@layout/common_header_layout"
+        android:id="@+id/title_layout"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -21,6 +22,7 @@
         android:singleLine="true"
         android:maxLength="30"
         android:gravity="center"
+        android:background="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp17"
@@ -44,6 +46,7 @@
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:gravity="center"
+            android:background="@null"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp15"
             android:paddingTop="@dimen/dp15"
