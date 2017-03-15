@@ -15,7 +15,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp46"
         android:layout_marginBottom="@dimen/dp10"
-        android:src="@drawable/icon"/>
+        android:src="@drawable/logo"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_tip"
+        android:gravity="center"
+        android:textSize="@dimen/sp6"
+        android:layout_marginBottom="@dimen/dp11"/>
 
     <EditText
         android:id="@+id/activity_login_et_username"

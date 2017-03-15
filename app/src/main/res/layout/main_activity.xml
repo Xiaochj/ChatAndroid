@@ -24,14 +24,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:drawableTop="@drawable/tabbar_chat"
+                android:drawableTop="@drawable/tab_chat"
                 android:onClick="onTabSelect"
-                android:paddingBottom="2dip"
-                android:paddingTop="7dip"
+                android:paddingBottom="@dimen/dp4"
+                android:paddingTop="@dimen/dp4"
                 android:scaleType="matrix"
                 android:text="@string/conversation_messages"
                 android:textColor="@drawable/tab_textcolor"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp7" />
 
             <ImageView
                 android:id="@+id/iv_recent_tips"
@@ -45,7 +45,7 @@
                 android:contentDescription="@string/profile_settings"
                 android:gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp7"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -59,14 +59,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                android:drawableTop="@drawable/tabbar_contacts"
+                android:drawableTop="@drawable/tab_contact"
                 android:onClick="onTabSelect"
-                android:paddingBottom="2dip"
-                android:paddingTop="7dip"
+                android:paddingBottom="@dimen/dp4"
+                android:paddingTop="@dimen/dp4"
                 android:scaleType="matrix"
                 android:text="@string/contact"
                 android:textColor="@drawable/tab_textcolor"
-                android:textSize="12sp" />
+                android:textSize="@dimen/sp7" />
 
             <ImageView
                 android:id="@+id/iv_contact_tips"
@@ -80,7 +80,7 @@
                 android:contentDescription="@string/profile_settings"
                 android:gravity="center"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/sp7"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -90,14 +90,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@drawable/tabbar_notification"
+            android:drawableTop="@drawable/tab_notify"
             android:onClick="onTabSelect"
-            android:paddingBottom="2dip"
-            android:paddingTop="7dip"
+            android:paddingBottom="@dimen/dp4"
+            android:paddingTop="@dimen/dp4"
             android:scaleType="matrix"
             android:text="@string/notification_title"
             android:textColor="@drawable/tab_textcolor"
-            android:textSize="12sp" />
+            android:textSize="@dimen/sp7" />
 
         <Button
             android:id="@+id/btn_my_space"
@@ -105,14 +105,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableTop="@drawable/tabbar_me"
+            android:drawableTop="@drawable/tab_person"
             android:onClick="onTabSelect"
-            android:paddingBottom="2dip"
-            android:paddingTop="7dip"
+            android:paddingBottom="@dimen/dp4"
+            android:paddingTop="@dimen/dp4"
             android:scaleType="matrix"
-            android:text="@string/profile_title"
+            android:text="@string/me"
             android:textColor="@drawable/tab_textcolor"
-            android:textSize="12sp" />
+            android:textSize="@dimen/sp7" />
     </LinearLayout>
 
     <RelativeLayout

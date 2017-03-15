@@ -21,6 +21,8 @@
     <string name="profile_title">我的资料</string>
     <string name="notification_title">通告</string>
     <string name="person_detail_title">会员资料</string>
+    <string name="me">我</string>
+    <string name="splash_tip">中国电视剧导演工作委员会\n内部沟通工具</string>
 
     <string name="login_username_hint">请输入账号</string>
     <string name="password_ischecked">密码可见</string>

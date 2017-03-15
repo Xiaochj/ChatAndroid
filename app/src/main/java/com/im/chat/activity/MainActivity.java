@@ -35,11 +35,11 @@ import com.baidu.location.LocationClientOption;
  */
 public class MainActivity extends BaseActivity {
   public static final int FRAGMENT_N = 4;
-  public static final int[] tabsNormalBackIds = new int[]{R.drawable.tabbar_chat,
-          R.drawable.tabbar_contacts, R.drawable.tabbar_notification, R.drawable.tabbar_me};
-  public static final int[] tabsActiveBackIds = new int[]{R.drawable.tabbar_chat_active,
-          R.drawable.tabbar_contacts_active, R.drawable.tabbar_notification_active,
-          R.drawable.tabbar_me_active};
+  public static final int[] tabsNormalBackIds = new int[]{R.drawable.tab_chat,
+          R.drawable.tab_contact, R.drawable.tab_notify, R.drawable.tab_person};
+  public static final int[] tabsActiveBackIds = new int[]{R.drawable.tab_chat_click,
+          R.drawable.tab_contact_click, R.drawable.tab_notify_click,
+          R.drawable.tab_person_click};
   private static final String FRAGMENT_TAG_CONVERSATION = "conversation";
   private static final String FRAGMENT_TAG_CONTACT = "contact";
   private static final String FRAGMENT_TAG_NOTIFICATION = "notification";
