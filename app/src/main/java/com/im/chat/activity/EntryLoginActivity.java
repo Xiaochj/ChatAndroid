@@ -57,7 +57,9 @@ public class EntryLoginActivity extends BaseActivity {
 
   @OnClick(com.im.chat.R.id.activity_login_btn_login)
   public void onLoginClick(View v) {
-    login();
+    //login();
+    final ProgressDialog dialog = showSpinnerDialog();//test
+    loginLeanchat("兔兔图","qqq",dialog);
   }
 
   private void login() {
@@ -92,29 +94,34 @@ public class EntryLoginActivity extends BaseActivity {
       @Override
       public void onNext(BaseResponse baseResponse) {
         //自家服务器成功
-        LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
-          @Override
-          public void done(LeanchatUser avUser, AVException e) {
-            //请求leancloud服务器，如果登陆成功,直接进行实时通讯
-            if (e == null) {
-              dialog.dismiss();
-              imLogin();
-            }else{//如果登录失败，那么请求leancloud的注册接口，假装注册leancloud
-              LeanchatUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
-                @Override
-                public void done(AVException e) {
-                  dialog.dismiss();
-                  //再进行实时通讯
-                  if(e == null) {
-                    imLogin();
-                  }
-                }
-              });
-            }
-          }
-        }, LeanchatUser.class);
+        loginLeanchat(name, password, dialog);
       }
     });
+  }
+
+  private void loginLeanchat(final String name, final String password,
+      final ProgressDialog dialog) {
+    LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
+      @Override
+      public void done(LeanchatUser avUser, AVException e) {
+        //请求leancloud服务器，如果登陆成功,直接进行实时通讯
+        if (e == null) {
+          dialog.dismiss();
+          imLogin();
+        }else{//如果登录失败，那么请求leancloud的注册接口，假装注册leancloud
+          LeanchatUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
+            @Override
+            public void done(AVException e) {
+              dialog.dismiss();
+              //再进行实时通讯
+              if(e == null) {
+                imLogin();
+              }
+            }
+          });
+        }
+      }
+    }, LeanchatUser.class);
   }
 
   /**
