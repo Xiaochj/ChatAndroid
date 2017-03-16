@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="LCIMKitTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/lcim_common_blue</item>
+        <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@color/lcim_common_blue</item>
         <item name="colorAccent">@color/lcim_common_blue</item>
         <item name="actionBarTheme">@style/LCIMActionBarTheme</item>
@@ -23,8 +23,8 @@
     </style>
 
     <style name="LCIMActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@color/lcim_bottom_bar_text_black</item>
+        <item name="android:textColorPrimary">@color/lcim_bottom_bar_text_black</item>
     </style>
     <!--<style name="LCIMActivity.FullScreen" >-->
         <!--<item name="android:windowFullscreen">true</item>-->

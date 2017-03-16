@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import com.im.chat.R;
 import com.im.chat.view.HeaderLayout;
 
-import cn.leancloud.chatkit.activity.LCIMConversationListFragment;
-
 /**
  * 对话列表页面
  * Created by cjxiao
