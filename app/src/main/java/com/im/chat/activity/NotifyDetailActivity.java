@@ -2,9 +2,14 @@ package com.im.chat.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.im.chat.R;
+import com.im.chat.view.HeaderLayout;
 
 import butterknife.Bind;
 
@@ -17,10 +22,23 @@ public class NotifyDetailActivity extends BaseActivity {
 
     @Bind(R.id.notify_detail_webview)
     WebView mWebView;
+    @Bind(R.id.title_layout)
+    protected LinearLayout mHeaderLinearLayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notify_detail_layout);
+        HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
+        TextView tv = (TextView)headerLayout.findViewById(R.id.titleView);
+        tv.setText(R.string.notification_title);
+        headerLayout.showLeftBackButton();
+        headerLayout.showRightImageButton(R.drawable.common_view_right_arrow_pic, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(),"share",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

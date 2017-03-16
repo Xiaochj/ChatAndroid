@@ -117,7 +117,8 @@
 
         <activity android:name="com.im.chat.activity.ProfileNotifySettingActivity"/>
 
-        <activity android:name="com.im.chat.activity.NotifyDetailActivity"/>
+        <activity android:name="com.im.chat.activity.NotifyDetailActivity"
+            android:theme="@style/LCIMActivity.NoActionBar"/>
 
         <activity
             android:name="com.im.chat.activity.ConversationGroupListActivity"

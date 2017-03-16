@@ -25,7 +25,7 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
     cn.leancloud.chatkit.view.RoundImageView mImageView;
     TextView mTitleTv,mContentTv,mTimeTv;
 
-    public NotifyItemHolder(Context context, ViewGroup root, int layoutRes) {
+    public NotifyItemHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.notify_item);
         initView(context);
     }
@@ -52,7 +52,9 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
     @Override
     public void bindData(NotifyItemBean notifyItemBean) {
         if(notifyItemBean != null) {
-            Picasso.with(getContext()).load(notifyItemBean.getImgUrl()).into(mImageView);
+            if(!"".equals(notifyItemBean.getImgUrl())) {
+                Picasso.with(getContext()).load(notifyItemBean.getImgUrl()).into(mImageView);
+            }
             mTitleTv.setText(notifyItemBean.getTitle());
             mTimeTv.setText(notifyItemBean.getTime());
             mContentTv.setText(notifyItemBean.getContent());
@@ -64,4 +66,11 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
     public void setData(NotifyItemBean notifyItemBean) {
         super.setData(notifyItemBean);
     }
+
+    public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<NotifyItemHolder>() {
+    @Override
+    public NotifyItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
+      return new NotifyItemHolder(parent.getContext(), parent);
+    }
+  };
 }

@@ -4,8 +4,8 @@
     <style name="LCIMKitTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@color/lcim_common_blue</item>
-        <item name="colorAccent">@color/lcim_common_blue</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
         <item name="actionBarTheme">@style/LCIMActionBarTheme</item>
     </style>
 

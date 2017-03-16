@@ -15,6 +15,7 @@ import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.NotifyItemBean;
 import com.im.chat.service.PreferenceMap;
 import com.im.chat.util.Constants;
 import com.im.chat.util.LogUtils;
@@ -22,6 +23,7 @@ import com.im.chat.util.UserCacheUtils;
 import com.im.chat.view.RefreshableRecyclerView;
 import com.im.chat.viewholder.NotifyItemHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -75,6 +77,11 @@ public class NotificationFragment extends BaseFragment {
 
   private void loadMoreData(int skip,int limit,boolean isRefresh){
     //调用retrofit自己的服务器接口
+    ArrayList<NotifyItemBean> list = new ArrayList<>();
+    for(int i = 0; i< 20; i++){
+      list.add(new NotifyItemBean("",i+"asdfasdfasdfasdf","adsfasdfasdfasd","2017-12-12"));
+    }
+    recyclerView.setLoadComplete(list.toArray(), isRefresh);
   }
 
   /**
