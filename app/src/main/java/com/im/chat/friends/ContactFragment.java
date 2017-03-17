@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import android.widget.LinearLayout;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
@@ -20,6 +21,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.activity.ConversationGroupListActivity;
+import com.im.chat.activity.SearchActivity;
 import com.im.chat.adapter.ContactsAdapter;
 import com.im.chat.event.ContactItemClickEvent;
 import com.im.chat.event.ContactItemLongClickEvent;
@@ -37,7 +39,7 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 /**
- * 联系人列表
+ * 联系人列表 通讯录
  * <p/>
  * TODO
  * 1、替换 Fragment 的 title
@@ -57,6 +59,9 @@ public class ContactFragment extends BaseFragment {
 
   private ContactsAdapter itemAdapter;
   LinearLayoutManager layoutManager;
+
+  @Bind(R.id.contact_search_layout)
+  protected LinearLayout mSearchLayout;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +91,7 @@ public class ContactFragment extends BaseFragment {
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     initHeaderView();
-    initHeader();
+    initTitle();
     refresh();
     EventBus.getDefault().register(this);
     getMembers(false);
@@ -105,9 +110,16 @@ public class ContactFragment extends BaseFragment {
   }
 
   /**
-   * 新朋友item和群聊item
+   * search,新朋友item和群聊item
    */
   private void initHeaderView() {
+    //search的按钮
+    mSearchLayout.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        Intent intent = new Intent(ctx, SearchActivity.class);
+        ctx.startActivity(intent);
+      }
+    });
     msgTipsView = (ImageView) headerView.findViewById(R.id.iv_msg_tips);
     View newView = headerView.findViewById(R.id.layout_new);
     newView.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +154,7 @@ public class ContactFragment extends BaseFragment {
   /**
    * 初始化标题栏
    */
-  private void initHeader() {
+  private void initTitle() {
     headerLayout.showTitle(App.ctx.getString(R.string.contact));
   }
 

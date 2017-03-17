@@ -6,6 +6,24 @@
 
     <include layout="@layout/common_header_layout" />
 
+    <LinearLayout
+        android:id="@+id/contact_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/chat_login_edit_normal"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索"
+            android:gravity="center"
+            android:padding="@dimen/dp10"
+            android:drawableLeft="@drawable/contact_search"></TextView>
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -11,6 +11,9 @@ import android.widget.SearchView;
 import com.im.chat.R;
 
 import butterknife.Bind;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 搜索页
@@ -23,13 +26,17 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     SearchView mSearchView;
     @Bind(R.id.contact_listView)
     ListView mListView;
-    private String[] mStrs = {"aaa", "bbb", "ccc", "airsaid"};
+    private List<String> mList = new ArrayList<String>(Arrays.asList("aaa", "bbb", "ccc", "airsaid"));
+    private String[] mStrArray;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search_layout);
-        mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrs));
+        //list转array
+        mStrArray = new String[mList.size()];
+        mStrArray = (String[])mList.toArray();
+        mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrArray));
         mListView.setTextFilterEnabled(true);
 
         // 设置搜索文本监听
