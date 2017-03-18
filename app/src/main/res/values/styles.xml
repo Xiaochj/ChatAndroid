@@ -154,7 +154,7 @@
         <item name="android:paddingRight">@dimen/dp10</item>
         <item name="android:paddingBottom">@dimen/dp13</item>
         <item name="android:paddingTop">@dimen/dp13</item>
-        <item name="android:textSize">@dimen/sp10</item>
+        <item name="android:textSize">@dimen/sp16</item>
     </style>
 
     <style name="profile_text_right_item">
@@ -164,7 +164,7 @@
         <item name="android:paddingRight">@dimen/dp18</item>
         <item name="android:paddingBottom">@dimen/dp13</item>
         <item name="android:paddingTop">@dimen/dp13</item>
-        <item name="android:textSize">@dimen/sp10</item>
+        <item name="android:textSize">@dimen/sp16</item>
     </style>
 
 </resources>

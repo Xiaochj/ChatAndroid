@@ -10,10 +10,11 @@ import android.widget.SearchView;
 
 import com.im.chat.R;
 
-import butterknife.Bind;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import butterknife.Bind;
 
 /**
  * 搜索页
@@ -34,8 +35,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search_layout);
         //list转array
-        mStrArray = new String[mList.size()];
-        mStrArray = (String[])mList.toArray();
+        mStrArray = mList.toArray(new String[mList.size()]);
         mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrArray));
         mListView.setTextFilterEnabled(true);
 

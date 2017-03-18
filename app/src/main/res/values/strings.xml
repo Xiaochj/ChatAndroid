@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ChatForAndroid</string>
+    <string name="app_name">导演协会im</string>
 
 
     <string name="update_service_versionIsAlreadyNew">已经是最新版本了</string>
@@ -21,6 +21,7 @@
     <string name="profile_title">我的资料</string>
     <string name="notification_title">通告</string>
     <string name="person_detail_title">会员资料</string>
+    <string name="profile_notifySetting">提醒设置</string>
     <string name="me">我</string>
     <string name="splash_tip">中国电视剧导演工作委员会\n内部沟通工具</string>
 
@@ -60,7 +61,6 @@
     <string name="contact_detailInfo">详细资料</string>
     <string name="contact_male">男</string>
     <string name="contact_female">女</string>
-    <string name="profile_notifySetting">提醒设置</string>
     <string name="profile_notifyWhenNews">接收新消息通知</string>
     <string name="profile_fragment_checkUpdate">检查更新</string>
     <string name="profile_version">版本号</string>

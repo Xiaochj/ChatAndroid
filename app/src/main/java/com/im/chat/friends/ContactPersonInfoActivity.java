@@ -52,17 +52,7 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
     super.onCreate(savedInstanceState);
     setContentView(R.layout.contact_detail_layout);
     HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
-    TextView tv = (TextView)headerLayout.findViewById(R.id.titleView);
-    Button backBtn = (Button)headerLayout.findViewById(R.id.backBtn);
-    tv.setText(R.string.person_detail_title);
-    backBtn.setVisibility(View.VISIBLE);
-    backBtn.setText(R.string.contact);
-    backBtn.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        finish();
-      }
-    });
+    headerLayout.showLeftBackButton(R.string.person_detail_title,null);
     initData();//获取传递过来的intent
     initView();//初始化view，塞给那些textview
   }

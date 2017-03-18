@@ -2,23 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
 <LinearLayout
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/dp8"
     android:paddingRight="@dimen/dp8"
-    android:paddingBottom="@dimen/dp17"
-    android:paddingTop="@dimen/dp17">
+    android:paddingBottom="@dimen/dp13"
+    android:paddingTop="@dimen/dp13">
 
     <cn.leancloud.chatkit.view.RoundImageView
         android:id="@+id/notify_item_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/notify_item"
-        android:layout_gravity="center_vertical"
-        android:paddingRight="@dimen/dp10"/>
+        android:layout_marginRight="@dimen/dp10"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="sdfasdfasdf"
-                android:textSize="@dimen/sp10"
+                android:textSize="@dimen/sp18"
                 android:textColor="@color/high_text"
                 android:layout_alignParentLeft="true"
                 android:maxLines="2"/>
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12-21"
-                android:textSize="@dimen/sp9"
+                android:textSize="@dimen/sp14"
                 android:textColor="@color/light_text"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp8"
-            android:textSize="@dimen/sp9"
+            android:textSize="@dimen/sp16"
             android:textColor="@color/light_text"
             android:text="asdfasdfasdfasdfasdfasdlfjasldjfalsdjfalsdjflasdjf的说法是的发送到发送到发送到发斯蒂芬"
             android:maxLines="2"/>

@@ -17,7 +17,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import com.im.chat.activity.EntryLoginActivity;
-import com.im.chat.activity.ProfileNotifySettingActivity;
+import com.im.chat.activity.ProfileSettingActivity;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.PathUtils;
@@ -81,12 +81,60 @@ public class ProfileFragment extends BaseFragment {
       Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
   }
 
+  /**
+   * 头像
+   */
+  @OnClick(R.id.profile_avatar)
+  public void onAvatarClick() {
+    Intent intent = new Intent(Intent.ACTION_PICK, null);
+    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+    startActivityForResult(intent, IMAGE_PICK_REQUEST);
+  }
+
+  /**
+   * 简介
+   */
+  @OnClick(R.id.profile_mark_layout)
+  public void onNotifyMarkClick(){
+
+  }
+
+  /**
+   * 手机
+   */
+  @OnClick(R.id.profile_phone_layout)
+  public void onNotifyPhoneClick(){
+
+  }
+
+  /**
+   * 邮箱
+   */
+  @OnClick(R.id.profile_email_layout)
+  public void onNotifyEmailClick(){
+
+  }
+
+  /**
+   * 修改密码
+   */
+  @OnClick(R.id.profile_change_pwd)
+  public void onNotifyChangePwdClick(){
+
+  }
+
+  /**
+   * 设置
+   */
   @OnClick(R.id.profile_notifysetting_view)
   public void onNotifySettingClick() {
-    Intent intent = new Intent(ctx, ProfileNotifySettingActivity.class);
+    Intent intent = new Intent(ctx, ProfileSettingActivity.class);
     ctx.startActivity(intent);
   }
 
+  /**
+   * 登出
+   */
   @OnClick(R.id.profile_logout_btn)
   public void onLogoutClick() {
     LCChatKit.getInstance().close(new AVIMClientCallback() {
@@ -99,13 +147,6 @@ public class ProfileFragment extends BaseFragment {
     getActivity().finish();
     Intent intent = new Intent(ctx, EntryLoginActivity.class);
     ctx.startActivity(intent);
-  }
-
-  @OnClick(R.id.profile_avatar)
-  public void onAvatarClick() {
-    Intent intent = new Intent(Intent.ACTION_PICK, null);
-    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-    startActivityForResult(intent, IMAGE_PICK_REQUEST);
   }
 
   @Override

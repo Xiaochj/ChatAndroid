@@ -31,8 +31,8 @@
 
                 <cn.leancloud.chatkit.view.RoundImageView
                     android:id="@+id/profile_avatar"
-                    android:layout_width="@dimen/dp55"
-                    android:layout_height="@dimen/dp55"
+                    android:layout_width="@dimen/dp75"
+                    android:layout_height="@dimen/dp75"
                     android:src="@drawable/icon"
                     android:layout_centerInParent="true"/>
             </RelativeLayout>
@@ -40,13 +40,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@color/light_white"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/dp15"
                 android:paddingBottom="@dimen/dp12">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingTop="@dimen/dp15">
 
                 <TextView
                     style="@style/profile_text_left_item"
@@ -63,7 +64,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
                     <TextView
                         android:text="性别："
@@ -77,8 +79,10 @@
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
                 <LinearLayout
+                    android:id="@+id/profile_mark_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
                     <TextView
                         style="@style/profile_text_left_item"
@@ -89,12 +93,15 @@
                         style="@style/profile_text_right_item"
                         android:text="我是一只来自北方的雄狮,匍匐在中国人民的怀抱。"
                         android:background="@drawable/btn_selector"
-                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                        android:drawablePadding="@dimen/dp10"
+                        android:drawableRight="@drawable/right"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
                 <LinearLayout
+                    android:id="@+id/profile_phone_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
                     <TextView
                         style="@style/profile_text_left_item"
@@ -105,12 +112,15 @@
                         style="@style/profile_text_right_item"
                         android:text="12390807564"
                         android:background="@drawable/btn_selector"
-                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                        android:drawablePadding="@dimen/dp10"
+                        android:drawableRight="@drawable/right"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
                 <LinearLayout
+                    android:id="@+id/profile_email_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
                     <TextView
                         style="@style/profile_text_left_item"
@@ -121,14 +131,17 @@
                         style="@style/profile_text_right_item"
                         android:text="12@qq.com"
                         android:background="@drawable/btn_selector"
-                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                        android:drawablePadding="@dimen/dp10"
+                        android:drawableRight="@drawable/right"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
 
                     <TextView
+                        android:id="@+id/profile_change_pwd"
                         android:layout_width="match_parent"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"
@@ -138,8 +151,9 @@
                         android:paddingRight="@dimen/dp18"
                         android:paddingTop="@dimen/dp13"
                         android:paddingBottom="@dimen/dp13"
-                        android:textSize="@dimen/sp10"
-                        android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                        android:textSize="@dimen/sp16"
+                        android:drawablePadding="@dimen/dp10"
+                        android:drawableRight="@drawable/right"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
             </LinearLayout>
@@ -147,7 +161,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
+                android:background="@color/light_white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/dp12">
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -163,8 +177,9 @@
                     android:paddingRight="@dimen/dp18"
                     android:paddingTop="@dimen/dp13"
                     android:paddingBottom="@dimen/dp13"
-                    android:textSize="@dimen/sp10"
-                    android:drawableRight="@drawable/common_view_right_arrow_pic"/>
+                    android:textSize="@dimen/sp16"
+                    android:drawablePadding="@dimen/dp10"
+                    android:drawableRight="@drawable/right"/>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
 
@@ -197,7 +212,7 @@
                         android:paddingTop="@dimen/dp13"
                         android:paddingBottom="@dimen/dp13"
                         android:layout_alignParentRight="true"
-                        android:textSize="@dimen/sp10"/>
+                        android:textSize="@dimen/sp16"/>
                 </RelativeLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -216,7 +231,7 @@
                 android:layout_marginRight="@dimen/dp55"
                 android:gravity="center"
                 android:text="退出登录"
-                android:textSize="@dimen/sp10"/>
+                android:textSize="@dimen/sp16"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

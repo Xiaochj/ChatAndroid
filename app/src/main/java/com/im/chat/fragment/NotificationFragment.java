@@ -79,7 +79,7 @@ public class NotificationFragment extends BaseFragment {
     //调用retrofit自己的服务器接口
     ArrayList<NotifyItemBean> list = new ArrayList<>();
     for(int i = 0; i< 20; i++){
-      list.add(new NotifyItemBean("",i+"asdfasdfasdfasdf","adsfasdfasdfasd","2017-12-12"));
+      list.add(new NotifyItemBean("",i+"就这么牛逼！！！","adsfasdfasdfasdasdfasdf阿斯顿发送到发送到发","2017-12-12"));
     }
     recyclerView.setLoadComplete(list.toArray(), isRefresh);
   }
