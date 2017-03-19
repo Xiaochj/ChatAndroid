@@ -7,4 +7,4 @@
     android:layout_centerVertical="true"
     android:layout_marginRight="10dp"
     android:drawablePadding="10dp"
-    android:src="@drawable/common_view_right_arrow_pic" />
+    android:src="@drawable/right" />

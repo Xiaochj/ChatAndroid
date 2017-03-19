@@ -95,7 +95,7 @@
     </style>
 
     <style name="My.TextView._Black">
-        <item name="android:textColor">@color/chat_base_color_text_black</item>
+        <item name="android:textColor">@color/high_text</item>
     </style>
 
     <style name="My.Button.theme" parent="My.TextView._White">
@@ -138,7 +138,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/group_detail_btn</item>
+        <item name="android:background">@drawable/btn_selector</item>
     </style>
 
     <!-- activity -->

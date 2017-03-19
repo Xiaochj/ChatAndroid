@@ -5,5 +5,6 @@
     <color name="lcim_commom_read">#ff0000</color>
 
     <color name="lcim_bottom_bar_text_black">#615a57</color>
+    <color name="light_text">#c3c5c4</color>
     <color name="lcim_divider_line_color">#afafaf</color>
 </resources>

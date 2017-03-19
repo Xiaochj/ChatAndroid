@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -32,7 +34,7 @@ import cn.leancloud.chatkit.utils.LCIMConstants;
 
 /**
  * 群聊对话拉人页面
- * Created by lzw on 14-10-11.
+ * Created by cjxiao
  * TODO: ConversationChangeEvent
  */
 public class ConversationAddMembersActivity extends BaseActivity {
@@ -50,6 +52,9 @@ public class ConversationAddMembersActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.conversation_add_members_layout);
+    setTitle(R.string.conversation_inviteMembers);
+    //显示左上角的返回按钮
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     String conversationId = getIntent().getStringExtra(LCIMConstants.CONVERSATION_ID);
     conversation = LCChatKit.getInstance().getClient().getConversation(conversationId);
 
@@ -87,12 +92,20 @@ public class ConversationAddMembersActivity extends BaseActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuItem add = menu.add(0, OK, 0, R.string.common_sure);
     alwaysShowMenuItem(menu);
+    SpannableString spannableString = new SpannableString(add.getTitle());
+    spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.lcim_bottom_bar_text_black)), 0, spannableString.length(), 0);
+    add.setTitle(spannableString);
     return super.onCreateOptionsMenu(menu);
   }
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
+    //返回按钮触发
+    if(id == android.R.id.home) {
+      this.onBackPressed();
+      return true;
+    }
     if (id == OK) {
       addMembers();
     }

@@ -3,7 +3,6 @@ package com.im.chat.viewholder;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.im.chat.R;
@@ -11,6 +10,7 @@ import com.im.chat.event.ConversationMemberClickEvent;
 import com.im.chat.model.LeanchatUser;
 import com.squareup.picasso.Picasso;
 
+import cn.leancloud.chatkit.view.RoundImageView;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
 
@@ -20,13 +20,13 @@ import de.greenrobot.event.EventBus;
  */
 public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
 
-  ImageView avatarView;
+  RoundImageView avatarView;
   TextView nameView;
   LeanchatUser leanchatUser;
 
   public ConversationDetailItemHolder(Context context, ViewGroup root) {
     super(context, root, com.im.chat.R.layout.conversation_member_item);
-    avatarView = (ImageView)itemView.findViewById(com.im.chat.R.id.avatar);
+    avatarView = (RoundImageView)itemView.findViewById(com.im.chat.R.id.avatar);
     nameView = (TextView)itemView.findViewById(com.im.chat.R.id.username);
 
     itemView.setOnClickListener(new View.OnClickListener() {

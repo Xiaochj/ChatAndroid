@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -119,6 +121,9 @@ public class ConversationDetailActivity extends BaseActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuItem invite = menu.add(0, ADD_MEMBERS, 0, R.string.conversation_detail_invite);
     alwaysShowMenuItem(menu);
+    SpannableString spannableString = new SpannableString(invite.getTitle());
+    spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.lcim_bottom_bar_text_black)), 0, spannableString.length(), 0);
+    invite.setTitle(spannableString);
     return super.onCreateOptionsMenu(menu);
   }
 

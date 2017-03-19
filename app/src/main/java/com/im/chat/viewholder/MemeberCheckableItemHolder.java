@@ -5,13 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.im.chat.R;
 import com.im.chat.model.LeanchatUser;
 import com.squareup.picasso.Picasso;
 
+import cn.leancloud.chatkit.view.RoundImageView;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
 
@@ -20,14 +20,14 @@ import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
  */
 public class MemeberCheckableItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
 
-  private ImageView avatarView;
+  private RoundImageView avatarView;
   private TextView nameView;
   private CheckBox checkBox;
   private OnItemHolderCheckedChangeListener checkedChangeListener;
 
   public MemeberCheckableItemHolder(Context context, ViewGroup root) {
     super(context, root, R.layout.conversation_add_members_item);
-    avatarView = (ImageView)itemView.findViewById(R.id.avatar);
+    avatarView = (RoundImageView)itemView.findViewById(R.id.avatar);
     nameView = (TextView)itemView.findViewById(R.id.username);
     checkBox = (CheckBox)itemView.findViewById(R.id.checkbox);
 
@@ -53,7 +53,7 @@ public class MemeberCheckableItemHolder extends LCIMCommonViewHolder<LeanchatUse
   @Override
   public void bindData(LeanchatUser user) {
     if (null != user) {
-      Picasso.with(getContext()).load(user.getAvatarUrl()).into(avatarView);
+      Picasso.with(getContext()).load(user.getAvatarUrl()).placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
       nameView.setText(user.getUsername());
     } else {
       avatarView.setImageResource(0);

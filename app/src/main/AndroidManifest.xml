@@ -131,8 +131,7 @@
         <activity android:name="com.im.chat.activity.ConversationDetailActivity" />
 
         <activity
-            android:name="com.im.chat.activity.ConversationAddMembersActivity"
-            android:label="@string/conversation_inviteMembers"/>
+            android:name="com.im.chat.activity.ConversationAddMembersActivity" />
 
         <service
             android:name="com.baidu.location.f"

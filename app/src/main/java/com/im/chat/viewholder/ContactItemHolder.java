@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.im.chat.R;
@@ -13,6 +12,7 @@ import com.im.chat.event.ContactItemLongClickEvent;
 import com.im.chat.model.ContactItem;
 import com.squareup.picasso.Picasso;
 
+import cn.leancloud.chatkit.view.RoundImageView;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
 
@@ -24,7 +24,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
 
   TextView alpha;
   TextView nameView;
-  ImageView avatarView;
+  RoundImageView avatarView;
 
   public ContactItem contactItem;
 
@@ -36,7 +36,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
   public void initView() {
     alpha = (TextView)itemView.findViewById(R.id.alpha);
     nameView = (TextView)itemView.findViewById(R.id.tv_friend_name);
-    avatarView = (ImageView)itemView.findViewById(R.id.img_friend_avatar);
+    avatarView = (RoundImageView)itemView.findViewById(R.id.img_friend_avatar);
 
     //点击
     itemView.setOnClickListener(new View.OnClickListener() {

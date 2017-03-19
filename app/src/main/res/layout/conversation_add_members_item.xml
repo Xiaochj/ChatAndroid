@@ -5,34 +5,47 @@
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
-        android:gravity="left">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <ImageView
-            android:id="@+id/avatar"
-            style="@style/LCIMAvatar"
-            android:src="@drawable/lcim_default_avatar_icon" />
-
-        <TextView
-            android:id="@+id/username"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:text="username" />
+            android:layout_weight="1"
+            android:gravity="left">
 
+            <cn.leancloud.chatkit.view.RoundImageView
+                android:id="@+id/avatar"
+                style="@style/LCIMAvatar"
+                android:src="@drawable/lcim_default_avatar_icon" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:textColor="@color/high_text"
+                android:textSize="@dimen/sp16"
+                android:text="username" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <View style="@style/LCIMDividerLine.Horizontal" />
+
 </LinearLayout>

@@ -58,7 +58,7 @@ public class LetterView extends LinearLayout {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
         //触摸变色
-        LetterView.this.setBackgroundColor(getResources().getColor(R.color.color_bottom_text_normal));
+        LetterView.this.setBackgroundColor(getResources().getColor(R.color.light_white));
         int x = Math.round(event.getX());
         int y = Math.round(event.getY());
         for (int i = 0; i < getChildCount(); i++) {

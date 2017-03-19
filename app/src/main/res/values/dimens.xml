@@ -19,6 +19,7 @@
     <dimen name="setting_item_height">60dp</dimen>
 
 
+    <dimen name="dp2">2dp</dimen>
     <dimen name="dp4">4dp</dimen>
     <dimen name="dp8">8dp</dimen>
     <dimen name="dp10">10dp</dimen>

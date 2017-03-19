@@ -4,28 +4,30 @@
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
+    <View style="@style/LCIMDividerLine.Horizontal"/>
+
     <RelativeLayout
         android:id="@+id/name_layout"
         style="@style/conversation_detail_base_left_layout">
-
         <TextView
-            style="@style/conversation_detail_base_left_style"
-            android:text="群聊名称"/>
+            style="@style/profile_text_left_item"
+            android:text="@string/conversation_name"/>
 
         <include layout="@layout/common_view_right_arrow"/>
-
     </RelativeLayout>
+
+    <View style="@style/LCIMDividerLine.Horizontal"/>
 
     <RelativeLayout
         android:id="@+id/quit_layout"
         style="@style/conversation_detail_base_left_layout">
-
         <TextView
-            style="@style/conversation_detail_base_left_style"
-            android:text="删除并退出"/>
+            style="@style/profile_text_left_item"
+            android:text="@string/converstaion_remove_leave"/>
 
         <include layout="@layout/common_view_right_arrow"/>
-
     </RelativeLayout>
+
+    <View style="@style/LCIMDividerLine.Horizontal"/>
 
 </LinearLayout>
