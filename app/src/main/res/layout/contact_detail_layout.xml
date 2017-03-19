@@ -3,10 +3,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_white">
+    android:background="@color/white">
 
   <include layout="@layout/common_header_layout"
       android:id="@+id/title_layout"/>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/light_white">
 
   <RelativeLayout
       android:layout_width="match_parent"
@@ -22,36 +32,42 @@
 
     <cn.leancloud.chatkit.view.RoundImageView
         android:id="@+id/contact_detail_avatar"
-        android:layout_width="@dimen/dp55"
-        android:layout_height="@dimen/dp55"
-        android:src="@drawable/icon"
+        android:layout_width="@dimen/dp75"
+        android:layout_height="@dimen/dp75"
+        android:src="@drawable/lcim_default_avatar_icon"
         android:layout_centerInParent="true"/>
   </RelativeLayout>
 
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#FFFFFF"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="@color/white"
       android:gravity="center_horizontal">
     <RelativeLayout
         android:id="@+id/contact_detail_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingBottom="40dp"
+        android:paddingTop="@dimen/dp20"
+        android:paddingBottom="@dimen/dp40"
         android:gravity="center_horizontal">
       <TextView
           android:id="@+id/contact_detail_name"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="周晓龙"
-          android:layout_marginRight="10dp"/>
+          android:textSize="@dimen/sp20"
+          android:textColor="@color/high_text"
+          android:layout_marginRight="@dimen/dp10"/>
       <TextView
           android:id="@+id/contact_detail_sex"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_toRightOf="@id/contact_detail_name"
-          android:text="/男"/>
+          android:layout_alignBottom="@id/contact_detail_name"
+          android:text="/男"
+          android:textSize="@dimen/sp16"
+          android:textColor="@color/high_text"/>
     </RelativeLayout>
 
     <TextView
@@ -59,9 +75,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_detail_layout1"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:text="我走过高山火海，看过人来人往，一成不变的，还是那颗永不言弃的初心。"/>
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp40"
+        android:paddingRight="@dimen/dp40"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/high_text"
+        android:text="我已走过高山火海，已看过人来人往，但是一成不变的，还是那颗永不言弃的初心。"/>
 
     <TextView
         android:id="@+id/contact_detail_phone"
@@ -69,32 +88,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/contact_detail_mark"
         android:drawableLeft="@drawable/abc_ic_star_black_16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="@dimen/dp20"
+        android:paddingBottom="@dimen/dp20"
         android:text="13883831122"
         android:gravity="center"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/high_text"
         android:layout_centerHorizontal="true"/>
 
     <TextView
-      android:id="@+id/contact_detail_mail"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/contact_detail_phone"
-      android:drawableLeft="@drawable/abc_ic_star_black_16dp"
-      android:text="222@qq.com"
-      android:gravity="center"
-      android:layout_centerHorizontal="true"/>
+        android:id="@+id/contact_detail_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_detail_phone"
+        android:drawableLeft="@drawable/abc_ic_star_black_16dp"
+        android:text="222@qq.com"
+        android:gravity="center"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/high_text"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/contact_detail_btn"
         style="@style/My.Button.theme"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="30dp"
-        android:text="发消息"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp40"
+        android:layout_marginRight="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp30"
+        android:padding="@dimen/dp10"
+        android:textSize="@dimen/sp16"
+        android:text="@string/send_message"
         android:layout_below="@id/contact_detail_mail"/>
   </RelativeLayout>
+    </LinearLayout>
+  </ScrollView>
 
 </LinearLayout>

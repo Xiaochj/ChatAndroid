@@ -17,6 +17,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import com.im.chat.activity.EntryLoginActivity;
+import com.im.chat.activity.ProfileResumeActivity;
 import com.im.chat.activity.ProfileSettingActivity;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PushManager;
@@ -36,6 +37,14 @@ import cn.leancloud.chatkit.LCChatKit;
  * Created by cjxiao
  */
 public class ProfileFragment extends BaseFragment {
+
+  public static final String PROFILE_EXTRA_KEY = "profileExtrasKey";
+  public static final String PROFILE_CONTENT_KEY = "profileContentKey";
+  public static final int PROFILE_MARK = 0;
+  public static final int PROFILE_PHONE = 1;
+  public static final int PROFILE_EMAIL = 2;
+  public static final int PROFILE_PWD = 3;
+
   private static final int IMAGE_PICK_REQUEST = 1;
   private static final int CROP_REQUEST = 2;
 
@@ -96,7 +105,10 @@ public class ProfileFragment extends BaseFragment {
    */
   @OnClick(R.id.profile_mark_layout)
   public void onNotifyMarkClick(){
-
+    Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
+    intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_MARK);
+    intent.putExtra(PROFILE_CONTENT_KEY,mMarkTv.getText().toString());
+    getContext().startActivity(intent);
   }
 
   /**
@@ -104,7 +116,9 @@ public class ProfileFragment extends BaseFragment {
    */
   @OnClick(R.id.profile_phone_layout)
   public void onNotifyPhoneClick(){
-
+    Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
+    intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_PHONE);
+    getContext().startActivity(intent);
   }
 
   /**
@@ -112,7 +126,9 @@ public class ProfileFragment extends BaseFragment {
    */
   @OnClick(R.id.profile_email_layout)
   public void onNotifyEmailClick(){
-
+    Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
+    intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_EMAIL);
+    getContext().startActivity(intent);
   }
 
   /**
@@ -120,7 +136,9 @@ public class ProfileFragment extends BaseFragment {
    */
   @OnClick(R.id.profile_change_pwd)
   public void onNotifyChangePwdClick(){
-
+    Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
+    intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_PWD);
+    getContext().startActivity(intent);
   }
 
   /**

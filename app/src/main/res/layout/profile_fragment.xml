@@ -33,7 +33,7 @@
                     android:id="@+id/profile_avatar"
                     android:layout_width="@dimen/dp75"
                     android:layout_height="@dimen/dp75"
-                    android:src="@drawable/icon"
+                    android:src="@drawable/lcim_default_avatar_icon"
                     android:layout_centerInParent="true"/>
             </RelativeLayout>
 
@@ -51,7 +51,7 @@
 
                 <TextView
                     style="@style/profile_text_left_item"
-                    android:text="姓名："
+                    android:text="@string/profile_name"
                     android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_name"
@@ -68,7 +68,7 @@
                     android:background="@color/white">
 
                     <TextView
-                        android:text="性别："
+                        android:text="@string/profile_sex"
                         style="@style/profile_text_left_item"
                         android:background="@drawable/btn_selector"/>
                     <TextView
@@ -82,11 +82,11 @@
                     android:id="@+id/profile_mark_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:background="@drawable/btn_selector">
 
                     <TextView
                         style="@style/profile_text_left_item"
-                        android:text="简介："
+                        android:text="@string/profile_mark"
                         android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_mark"
@@ -105,7 +105,7 @@
 
                     <TextView
                         style="@style/profile_text_left_item"
-                        android:text="手机："
+                        android:text="@string/profile_phone"
                         android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_phone"
@@ -124,7 +124,7 @@
 
                     <TextView
                         style="@style/profile_text_left_item"
-                        android:text="邮箱："
+                        android:text="@string/profile_email"
                         android:background="@drawable/btn_selector" />
                     <TextView
                         android:id="@+id/profile_email"
@@ -145,7 +145,7 @@
                         android:layout_width="match_parent"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"
-                        android:text="修改密码"
+                        android:text="@string/profile_pwd"
                         android:background="@drawable/btn_selector"
                         android:paddingLeft="@dimen/dp10"
                         android:paddingRight="@dimen/dp18"
@@ -230,7 +230,7 @@
                 android:layout_marginLeft="@dimen/dp55"
                 android:layout_marginRight="@dimen/dp55"
                 android:gravity="center"
-                android:text="退出登录"
+                android:text="@string/logout"
                 android:textSize="@dimen/sp16"/>
         </LinearLayout>
     </ScrollView>

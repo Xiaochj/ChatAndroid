@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 
+import com.im.chat.R;
+
 /**
  * 标题栏
  * Created by cjxiao
@@ -73,6 +75,14 @@ public class HeaderLayout extends LinearLayout {
     ImageButton rightButton = (ImageButton) imageViewLayout.findViewById(com.im.chat.R.id.imageBtn);
     rightButton.setImageResource(rightResId);
     rightButton.setOnClickListener(listener);
+    rightContainer.addView(imageViewLayout);
+  }
+
+  public void showRightText(int rightTextId, OnClickListener listener) {
+    View imageViewLayout = mInflater.inflate(R.layout.chat_common_base_header_right_text, null, false);
+    TextView rightTv = (TextView) imageViewLayout.findViewById(R.id.text_right);
+    rightTv.setText(rightTextId);
+    rightTv.setOnClickListener(listener);
     rightContainer.addView(imageViewLayout);
   }
 }

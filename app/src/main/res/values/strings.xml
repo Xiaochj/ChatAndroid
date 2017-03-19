@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">导演协会im</string>
+    <string name="app_name">导演沟通</string>
 
 
     <string name="update_service_versionIsAlreadyNew">已经是最新版本了</string>
@@ -17,13 +17,32 @@
     <string name="login">登录</string>
     <string name="conversation_messages">聊天</string>
     <string name="contact">通讯录</string>
+    <string name="send_message">发消息</string>
     <string name="profile_settings">Settings</string>
     <string name="profile_title">我的资料</string>
+    <string name="profile_name">姓名：</string>
+    <string name="profile_sex">性别：</string>
+    <string name="profile_mark">简介：</string>
+    <string name="profile_phone">手机：</string>
+    <string name="profile_email">邮箱：</string>
+    <string name="profile_pwd">修改密码</string>
+    <string name="profile_notifySetting">提醒设置</string>
+    <string name="profile_version">版本号</string>
+    <string name="profile_mark_title">简介</string>
+    <string name="profile_phone_title">手机</string>
+    <string name="profile_email_title">邮箱</string>
+    <string name="profile_resume_mark">请输入简介，最多60个字</string>
+    <string name="profile_resume_phone">请输入手机号</string>
+    <string name="profile_resume_email">请输入邮箱</string>
+    <string name="profile_resume_pwd_original">请输入原密码</string>
+    <string name="profile_resume_pwd_new">请输入新密码</string>
+    <string name="profile_resume_pwd_new_next">请再输入一次新密码</string>
     <string name="notification_title">通告</string>
     <string name="person_detail_title">会员资料</string>
-    <string name="profile_notifySetting">提醒设置</string>
     <string name="me">我</string>
+    <string name="logout">退出登录</string>
     <string name="splash_tip">中国电视剧导演工作委员会\n内部沟通工具</string>
+    <string name="common_sure">确定</string>
 
     <string name="login_username_hint">请输入账号</string>
     <string name="password_ischecked">密码可见</string>
@@ -52,7 +71,6 @@
     <string name="contact_deleteFriendRequest">删除好友请求</string>
     <string name="contact_agreed">已同意</string>
     <string name="contact_deleteContact">删除联系人</string>
-    <string name="common_sure">确定</string>
     <string name="contact_deleteSucceed">删除成功</string>
     <string name="contact_findFriends">查找好友</string>
     <string name="contact_add">添加</string>
@@ -63,7 +81,6 @@
     <string name="contact_female">女</string>
     <string name="profile_notifyWhenNews">接收新消息通知</string>
     <string name="profile_fragment_checkUpdate">检查更新</string>
-    <string name="profile_version">版本号</string>
     <string name="conversation_group">群组</string>
     <string name="conversation_name">群组名称</string>
     <string name="conversation_create">创建</string>

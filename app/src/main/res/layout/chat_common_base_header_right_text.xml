@@ -5,10 +5,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageBtn"
+    <TextView
+        android:id="@+id/text_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:text="" />
+        android:text="确定"
+        android:textSize="@dimen/sp20"
+        android:textColor="@color/high_text"/>
+
 </LinearLayout>

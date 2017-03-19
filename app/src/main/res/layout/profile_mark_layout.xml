@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white">
+
+    <include layout="@layout/common_header_layout"
+        android:id="@+id/title_layout"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/high_text"
+        android:layout_marginTop="@dimen/dp17"
+        android:layout_marginLeft="@dimen/dp17"
+        android:text="@string/profile_resume_mark"/>
+
+    <EditText
+        android:id="@+id/mark_edittext"
+        android:maxLength="60"
+        android:gravity="center"
+        android:background="@drawable/lcim_textview_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp246"
+        android:layout_margin="@dimen/dp17"
+        android:paddingLeft="@dimen/dp8"
+        android:paddingRight="@dimen/dp8"
+        android:paddingBottom="@dimen/dp15"
+        android:paddingTop="@dimen/dp15"
+        android:textSize="@dimen/sp16"
+        android:textColor="@color/high_text"
+        android:hint="@string/profile_resume_mark"
+        android:textColorHint="@color/light_text"/>
+
+</LinearLayout>
