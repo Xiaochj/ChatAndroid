@@ -11,31 +11,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import android.widget.LinearLayout;
+
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.im.chat.App;
 import com.im.chat.R;
-import com.im.chat.activity.ConversationGroupListActivity;
+import com.im.chat.activity.ChatRoomActivity;
 import com.im.chat.activity.SearchActivity;
 import com.im.chat.adapter.ContactsAdapter;
 import com.im.chat.event.ContactItemClickEvent;
 import com.im.chat.event.ContactItemLongClickEvent;
 import com.im.chat.event.ContactRefreshEvent;
-import com.im.chat.event.InvitationEvent;
+import com.im.chat.event.GroupItemClickEvent;
 import com.im.chat.event.MemberLetterEvent;
 import com.im.chat.fragment.BaseFragment;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.util.Constants;
+import com.im.chat.util.ConversationUtils;
+import com.im.chat.viewholder.GroupItemHolder;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -51,29 +56,35 @@ public class ContactFragment extends BaseFragment {
   @Bind(R.id.activity_square_members_srl_list)
   protected SwipeRefreshLayout refreshLayout;
 
+  @Bind(R.id.contact_search_layout)
+  protected LinearLayout mSearchLayout;
+
   @Bind(R.id.activity_square_members_rv_list)
   protected RecyclerView recyclerView;
-
-  private View headerView;
-  ImageView msgTipsView;
-
   private ContactsAdapter itemAdapter;
   LinearLayoutManager layoutManager;
 
-  @Bind(R.id.contact_search_layout)
-  protected LinearLayout mSearchLayout;
+  private View headerView;
+  RecyclerView recyclerViewForGroup;
+  LinearLayoutManager layoutManagerForGroup;
+  private LCIMCommonListAdapter<AVIMConversation> itemAdapterForGroup;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     View view = inflater.inflate(R.layout.contact_fragment, container, false);
-    headerView = inflater.inflate(R.layout.contact_fragment_header_layout, container, false);
+    headerView = inflater.inflate(R.layout.contact_qunliao_layout, container, false);
     ButterKnife.bind(this, view);
+
+    recyclerViewForGroup = (RecyclerView)headerView.findViewById(R.id.group_list_view);
+    layoutManagerForGroup = new LinearLayoutManager(getActivity());
+    recyclerViewForGroup.setLayoutManager(layoutManagerForGroup);
+    itemAdapterForGroup = new LCIMCommonListAdapter<>(GroupItemHolder.class);
+    recyclerViewForGroup.setAdapter(itemAdapterForGroup);
 
     layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setLayoutManager(layoutManager);
-
     itemAdapter = new ContactsAdapter();
     itemAdapter.setHeaderView(headerView);
     recyclerView.setAdapter(itemAdapter);
@@ -90,9 +101,14 @@ public class ContactFragment extends BaseFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    initHeaderView();
-    initTitle();
-    refresh();
+    headerLayout.showTitle(App.ctx.getString(R.string.contact));
+    //search的按钮
+    mSearchLayout.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        Intent intent = new Intent(ctx, SearchActivity.class);
+        ctx.startActivity(intent);
+      }
+    });
     EventBus.getDefault().register(this);
     getMembers(false);
   }
@@ -106,68 +122,25 @@ public class ContactFragment extends BaseFragment {
   @Override
   public void onResume() {
     super.onResume();
-    updateNewRequestBadge();
-  }
-
-  /**
-   * search,新朋友item和群聊item
-   */
-  private void initHeaderView() {
-    //search的按钮
-    mSearchLayout.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        Intent intent = new Intent(ctx, SearchActivity.class);
-        ctx.startActivity(intent);
-      }
-    });
-    msgTipsView = (ImageView) headerView.findViewById(R.id.iv_msg_tips);
-    View newView = headerView.findViewById(R.id.layout_new);
-    newView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(ctx, ContactNewFriendActivity.class);
-        ctx.startActivity(intent);
-      }
-    });
-
-    View groupView = headerView.findViewById(R.id.layout_group);
-    groupView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(ctx, ConversationGroupListActivity.class);
-        ctx.startActivity(intent);
-      }
-    });
   }
 
   private void getMembers(final boolean isforce) {
+    ConversationUtils.findGroupConversationsIncludeMe(new AVIMConversationQueryCallback() {
+      @Override
+      public void done(List<AVIMConversation> conversations, AVIMException e) {
+        if (filterException(e)) {
+          refreshLayout.setRefreshing(false);
+          itemAdapterForGroup.setDataList(conversations);
+          itemAdapterForGroup.notifyDataSetChanged();
+        }
+      }
+    });
     FriendsManager.fetchFriends(isforce, new FindCallback<LeanchatUser>() {
       @Override
       public void done(List<LeanchatUser> list, AVException e) {
         refreshLayout.setRefreshing(false);
         itemAdapter.setUserList(list);
         itemAdapter.notifyDataSetChanged();
-      }
-    });
-  }
-
-  /**
-   * 初始化标题栏
-   */
-  private void initTitle() {
-    headerLayout.showTitle(App.ctx.getString(R.string.contact));
-  }
-
-  private void updateNewRequestBadge() {
-    msgTipsView.setVisibility(
-      AddRequestManager.getInstance().hasUnreadRequests() ? View.VISIBLE : View.GONE);
-  }
-
-  private void refresh() {
-    AddRequestManager.getInstance().countUnreadRequests(new CountCallback() {
-      @Override
-      public void done(int i, AVException e) {
-        updateNewRequestBadge();
       }
     });
   }
@@ -195,11 +168,6 @@ public class ContactFragment extends BaseFragment {
     getMembers(true);
   }
 
-  public void onEvent(InvitationEvent event) {
-    AddRequestManager.getInstance().unreadRequestsIncrement();
-    updateNewRequestBadge();
-  }
-
   /**
    * 点击item,跳转到朋友资料页面
    * @param event
@@ -220,6 +188,24 @@ public class ContactFragment extends BaseFragment {
   }
 
   /**
+   * 跳转到群聊页面
+   * @param event
+     */
+  public void onEvent(GroupItemClickEvent event) {
+    Intent intent = new Intent(getActivity(), ChatRoomActivity.class);
+    intent.putExtra(LCIMConstants.CONVERSATION_ID, event.conversationId);
+    startActivity(intent);
+  }
+
+//  /**
+//   * 长按group list item
+//   * @param event
+//   */
+//  public void onEvent(GroupItemLongClickEvent event) {
+//    showDeleteDialog(event.conversationId);
+//  }
+
+  /**
    * 处理 LetterView 发送过来的 MemberLetterEvent
    * 会通过 MembersAdapter 获取应该要跳转到的位置，然后跳转
    */
@@ -233,4 +219,5 @@ public class ContactFragment extends BaseFragment {
       }
     }
   }
+
 }

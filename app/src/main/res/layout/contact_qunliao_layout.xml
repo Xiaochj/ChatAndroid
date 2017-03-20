@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View style="@style/LCIMDividerLine.Horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_white"
+        android:paddingLeft="@dimen/dp8"
+        android:paddingBottom="@dimen/dp2"
+        android:paddingTop="@dimen/dp2"
+        android:textColor="@color/high_text"
+        android:textSize="@dimen/sp16"
+        android:text="@string/conversation_qunliao"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp10"
+        android:background="@color/white"/>
+
+</LinearLayout>
