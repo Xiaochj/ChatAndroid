@@ -16,12 +16,23 @@
         android:layout_marginTop="@dimen/dp46"
         android:layout_marginBottom="@dimen/dp10"
         android:src="@drawable/logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_title"
+        android:gravity="center"
+        android:textSize="@dimen/sp24"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="@dimen/dp11"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/splash_tip"
         android:gravity="center"
-        android:textSize="@dimen/sp6"
+        android:textSize="@dimen/sp12"
+        android:textColor="@android:color/black"
         android:layout_marginBottom="@dimen/dp11"/>
 
     <EditText
@@ -35,7 +46,7 @@
         android:layout_marginTop="@dimen/dp17"
         android:paddingBottom="@dimen/dp15"
         android:paddingTop="@dimen/dp15"
-        android:textSize="@dimen/sp11"
+        android:textSize="@dimen/sp18"
         android:textColor="@color/high_text"
         android:hint="@string/login_username_hint"
         android:textColorHint="@color/light_text"/>
@@ -57,7 +68,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp15"
             android:paddingTop="@dimen/dp15"
-            android:textSize="@dimen/sp11"
+            android:textSize="@dimen/sp18"
             android:hint="@string/login_password_hint"
             android:textColor="@color/high_text"
             android:textColorHint="@color/light_text"/>
@@ -89,5 +100,5 @@
         android:paddingLeft="@dimen/dp69"
         android:paddingRight="@dimen/dp69"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp10"/>
+        android:textSize="@dimen/sp18"/>
 </LinearLayout>

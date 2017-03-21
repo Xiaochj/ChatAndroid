@@ -50,6 +50,7 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
                 headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
                 headerLayout.showLeftBackButton(R.string.profile_mark_title,null);
                 markEt = (EditText)view.findViewById(R.id.mark_edittext);
+                markEt.setText(intent.getStringExtra(ProfileFragment.PROFILE_CONTENT_KEY));
                 break;
             case ProfileFragment.PROFILE_PHONE:
                 view = LayoutInflater.from(this).inflate(R.layout.profile_phone_layout,null);
@@ -57,6 +58,7 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
                 headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
                 headerLayout.showLeftBackButton(R.string.profile_phone_title,null);
                 phoneEt = (EditText)view.findViewById(R.id.phone_edittext);
+                phoneEt.setText(intent.getStringExtra(ProfileFragment.PROFILE_CONTENT_KEY));
                 break;
             case ProfileFragment.PROFILE_EMAIL:
                 view = LayoutInflater.from(this).inflate(R.layout.profile_email_layout,null);
@@ -64,6 +66,7 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
                 headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
                 headerLayout.showLeftBackButton(R.string.profile_email_title,null);
                 emailEt = (EditText)view.findViewById(R.id.email_edittext);
+                emailEt.setText(intent.getStringExtra(ProfileFragment.PROFILE_CONTENT_KEY));
                 break;
             case ProfileFragment.PROFILE_PWD:
                 view = LayoutInflater.from(this).inflate(R.layout.profile_pwd_layout,null);

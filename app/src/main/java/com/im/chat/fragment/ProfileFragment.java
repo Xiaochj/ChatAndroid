@@ -118,6 +118,7 @@ public class ProfileFragment extends BaseFragment {
   public void onNotifyPhoneClick(){
     Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
     intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_PHONE);
+    intent.putExtra(PROFILE_CONTENT_KEY,mPhoneTv.getText().toString());
     getContext().startActivity(intent);
   }
 
@@ -128,6 +129,7 @@ public class ProfileFragment extends BaseFragment {
   public void onNotifyEmailClick(){
     Intent intent = new Intent(getContext(), ProfileResumeActivity.class);
     intent.putExtra(PROFILE_EXTRA_KEY,PROFILE_EMAIL);
+    intent.putExtra(PROFILE_CONTENT_KEY,mEmailTv.getText().toString());
     getContext().startActivity(intent);
   }
 

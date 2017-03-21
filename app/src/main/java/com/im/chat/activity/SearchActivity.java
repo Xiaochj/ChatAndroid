@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.im.chat.R;
 
@@ -25,6 +26,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Bind(R.id.contact_searchView)
     SearchView mSearchView;
+    @Bind(R.id.quit_layout)
+    TextView mQuitTv;
     @Bind(R.id.contact_listView)
     ListView mListView;
     private List<String> mList = new ArrayList<String>(Arrays.asList("aaa", "bbb", "ccc", "airsaid"));
@@ -34,11 +37,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search_layout);
+        mQuitTv.setOnClickListener(this);
         //list转array
         mStrArray = mList.toArray(new String[mList.size()]);
         mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrArray));
         mListView.setTextFilterEnabled(true);
-
         // 设置搜索文本监听
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // 当点击搜索按钮时触发该方法
@@ -62,6 +65,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.quit_layout:
+                finish();
+                break;
+        }
     }
 }

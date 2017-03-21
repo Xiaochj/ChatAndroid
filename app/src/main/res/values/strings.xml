@@ -46,6 +46,7 @@
     <string name="person_detail_title">会员资料</string>
     <string name="me">我</string>
     <string name="logout">退出登录</string>
+    <string name="splash_title">导演沟通</string>
     <string name="splash_tip">中国电视剧导演工作委员会\n内部沟通工具</string>
     <string name="common_sure">确定</string>
 
