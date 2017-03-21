@@ -53,6 +53,7 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
     setContentView(R.layout.contact_detail_layout);
     HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
     headerLayout.showLeftBackButton(R.string.person_detail_title,null);
+    mButton.setOnClickListener(this);
     initData();//获取传递过来的intent
     initView();//初始化view，塞给那些textview
   }
@@ -95,7 +96,6 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
 
   @Override
   public void onClick(View v) {
-    // TODO Auto-generated method stub
     switch (v.getId()) {
       case R.id.contact_detail_btn:// 发起聊天
         Intent intent = new Intent(this, ChatRoomActivity.class);
