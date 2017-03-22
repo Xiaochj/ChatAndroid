@@ -35,9 +35,11 @@
             style="@style/My.TextView._Black"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
             android:layout_toRightOf="@id/img_friend_avatar"
             android:singleLine="true"
             android:text="name"
+            android:ellipsize="middle"
             android:textSize="@dimen/sp18" />
     </RelativeLayout>
 

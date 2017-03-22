@@ -153,7 +153,8 @@
                         android:paddingBottom="@dimen/dp13"
                         android:textSize="@dimen/sp16"
                         android:drawablePadding="@dimen/dp10"
-                        android:drawableRight="@drawable/right"/>
+                        android:drawableRight="@drawable/right"
+                        android:textColor="@color/high_text"/>
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
             </LinearLayout>
@@ -179,7 +180,8 @@
                     android:paddingBottom="@dimen/dp13"
                     android:textSize="@dimen/sp16"
                     android:drawablePadding="@dimen/dp10"
-                    android:drawableRight="@drawable/right"/>
+                    android:drawableRight="@drawable/right"
+                    android:textColor="@color/high_text"/>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
 
@@ -212,7 +214,8 @@
                         android:paddingTop="@dimen/dp13"
                         android:paddingBottom="@dimen/dp13"
                         android:layout_alignParentRight="true"
-                        android:textSize="@dimen/sp16"/>
+                        android:textSize="@dimen/sp16"
+                        android:textColor="@color/high_text"/>
                 </RelativeLayout>
 
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -231,7 +234,8 @@
                 android:layout_marginRight="@dimen/dp55"
                 android:gravity="center"
                 android:text="@string/logout"
-                android:textSize="@dimen/sp16"/>
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

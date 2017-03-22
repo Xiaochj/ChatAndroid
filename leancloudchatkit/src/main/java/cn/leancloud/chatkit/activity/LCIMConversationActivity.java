@@ -97,7 +97,7 @@ public class LCIMConversationActivity extends AppCompatActivity {
    *
    * @param conversation
    */
-  protected void updateConversation(AVIMConversation conversation) {
+  protected void updateConversation(final AVIMConversation conversation) {
     if (null != conversation) {
       conversationFragment.setConversation(conversation);
       LCIMConversationItemCache.getInstance().clearUnread(conversation.getConversationId());
@@ -107,7 +107,7 @@ public class LCIMConversationActivity extends AppCompatActivity {
           if (null != e) {
             LCIMLogUtils.logException(e);
           } else {
-            initActionBar(s);
+            initActionBar(s+"("+conversation.getMembers().size()+")");
           }
         }
       });

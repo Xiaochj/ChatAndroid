@@ -3,16 +3,15 @@ package com.im.chat.viewholder;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.leancloud.chatkit.view.RoundImageView;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.im.chat.event.GroupItemClickEvent;
 import com.im.chat.util.ConversationUtils;
 
+import cn.leancloud.chatkit.view.RoundImageView;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
 
@@ -50,7 +49,7 @@ public class GroupItemHolder extends LCIMCommonViewHolder<AVIMConversation> {
       ConversationUtils.getConversationName(conversation, new AVCallback<String>() {
         @Override
         protected void internalDone0(String s, AVException e) {
-          nameView.setText(s);
+          nameView.setText(s+"("+conversation.getMembers().size()+")");
         }
       });
     } else {

@@ -13,6 +13,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -22,13 +23,13 @@ import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.event.ConversationMemberClickEvent;
 import com.im.chat.friends.ContactPersonInfoActivity;
 import com.im.chat.model.ConversationType;
+import com.im.chat.model.LeanchatUser;
 import com.im.chat.util.Constants;
 import com.im.chat.util.ConversationUtils;
-import com.im.chat.util.Utils;
-import com.im.chat.viewholder.ConversationDetailItemHolder;
-import com.im.chat.model.LeanchatUser;
 import com.im.chat.util.UserCacheUtils;
 import com.im.chat.util.UserCacheUtils.CacheUserCallback;
+import com.im.chat.util.Utils;
+import com.im.chat.viewholder.ConversationDetailItemHolder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +55,7 @@ public class ConversationDetailActivity extends BaseActivity {
 
   View nameLayout;
   View quitLayout;
+  TextView nameTv;
 
   ConversationType conversationType;
 
@@ -68,6 +70,8 @@ public class ConversationDetailActivity extends BaseActivity {
 
     View footerView = getLayoutInflater().inflate(R.layout.conversation_detail_footer_layout, null);
     nameLayout = footerView.findViewById(R.id.name_layout);
+    nameTv = (TextView)footerView.findViewById(R.id.conversation_name_tv);
+    nameTv.setText(conversation.getName());
     nameLayout.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -94,7 +98,7 @@ public class ConversationDetailActivity extends BaseActivity {
 
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(listAdapter);
-    setTitle(R.string.conversation_detail_title);
+    setTitle(getString(R.string.conversation_detail_title)+"("+conversation.getMembers().size()+")");
     //显示左上角的返回按钮
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     conversationType = ConversationUtils.typeOfConversation(conversation);
@@ -168,7 +172,7 @@ public class ConversationDetailActivity extends BaseActivity {
 
   private void gotoModifyNameActivity() {
     Intent intent = new Intent(this, UpdateContentActivity.class);
-    intent.putExtra(Constants.INTENT_KEY, getString(R.string.conversation_name));
+    intent.putExtra(Constants.INTENT_KEY, conversation.getName());
     startActivityForResult(intent, INTENT_NAME);
   }
 
@@ -227,6 +231,7 @@ public class ConversationDetailActivity extends BaseActivity {
     if (resultCode == RESULT_OK) {
       if (requestCode == INTENT_NAME) {
         String newName = data.getStringExtra(Constants.INTENT_VALUE);
+        nameTv.setText(newName);
         updateName(conversation, newName, new AVIMConversationCallback() {
           @Override
           public void done(AVIMException e) {

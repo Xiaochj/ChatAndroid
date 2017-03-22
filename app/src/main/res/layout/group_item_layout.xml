@@ -23,8 +23,10 @@
             style="@style/My.TextView._Black"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
             android:layout_toRightOf="@id/group_item_iv_icon"
             android:singleLine="true"
+            android:ellipsize="middle"
             android:text="name"
             android:textSize="@dimen/sp18" />
     </RelativeLayout>

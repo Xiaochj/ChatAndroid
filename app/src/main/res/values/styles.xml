@@ -155,6 +155,7 @@
         <item name="android:paddingBottom">@dimen/dp13</item>
         <item name="android:paddingTop">@dimen/dp13</item>
         <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:textColor">@color/high_text</item>
     </style>
 
     <style name="profile_text_right_item">
@@ -165,6 +166,7 @@
         <item name="android:paddingBottom">@dimen/dp13</item>
         <item name="android:paddingTop">@dimen/dp13</item>
         <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:textColor">@color/high_text</item>
     </style>
 
 </resources>

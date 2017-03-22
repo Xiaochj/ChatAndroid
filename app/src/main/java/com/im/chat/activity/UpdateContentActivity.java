@@ -23,10 +23,11 @@ public class UpdateContentActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(com.im.chat.R.layout.update_content_layout);
-    setTitle(R.string.conversation_name);
+    setTitle(R.string.conversation_name_nomaohao);
     //显示左上角的返回按钮
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     valueEdit = (EditText) findViewById(com.im.chat.R.id.valueEdit);
+    valueEdit.setText(getIntent().getStringExtra(Constants.INTENT_KEY));
   }
 
   @Override
