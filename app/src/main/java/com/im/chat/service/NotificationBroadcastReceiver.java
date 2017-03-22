@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.im.chat.activity.ChatRoomActivity;
-import com.im.chat.friends.ContactNewFriendActivity;
 import com.im.chat.activity.EntrySplashActivity;
 import com.im.chat.util.Constants;
 
@@ -32,9 +31,9 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         gotoChatActivity(context, intent);
       } else if (Constants.NOTIFICATION_SINGLE_CHAT.equals(tag)) {
         gotoChatActivity(context, intent);
-      } else if (Constants.NOTIFICATION_SYSTEM.equals(tag)) {
+      } /*else if (Constants.NOTIFICATION_SYSTEM.equals(tag)) {
         gotoNewFriendActivity(context,intent);
-      }
+      }*/
     }
   }
 
@@ -64,9 +63,9 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
     context.startActivity(startActivityIntent);
   }
 
-  private void gotoNewFriendActivity(Context context, Intent intent) {
-    Intent startActivityIntent = new Intent(context, ContactNewFriendActivity.class);
-    startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    context.startActivity(startActivityIntent);
-  }
+  //private void gotoNewFriendActivity(Context context, Intent intent) {
+  //  Intent startActivityIntent = new Intent(context, ContactNewFriendActivity.class);
+  //  startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+  //  context.startActivity(startActivityIntent);
+  //}
 }

@@ -5,11 +5,8 @@ import android.os.StrictMode;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVObject;
 import com.baidu.mapapi.SDKInitializer;
-import com.im.chat.friends.AddRequest;
 import com.im.chat.model.LeanchatUser;
-import com.im.chat.model.UpdateInfo;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.LeanchatUserProvider;
 import com.im.chat.util.Utils;
@@ -34,8 +31,8 @@ public class App extends Application {
 
     LeanchatUser.alwaysUseSubUserClass(LeanchatUser.class);
 
-    AVObject.registerSubclass(AddRequest.class);
-    AVObject.registerSubclass(UpdateInfo.class);
+    //AVObject.registerSubclass(AddRequest.class);
+    //AVObject.registerSubclass(UpdateInfo.class);
 
     // 节省流量
     AVOSCloud.setLastModifyEnabled(true);

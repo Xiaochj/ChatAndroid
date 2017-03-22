@@ -75,9 +75,9 @@ public class MainActivity extends BaseActivity {
   @Override
   protected void onResume() {
     super.onResume();
-    //更新版本
-    UpdateService updateService = UpdateService.getInstance(this);
-    updateService.checkUpdate();
+    ////更新版本
+    //UpdateService updateService = UpdateService.getInstance(this);
+    //updateService.checkUpdate();
   }
 
   private void initBaiduLocClient() {
