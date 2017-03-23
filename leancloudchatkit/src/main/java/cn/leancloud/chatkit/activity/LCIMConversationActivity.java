@@ -107,7 +107,7 @@ public class LCIMConversationActivity extends AppCompatActivity {
           if (null != e) {
             LCIMLogUtils.logException(e);
           } else {
-            initActionBar(s+"("+conversation.getMembers().size()+")");
+            initActionBar(s);
           }
         }
       });

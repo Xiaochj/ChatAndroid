@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">导演沟通</string>
+    <string name="app_name">名导会议室</string>
 
 
     <string name="update_service_versionIsAlreadyNew">已经是最新版本了</string>
@@ -47,7 +47,7 @@
     <string name="person_detail_title">会员资料</string>
     <string name="me">我</string>
     <string name="logout">退出登录</string>
-    <string name="splash_title">导演沟通</string>
+    <string name="splash_title">名导会议室</string>
     <string name="splash_tip">中国电视剧导演工作委员会\n内部沟通工具</string>
     <string name="common_sure">确定</string>
 

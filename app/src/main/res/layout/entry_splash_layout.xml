@@ -3,23 +3,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     >
 
   <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/logo"
-      android:layout_marginTop="@dimen/dp55"
-      android:layout_centerHorizontal="true"/>
-
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/splash_tip"
-      android:gravity="center"
-      android:layout_marginBottom="@dimen/dp27.5"
-      android:layout_centerHorizontal="true"
-      android:layout_alignParentBottom="true"/>
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:src="@drawable/slpash"/>
 
 </RelativeLayout>
