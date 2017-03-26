@@ -12,10 +12,25 @@ android {
     multiDexEnabled true
   }
 
-  buildTypes {
+  signingConfigs {
     release {
+      storeFile file("keystore.jks")
+      storePassword "chatandroid"
+      keyAlias "keystore"
+      keyPassword "chatandroid"
+    }
+  }
+
+  buildTypes {
+    debug {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+      signingConfig signingConfigs.release
+    }
+    release {
+      minifyEnabled true
+      proguardFiles 'proguard-rules.pro'
+      //签名设置 没有会出现Error: The apk for your currently selected variant(app-release-unsigned.apk) is not signed. please specify a signing configuration for this variant(release)
+      signingConfig signingConfigs.release
     }
   }
 
@@ -58,7 +73,4 @@ dependencies {
   compile 'io.reactivex:rxandroid:1.2.1'
   compile 'io.reactivex:rxjava:1.1.6'
 
-  //RecyclerView升级包
-  //TODO: 修复RecyclerView高度设置为wrap_content时不起作用的问题
-  compile 'com.android.support:recyclerview-v7:23.2.0'
 }

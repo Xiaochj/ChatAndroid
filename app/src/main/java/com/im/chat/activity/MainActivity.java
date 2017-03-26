@@ -19,7 +19,6 @@ import com.im.chat.fragment.ProfileFragment;
 import com.im.chat.friends.ContactFragment;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PreferenceMap;
-import com.im.chat.service.UpdateService;
 import com.im.chat.util.LogUtils;
 import com.im.chat.util.UserCacheUtils;
 import com.im.chat.util.Utils;
