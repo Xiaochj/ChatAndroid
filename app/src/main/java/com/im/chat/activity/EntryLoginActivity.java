@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
@@ -17,15 +17,16 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import com.im.chat.engine.AppEngine;
-import com.im.chat.model.BaseResponse;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.LoginBean;
 import com.im.chat.model.UserBean;
+import com.im.chat.util.UserCacheUtils;
 import com.im.chat.util.Utils;
+import com.im.chat.view.HeaderLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
-import com.im.chat.view.HeaderLayout;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -57,11 +58,11 @@ public class EntryLoginActivity extends BaseActivity {
 
   @OnClick(com.im.chat.R.id.activity_login_btn_login)
   public void onLoginClick(View v) {
-    //login();
-    final ProgressDialog dialog = showSpinnerDialog();//test
-    final String name = userNameView.getText().toString().trim();
-    final String password = passwordView.getText().toString().trim();
-    loginLeanchat(name,password,dialog);
+    login();
+//    final ProgressDialog dialog = showSpinnerDialog();//test
+//    final String name = userNameView.getText().toString().trim();
+//    final String password = passwordView.getText().toString().trim();
+//    loginLeanchat(name,password,dialog);
   }
 
   private void login() {
@@ -82,7 +83,7 @@ public class EntryLoginActivity extends BaseActivity {
     //发送账号密码，请求自家服务器，验证通过
     UserBean userBean = new UserBean(name,password);
     AppEngine.getInstance().getAppService().login(userBean).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseResponse>() {
+        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<LoginBean>() {
       @Override
       public void onCompleted() {
 
@@ -91,11 +92,16 @@ public class EntryLoginActivity extends BaseActivity {
       @Override
       public void onError(Throwable e) {
         //自家服务器失败
+        dialog.dismiss();
+        Utils.toast(R.string.login_error);
+        return;
       }
 
       @Override
-      public void onNext(BaseResponse baseResponse) {
-        //自家服务器成功
+      public void onNext(LoginBean loginBean) {
+        //自家服务器成功，存取token和id,訪問leancloud的服務器
+        UserCacheUtils.putString(getApplicationContext(),UserCacheUtils.KEY_USERID,loginBean.getData().getId());
+        UserCacheUtils.putString(getApplicationContext(),UserCacheUtils.KEY_TOKEN,loginBean.getData().getToken());
         loginLeanchat(name, password, dialog);
       }
     });

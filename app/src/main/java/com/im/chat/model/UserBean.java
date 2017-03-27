@@ -7,20 +7,20 @@ package com.im.chat.model;
 
 public class UserBean {
 
-  String name;
+  String mobile;
   String password;
 
-  public UserBean(String name,String password){
-    this.name = name;
+  public UserBean(String mobile,String password){
+    this.mobile = mobile;
     this.password = password;
   }
 
-  public String getName() {
-    return name;
+  public String getMobile() {
+    return mobile;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setMobile(String name) {
+    this.mobile = name;
   }
 
   public String getPassword() {

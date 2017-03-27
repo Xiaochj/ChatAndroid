@@ -1,5 +1,7 @@
 package com.im.chat.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVException;
@@ -21,6 +23,9 @@ import java.util.Set;
  * 2、避免内存、外存占用过多
  */
 public class UserCacheUtils {
+
+  public static final String KEY_USERID = "userid";
+  public static final String KEY_TOKEN = "token";
 
   private static Map<String, LeanchatUser> userMap;
 
@@ -100,5 +105,29 @@ public class UserCacheUtils {
 
   public static abstract class CacheUserCallback {
     public abstract void done(List<LeanchatUser> userList, Exception e);
+  }
+
+  /**
+   * 保存String类型的数据
+   * @param context
+   * @param key
+   * @param values
+   */
+  public static void putString(Context context, String key, String values) {
+    SharedPreferences sp = context.getSharedPreferences("chatIm",Context.MODE_PRIVATE);
+    sp.edit().putString(key,values).commit();
+
+  }
+
+  /**
+   * 得到缓存数据
+   * @param context
+   * @param key
+   * @return
+   */
+  public static String getString(Context context, String key) {
+    SharedPreferences sp = context.getSharedPreferences("chatIm",Context.MODE_PRIVATE);
+
+    return sp.getString(key,"");
   }
 }

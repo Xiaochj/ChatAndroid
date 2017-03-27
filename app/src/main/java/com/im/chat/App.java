@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.baidu.mapapi.SDKInitializer;
+import com.im.chat.engine.AppEngine;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.LeanchatUserProvider;
@@ -28,6 +29,8 @@ public class App extends Application {
 
     String appId = "x3o016bxnkpyee7e9pa5pre6efx2dadyerdlcez0wbzhw25g";
     String appKey = "057x24cfdzhffnl3dzk14jh9xo2rq6w1hy1fdzt5tv46ym78";
+
+    AppEngine.init(getApplicationContext());
 
     LeanchatUser.alwaysUseSubUserClass(LeanchatUser.class);
 

@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 网络框架
- * Created by lzb on 16/9/7.
+ * Created by xiaochj on 17/3/27.
  */
 public final class AppEngine {
 
@@ -34,7 +34,7 @@ public final class AppEngine {
     private void initRetrofit(Context context) {
         appAuthClient = defaultOkHttpClient(context, true);
         appService = new Retrofit.Builder()
-                //.baseUrl(Url.getHost())
+                .baseUrl(Urls.DEGBUG_URL)
                 .addConverterFactory(new EmptyJsonLenientConverterFactory(GsonConverterFactory.create()))
 //                .addConverterFactory(GsonConverterFactory.create()) by cctv
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
