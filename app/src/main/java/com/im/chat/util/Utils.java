@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -112,5 +113,15 @@ public class Utils {
       } catch (Exception e) {
       }
     }
+  }
+
+  public static synchronized String getVersionName(Context context){
+    String vn = null;
+    try {
+      vn = context.getPackageManager().getPackageInfo(context.getPackageName(),0).versionName;
+    } catch (PackageManager.NameNotFoundException e) {
+      e.printStackTrace();
+    }
+    return vn;
   }
 }

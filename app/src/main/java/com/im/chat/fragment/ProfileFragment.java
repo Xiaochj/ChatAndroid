@@ -76,6 +76,7 @@ public class ProfileFragment extends BaseFragment {
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     headerLayout.showTitle(R.string.profile_title);
+    mVersion.setText(Utils.getVersionName(this.getActivity()));
   }
 
   @Override

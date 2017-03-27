@@ -32,6 +32,10 @@
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
 
+#不混淆反射类
+-keepclasseswithmembernames class com.im.chat.viewholder.** {*;}
+-keepclasseswithmembernames class cn.leancloud.chatkit.adapter.LCIMCommonListAdapter{*;}
+
 -keepclasseswithmembernames class * {
     native <methods>;
 }
@@ -75,13 +79,17 @@
 -dontwarn javax.annotation.**
 -dontwarn com.android.volley.toolbox.**
 
--dontwarn android.support.v4.**
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.app.** { *; }
--keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
--keep class android.support.v7.** {*;}
 -keep class android.support.graphics.drawable.** {*;}
+
+-keep class android.support.** { *; }
+-keep class android.support.v4.** { *; }
+-keep public class * extends android.support.v4.**
+-keep interface android.support.v4.app.** { *; }
+-keep class android.support.v7.** { *; }
+-keep public class * extends android.support.v7.**
+-keep interface android.support.v7.app.** { *; }
+-dontwarn android.support.**
 
 #glide
 -dontwarn com.bumptech.glide.**
@@ -134,7 +142,9 @@
 
 #rx
 -dontwarn rx.**
--keep class rx.** {*;}
+-keepclassmembers class rx.** { *; }
+# retrolambda
+-dontwarn java.lang.invoke.*
 
 #jpinyin
 -dontwarn com.github.stuxuhai.jpinyin.**

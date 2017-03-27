@@ -208,7 +208,6 @@
                         android:layout_width="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_height="wrap_content"
-                        android:text="6.72"
                         android:paddingLeft="@dimen/dp10"
                         android:paddingRight="@dimen/dp18"
                         android:paddingTop="@dimen/dp13"
