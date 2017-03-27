@@ -59,7 +59,9 @@ public class EntryLoginActivity extends BaseActivity {
   public void onLoginClick(View v) {
     //login();
     final ProgressDialog dialog = showSpinnerDialog();//test
-    loginLeanchat("兔兔图","qqq",dialog);
+    final String name = userNameView.getText().toString().trim();
+    final String password = passwordView.getText().toString().trim();
+    loginLeanchat(name,password,dialog);
   }
 
   private void login() {
