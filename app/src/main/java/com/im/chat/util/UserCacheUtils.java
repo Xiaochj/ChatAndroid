@@ -24,9 +24,6 @@ import java.util.Set;
  */
 public class UserCacheUtils {
 
-  public static final String KEY_USERID = "userid";
-  public static final String KEY_TOKEN = "token";
-
   private static Map<String, LeanchatUser> userMap;
 
   static {

@@ -14,8 +14,12 @@ import com.avos.avoscloud.FindCallback;
 import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
+import com.im.chat.engine.AppEngine;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.model.NotifyItemBean;
+import com.im.chat.model.NotifyListBean;
+import com.im.chat.model.NotifyListModel;
+import com.im.chat.model.NotifyListRequestBean;
 import com.im.chat.service.PreferenceMap;
 import com.im.chat.util.Constants;
 import com.im.chat.util.LogUtils;
@@ -28,6 +32,10 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 通告页
@@ -77,11 +85,33 @@ public class NotificationFragment extends BaseFragment {
 
   private void loadMoreData(int skip,int limit,boolean isRefresh){
     //调用retrofit自己的服务器接口
-    ArrayList<NotifyItemBean> list = new ArrayList<>();
-    for(int i = 0; i< 20; i++){
-      list.add(new NotifyItemBean("",i+"就这么牛逼！！！","adsfasdfasdfasdasdfasdf阿斯顿发送到发送到发","2017-12-12"));
-    }
-    recyclerView.setLoadComplete(list.toArray(), isRefresh);
+    NotifyListRequestBean notifyListRequestBean = new NotifyListRequestBean(skip,limit);
+    AppEngine.getInstance().getAppService().getNotifyList(notifyListRequestBean).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<NotifyListBean>() {
+      @Override public void onCompleted() {
+
+      }
+
+      @Override public void onError(Throwable e) {
+
+      }
+
+      @Override public void onNext(NotifyListBean notifyListBean) {
+        if(notifyListBean.getStatus() == 1) {
+          if(notifyListBean.getData() != null) {
+            ArrayList<NotifyItemBean> list = new ArrayList<>();
+            List<NotifyListModel> notifyListModelList = notifyListBean.getData();
+            for (NotifyListModel notifyListModel : notifyListModelList) {
+              NotifyItemBean notifyItemBean =
+                  new NotifyItemBean("", notifyListModel.getName(),
+                      notifyListModel.getDescription(), notifyListModel.getCreate_time(),notifyListModel.getUrl());
+              list.add(notifyItemBean);
+            }
+            recyclerView.setLoadComplete(list.toArray(), isRefresh);
+          }
+        }
+      }
+    });
   }
 
   /**

@@ -24,6 +24,7 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
 
     cn.leancloud.chatkit.view.RoundImageView mImageView;
     TextView mTitleTv,mContentTv,mTimeTv;
+    String mUrl;
 
     public NotifyItemHolder(Context context, ViewGroup root) {
         super(context, root, R.layout.notify_item);
@@ -39,6 +40,7 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), NotifyDetailActivity.class);
+                intent.putExtra("itemUrl",mUrl);
                 getContext().startActivity(intent);
             }
         });
@@ -58,6 +60,7 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyItemBean> {
             mTitleTv.setText(notifyItemBean.getTitle());
             mTimeTv.setText(notifyItemBean.getTime());
             mContentTv.setText(notifyItemBean.getContent());
+            mUrl = notifyItemBean.getUrl();//通告详情页的url
         }
 
     }

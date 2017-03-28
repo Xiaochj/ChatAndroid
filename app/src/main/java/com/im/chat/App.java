@@ -27,8 +27,12 @@ public class App extends Application {
     ctx = this;
     Utils.fixAsyncTaskBug();
 
-    String appId = "x3o016bxnkpyee7e9pa5pre6efx2dadyerdlcez0wbzhw25g";
-    String appKey = "057x24cfdzhffnl3dzk14jh9xo2rq6w1hy1fdzt5tv46ym78";
+    //测试appid 和 appkey
+    //String appId = "x3o016bxnkpyee7e9pa5pre6efx2dadyerdlcez0wbzhw25g";
+    //String appKey = "057x24cfdzhffnl3dzk14jh9xo2rq6w1hy1fdzt5tv46ym78";
+
+    String appId = "PJ6AMkl0FiKa0tuxwFmkXEWS-gzGzoHsz";
+    String appKey = "ltePzMqNsy3Whpcvfmz1Rpu6";
 
     AppEngine.init(getApplicationContext());
 

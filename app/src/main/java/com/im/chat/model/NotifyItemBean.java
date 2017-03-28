@@ -11,12 +11,14 @@ public class NotifyItemBean {
     String title;
     String content;
     String time;
+    String url;
 
-    public NotifyItemBean(String imgUrl,String title,String content,String time){
+    public NotifyItemBean(String imgUrl,String title,String content,String time,String url){
         this.imgUrl = imgUrl;
         this.title = title;
         this.content = content;
         this.time = time;
+        this.url = url;
     }
 
     public String getImgUrl() {
@@ -49,5 +51,13 @@ public class NotifyItemBean {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

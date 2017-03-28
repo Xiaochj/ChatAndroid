@@ -18,9 +18,9 @@ public class AppInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
         //userId
-        builder.header(UserCacheUtils.KEY_USERID,UserCacheUtils.getString(App.ctx,UserCacheUtils.KEY_USERID));
+        builder.header(Urls.KEY_USERID,UserCacheUtils.getString(App.ctx,Urls.KEY_USERID));
         //token
-        builder.header(UserCacheUtils.KEY_TOKEN,UserCacheUtils.getString(App.ctx,UserCacheUtils.KEY_TOKEN));
+        builder.header(Urls.KEY_TOKEN,UserCacheUtils.getString(App.ctx,Urls.KEY_TOKEN));
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_TYPE, "1");
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_VERSION, DeviceInfoUtil.getOsVersion(Ctvapplication.getContext()));
         //builder.header(AppConstants.Http.HEADER_DEVICE_MODEL, DeviceInfoUtil.getModel());

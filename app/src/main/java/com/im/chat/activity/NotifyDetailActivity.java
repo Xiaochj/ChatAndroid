@@ -19,23 +19,23 @@ import butterknife.Bind;
 
 public class NotifyDetailActivity extends BaseActivity {
 
-    @Bind(R.id.notify_detail_webview)
-    WebView mWebView;
-    @Bind(R.id.title_layout)
-    protected LinearLayout mHeaderLinearLayout;
+  @Bind(R.id.notify_detail_webview) WebView mWebView;
+  @Bind(R.id.title_layout) protected LinearLayout mHeaderLinearLayout;
 
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.notify_detail_layout);
-        HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
-        headerLayout.showLeftBackButton(R.string.notification_title,null);
-        headerLayout.showRightImageButton(R.drawable.notify_share, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"share",Toast.LENGTH_LONG).show();
-            }
-        });
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.notify_detail_layout);
+    HeaderLayout headerLayout = (HeaderLayout) mHeaderLinearLayout.findViewById(R.id.headerLayout);
+    headerLayout.showLeftBackButton(R.string.notification_title, null);
+    headerLayout.showRightImageButton(R.drawable.notify_share, new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Toast.makeText(getBaseContext(), "share", Toast.LENGTH_LONG).show();
+      }
+    });
+    if (getIntent() != null) {
+      if (getIntent().getStringExtra("itemUrl") != null) {
+        mWebView.loadUrl(getIntent().getStringExtra("itemUrl"));
+      }
     }
+  }
 }

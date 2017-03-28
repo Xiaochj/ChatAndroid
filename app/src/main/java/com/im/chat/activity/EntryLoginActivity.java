@@ -17,6 +17,7 @@ import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import com.im.chat.engine.AppEngine;
+import com.im.chat.engine.Urls;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.model.LoginBean;
 import com.im.chat.model.UserBean;
@@ -100,8 +101,8 @@ public class EntryLoginActivity extends BaseActivity {
       @Override
       public void onNext(LoginBean loginBean) {
         //自家服务器成功，存取token和id,訪問leancloud的服務器
-        UserCacheUtils.putString(getApplicationContext(),UserCacheUtils.KEY_USERID,loginBean.getData().getId());
-        UserCacheUtils.putString(getApplicationContext(),UserCacheUtils.KEY_TOKEN,loginBean.getData().getToken());
+        UserCacheUtils.putString(getApplicationContext(),Urls.KEY_USERID,loginBean.getData().getId());
+        UserCacheUtils.putString(getApplicationContext(), Urls.KEY_TOKEN,loginBean.getData().getToken());
         loginLeanchat(name, password, dialog);
       }
     });
