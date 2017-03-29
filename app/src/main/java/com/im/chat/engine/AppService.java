@@ -2,14 +2,15 @@ package com.im.chat.engine;
 
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListBean;
-import com.im.chat.model.LoginBean;
+import com.im.chat.model.LoginModel;
 import com.im.chat.model.NotifyListBean;
 import com.im.chat.model.NotifyListRequestBean;
-import com.im.chat.model.ProfileInfoBean;
+import com.im.chat.model.ProfileInfoModel;
 import com.im.chat.model.ProfileResumeRequestBean;
-import com.im.chat.model.UserBean;
 
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -21,17 +22,19 @@ public interface AppService {
 
   /**
    * 登录
-   * @param loginInBean
+   * @param mobile
+   * @param password
    * @return
      */
-  @POST("app/login/in.do")
-  Observable<LoginBean> login(@Body UserBean loginInBean);
+  @FormUrlEncoded
+  @POST("login/in.do")
+  Observable<BaseBean<LoginModel>> login(@Field("mobile")String mobile,@Field("password")String password);
 
   /**
    * 登出
    * @return
      */
-  @POST("app/login/out.do")
+  @POST("login/out.do")
   Observable<BaseBean> logout();
 
   /**
@@ -39,37 +42,39 @@ public interface AppService {
    * @param base64Str
    * @return
      */
-  @POST("app/image/upload.do")
+  @POST("image/upload.do")
   Observable<BaseBean> uploadPhoto(@Body String base64Str);
 
   /**
    * 獲取通告列表
-   * @param notifyListRequestBean
+   * @param pageNo 页码
+   * @param pageSize 分页大小
    * @return
      */
-  @POST("app/notice/list.do")
-  Observable<NotifyListBean> getNotifyList(@Body NotifyListRequestBean notifyListRequestBean);
+  @FormUrlEncoded
+  @POST("notice/list.do")
+  Observable<NotifyListBean> getNotifyList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
 
   /**
    * 更新用戶信息
    * @param profileResumeRequestBean
    * @return
      */
-  @POST("app/member/update.do")
+  @POST("member/update.do")
   Observable<BaseBean> setProfileResume(@Body ProfileResumeRequestBean profileResumeRequestBean);
 
   /**
    * 獲取用戶信息
    * @return
      */
-  @POST("app/member/info.do")
-  Observable<ProfileInfoBean> getProfileInfo();
+  @POST("member/info.do")
+  Observable<BaseBean<ProfileInfoModel>> getProfileInfo();
 
   /**
    * 獲取通訊錄
    * @param contactListRequestBean
    * @return
      */
-  @POST("app/member/list.do")
+  @POST("member/list.do")
   Observable<ContactListBean> getContactList(@Body NotifyListRequestBean contactListRequestBean);
 }

@@ -1,6 +1,7 @@
 package com.im.chat.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,9 +20,15 @@ import com.im.chat.R;
 import com.im.chat.activity.EntryLoginActivity;
 import com.im.chat.activity.ProfileResumeActivity;
 import com.im.chat.activity.ProfileSettingActivity;
+import com.im.chat.engine.AppEngine;
+import com.im.chat.engine.Urls;
+import com.im.chat.model.BaseBean;
 import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.ProfileInfoModel;
 import com.im.chat.service.PushManager;
+import com.im.chat.util.Base64Utils;
 import com.im.chat.util.PathUtils;
+import com.im.chat.util.UserCacheUtils;
 import com.im.chat.util.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +38,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 我的页
@@ -86,9 +97,40 @@ public class ProfileFragment extends BaseFragment {
   }
 
   private void refresh() {
-    LeanchatUser curUser = LeanchatUser.getCurrentUser();
-    if(curUser.getAvatarUrl() != null)
-      Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
+    //LeanchatUser curUser = LeanchatUser.getCurrentUser();
+    //if(curUser.getAvatarUrl() != null)
+    //  Picasso.with(getContext()).load(curUser.getAvatarUrl()).into(mAvatarView);
+    AppEngine.getInstance().getAppService().getProfileInfo().subscribeOn(Schedulers.io()).
+        observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<ProfileInfoModel>>() {
+      @Override public void onCompleted() {
+
+      }
+
+      @Override public void onError(Throwable e) {
+        return;
+      }
+
+      @Override public void onNext(BaseBean<ProfileInfoModel> profileInfoModelBaseBean) {
+        if(profileInfoModelBaseBean.getStatus() == 1){
+          if(profileInfoModelBaseBean.getData() != null){
+            //获取用户信息
+            ProfileInfoModel profileInfoModel = profileInfoModelBaseBean.getData();
+            if(profileInfoModel.getHead() != null)
+              Picasso.with(getContext()).load(profileInfoModel.getHead()).into(mAvatarView);
+            if(profileInfoModel.getName() != null)
+              mNameTv.setText(profileInfoModel.getName());
+            if(profileInfoModel.getSex()!=null)
+              mSexTv.setText(profileInfoModel.getSex());
+            if(profileInfoModel.getMobile()!= null)
+              mPhoneTv.setText(profileInfoModel.getMobile());
+            if(profileInfoModel.getSignature() != null)
+              mMarkTv.setText(profileInfoModel.getSignature());
+            if(profileInfoModel.getMail() != null)
+              mEmailTv.setText(profileInfoModel.getMail());
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -165,9 +207,31 @@ public class ProfileFragment extends BaseFragment {
     });
     PushManager.getInstance().unsubscribeCurrentUserChannel();
     LeanchatUser.logOut();
-    getActivity().finish();
-    Intent intent = new Intent(ctx, EntryLoginActivity.class);
-    ctx.startActivity(intent);
+    //登出自己的服务器
+    AppEngine.getInstance().getAppService().logout().subscribeOn(Schedulers.io()).observeOn(
+        AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean>() {
+      @Override public void onCompleted() {
+
+      }
+
+      @Override public void onError(Throwable e) {
+        Utils.toast(R.string.logout_error);
+        return;
+      }
+
+      @Override public void onNext(BaseBean baseBean) {
+        if(baseBean.getCode() == 1){
+          //清除本地userid和token缓存
+          UserCacheUtils.putString(getActivity(), Urls.KEY_USERID,"");
+          UserCacheUtils.putString(getActivity(), Urls.KEY_TOKEN,"");
+          getActivity().finish();
+          Intent intent = new Intent(ctx, EntryLoginActivity.class);
+          ctx.startActivity(intent);
+        }else{
+          Utils.toast(R.string.logout_error);
+        }
+      }
+    });
   }
 
   @Override
@@ -178,9 +242,7 @@ public class ProfileFragment extends BaseFragment {
         Uri uri = data.getData();
         startImageCrop(uri, 200, 200, CROP_REQUEST);
       } else if (requestCode == CROP_REQUEST) {
-        final String path = saveCropAvatar(data);
-        LeanchatUser user = LeanchatUser.getCurrentUser();
-        user.saveAvatar(path, null);
+        uploadCropAvatar(data);//上传图片
       }
     }
   }
@@ -204,19 +266,43 @@ public class ProfileFragment extends BaseFragment {
     return outputUri;
   }
 
-  private String saveCropAvatar(Intent data) {
+  private void uploadCropAvatar(Intent data) {
     Bundle extras = data.getExtras();
-    String path = null;
+    String base64 = null;
     if (extras != null) {
       Bitmap bitmap = extras.getParcelable("data");
       if (bitmap != null) {
-        path = PathUtils.getAvatarCropPath();
-        Utils.saveBitmap(path, bitmap);
-        if (bitmap != null && bitmap.isRecycled() == false) {
-          bitmap.recycle();
-        }
+        base64 = Base64Utils.bitmapToBase64(bitmap);
+        final ProgressDialog dialog = showSpinnerDialog();
+        AppEngine.getInstance().getAppService().uploadPhoto(base64).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            dialog.dismiss();
+            Utils.toast(R.string.upload_avatar_error);
+            if (bitmap != null && bitmap.isRecycled() == false) {
+              bitmap.recycle();
+            }
+            return;
+          }
+
+          @Override public void onNext(BaseBean baseBean) {
+            dialog.dismiss();
+            if(baseBean.getStatus() == 1){
+              Utils.toast(R.string.upload_avatar_success);
+              mAvatarView.setImageBitmap(bitmap);
+            }else{
+              Utils.toast(R.string.upload_avatar_error);
+            }
+            if (bitmap != null && bitmap.isRecycled() == false) {
+              bitmap.recycle();
+            }
+          }
+        });
       }
     }
-    return path;
   }
 }

@@ -6,85 +6,94 @@ package com.im.chat.model;
 
 public class ProfileInfoModel {
 
-    String name;
-    String initials;
-    String mobile;
-    String head;
-    String signature;
-    String mail;
-    String id;
-    String type;
-    String token;
+  String name;
+  String initials;
+  String sex;
+  String mobile;
+  String head;
+  String signature;
+  String mail;
+  String id;
+  String type;
+  String token;
 
-    public String getInitials() {
-        return initials;
-    }
+  public String getSex() {
+    return sex;
+  }
 
-    public void setInitials(String initials) {
-        this.initials = initials;
-    }
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-    public String getId() {
-        return id;
-    }
+  public String getInitials() {
+    return initials;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public void setInitials(String initials) {
+    this.initials = initials;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getToken() {
-        return token;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getToken() {
+    return token;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setToken(String token) {
+    this.token = token;
+  }
 
-    public String getMobile() {
-        return mobile;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getHead() {
-        return head;
-    }
+  public String getMobile() {
+    return mobile;
+  }
 
-    public void setHead(String head) {
-        this.head = head;
-    }
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
-    public String getSignature() {
-        return signature;
-    }
+  public String getHead() {
+    return head;
+  }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
+  public void setHead(String head) {
+    this.head = head;
+  }
 
-    public String getMail() {
-        return mail;
-    }
+  public String getSignature() {
+    return signature;
+  }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+  public void setSignature(String signature) {
+    this.signature = signature;
+  }
+
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
 }

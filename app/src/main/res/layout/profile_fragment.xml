@@ -56,7 +56,6 @@
                     <TextView
                         android:id="@+id/profile_name"
                         style="@style/profile_text_right_item"
-                        android:text="肖长剑"
                         android:background="@drawable/btn_selector" />
                 </LinearLayout>
 
@@ -74,7 +73,6 @@
                     <TextView
                         android:id="@+id/profile_sex"
                         style="@style/profile_text_right_item"
-                        android:text="男"
                         android:background="@drawable/btn_selector" />
                 </LinearLayout>
                 <View style="@style/LCIMDividerLine.Horizontal"/>
@@ -91,7 +89,6 @@
                     <TextView
                         android:id="@+id/profile_mark"
                         style="@style/profile_text_right_item"
-                        android:text="我是一只来自北方的雄狮,匍匐在中国人民的怀抱。"
                         android:background="@drawable/btn_selector"
                         android:drawablePadding="@dimen/dp10"
                         android:drawableRight="@drawable/right"/>
@@ -110,7 +107,6 @@
                     <TextView
                         android:id="@+id/profile_phone"
                         style="@style/profile_text_right_item"
-                        android:text="12390807564"
                         android:background="@drawable/btn_selector"
                         android:drawablePadding="@dimen/dp10"
                         android:drawableRight="@drawable/right"/>
@@ -129,7 +125,6 @@
                     <TextView
                         android:id="@+id/profile_email"
                         style="@style/profile_text_right_item"
-                        android:text="12@qq.com"
                         android:background="@drawable/btn_selector"
                         android:drawablePadding="@dimen/dp10"
                         android:drawableRight="@drawable/right"/>

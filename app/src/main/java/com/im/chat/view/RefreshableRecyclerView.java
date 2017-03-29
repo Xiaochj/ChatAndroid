@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
-
 import com.im.chat.adapter.HeaderListAdapter;
 
 import java.util.Arrays;
@@ -20,18 +19,18 @@ import java.util.Arrays;
  * 下拉刷新需要配合 SwipeRefreshLayout 使用，需要在初始化 RefreshableRecyclerView后
  * 调用 setRelationSwipeLayout 来设置关联
  *
- * 因为下拉加载需要有 footer，所以需要配合 HeaderListAdapter 使用
+ * 因为上拉加载需要有 footer，所以需要配合 HeaderListAdapter 使用
  */
 public class RefreshableRecyclerView extends RecyclerView {
-  private final int DEFAULT_PAGE_NUM = 5;
-  public static int STATUS_NORMAL = 0;
-  public static int STATUS_LAOD_MORE = 2;
+  private final int DEFAULT_PAGE_SIZE = 5;//每页加载的item数
+  public static int STATUS_NORMAL = 0;//普通状态
+  public static int STATUS_LAOD_MORE = 2;//上拉加载
 
   public final double VISIBLE_SCALE = 0.75;
 
-  private int pageNum = DEFAULT_PAGE_NUM;
-  private int loadStatus = STATUS_NORMAL;
-  public boolean enableLoadMore = true;
+  private int pageSize = DEFAULT_PAGE_SIZE;//分页大小
+  private int loadStatus = STATUS_NORMAL;//load状态，默认是普通状态
+  public boolean enableLoadMore = true;//是否允许加载更多
 
   private SwipeRefreshLayout swipeRefreshLayout;
   private LoadMoreFooterView loadMoreFooterView;
@@ -54,14 +53,12 @@ public class RefreshableRecyclerView extends RecyclerView {
 
   /**
    * 设置关联的 SwipeRefreshLayout， 下拉刷新时使用
-   * @param relationSwipeLayout
    */
   public void setRelationSwipeLayout(SwipeRefreshLayout relationSwipeLayout) {
     swipeRefreshLayout = relationSwipeLayout;
     if (null != swipeRefreshLayout) {
       swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
+        @Override public void onRefresh() {
           startRefresh();
         }
       });
@@ -72,14 +69,12 @@ public class RefreshableRecyclerView extends RecyclerView {
 
   /**
    * RefreshableRecyclerView 需要配合 HeaderListAdapter 使用
-   * @param adapter
    */
-  @Override
-  public void setAdapter(Adapter adapter) {
+  @Override public void setAdapter(Adapter adapter) {
     super.setAdapter(adapter);
     if (null != adapter) {
       if (adapter instanceof HeaderListAdapter) {
-        ((HeaderListAdapter)adapter).setFooterView(loadMoreFooterView);
+        ((HeaderListAdapter) adapter).setFooterView(loadMoreFooterView);
       } else {
         throw new IllegalArgumentException("adapter should be HeaderListAdapter");
       }
@@ -88,19 +83,20 @@ public class RefreshableRecyclerView extends RecyclerView {
     }
   }
 
-  @Override
-  public HeaderListAdapter getAdapter() {
-    return (HeaderListAdapter)super.getAdapter();
+  @Override public HeaderListAdapter getAdapter() {
+    return (HeaderListAdapter) super.getAdapter();
   }
 
   /**
-   * 设置加载页的大小，默认为 DEFAULT_PAGE_NUM
-   * @param pageNum
+   * 设置加载页的大小，默认为 DEFAULT_PAGE_SIZE
    */
-  public void setPageNum(int pageNum) {
-    this.pageNum = pageNum;
+  public void setPageNum(int pageSize) {
+    this.pageSize = pageSize;
   }
 
+  /**
+   * 下拉刷新
+   */
   public void refreshData() {
     startRefresh();
   }
@@ -111,48 +107,62 @@ public class RefreshableRecyclerView extends RecyclerView {
 
   private void initView() {
     loadMoreFooterView = new LoadMoreFooterView(getContext());
+    //点击加载更多
     loadMoreFooterView.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
+      @Override public void onClick(View v) {
+        //如果允许加载并且当前状态正常
         if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus()) {
+          //加载
           startLoad();
         }
       }
     });
+    //滑动
     addOnScrollListener(new OnScrollListener() {
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+      @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-          if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus()) {
-            LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-            int totalItemCount = layoutManager.getItemCount();
-            int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-            if (lastVisibleItem == totalItemCount - 1) {
-              View view = layoutManager.findViewByPosition(lastVisibleItem);
-              Rect rect = new Rect();
-              view.getGlobalVisibleRect(rect);
-              if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
-                startLoad();
-              }
+        //如果允许加载并且当前状态正常
+        if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus()) {
+          LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
+          int totalItemCount = layoutManager.getItemCount();
+          int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+          //如果是最后一个item
+          if (lastVisibleItem == totalItemCount - 1) {
+            View view = layoutManager.findViewByPosition(lastVisibleItem);
+            Rect rect = new Rect();
+            view.getGlobalVisibleRect(rect);
+            if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
+              //加载更多
+              startLoad();
             }
           }
+        }
       }
     });
   }
 
+  /**
+   * 下拉刷新
+   */
   private void startRefresh() {
     if (null != onLoadDataListener) {
-      onLoadDataListener.onLoad(0, pageNum, true);
+      onLoadDataListener.onLoad(0, pageSize, true);
     }
   }
 
+  /**
+   * 开始加载
+   */
   private void startLoad() {
     if (STATUS_LAOD_MORE != getLoadStatus()) {
       HeaderListAdapter adapter = getAdapter();
       if (null != onLoadDataListener && null != adapter) {
+        //设置加载状态
         setLoadStatus(STATUS_LAOD_MORE);
-        onLoadDataListener.onLoad(adapter.getDataList().size(), pageNum, false);
+        //加载更多
+        onLoadDataListener.onLoad(adapter.getDataList().size(), pageSize, false);
       } else {
+        //设置普通状态
         setLoadStatus(STATUS_NORMAL);
       }
     }
@@ -160,12 +170,14 @@ public class RefreshableRecyclerView extends RecyclerView {
 
   /**
    * 设置是否可用上滑加载
-   * @param enable
    */
   public void setEnableLoadMore(boolean enable) {
     enableLoadMore = enable;
   }
 
+  /**
+   * 设置load状态
+   */
   private void setLoadStatus(int status) {
     loadStatus = status;
     loadMoreFooterView.onLoadStatusChanged(status);
@@ -188,8 +200,6 @@ public class RefreshableRecyclerView extends RecyclerView {
   /**
    * 设置刷新完毕，如果 isRefresh 为 true，则清空所有数据，设置为 datas
    * 如果 isReresh 为 false，则把 datas 叠加到现有数据中
-   * @param datas
-   * @param isRefresh
    */
   public void setLoadComplete(Object[] datas, boolean isRefresh) {
     setLoadStatus(STATUS_NORMAL);
@@ -207,7 +217,6 @@ public class RefreshableRecyclerView extends RecyclerView {
       }
     }
   }
-
 
   public interface OnLoadDataListener {
     public void onLoad(int skip, int limit, boolean isRefresh);

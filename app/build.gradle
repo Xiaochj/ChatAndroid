@@ -66,11 +66,13 @@ dependencies {
   compile 'com.jakewharton:butterknife:7.0.1'
   compile 'com.github.stuxuhai:jpinyin:1.0'
   //网络
-  compile 'com.squareup.retrofit2:retrofit:2.0.2'
+  compile 'com.squareup.retrofit2:retrofit:2.1.0'
   compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-  compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+  compile 'com.google.code.gson:gson:2.6.2'
+  compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
   //异步
+  compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
   compile 'io.reactivex:rxandroid:1.2.1'
-  compile 'io.reactivex:rxjava:1.1.6'
+  compile 'io.reactivex:rxjava:1.1.9'
 
 }

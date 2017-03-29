@@ -18,8 +18,9 @@ import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.engine.Urls;
+import com.im.chat.model.BaseBean;
 import com.im.chat.model.LeanchatUser;
-import com.im.chat.model.LoginBean;
+import com.im.chat.model.LoginModel;
 import com.im.chat.model.UserBean;
 import com.im.chat.util.UserCacheUtils;
 import com.im.chat.util.Utils;
@@ -82,9 +83,9 @@ public class EntryLoginActivity extends BaseActivity {
 
     final ProgressDialog dialog = showSpinnerDialog();
     //发送账号密码，请求自家服务器，验证通过
-    UserBean userBean = new UserBean(name,password);
-    AppEngine.getInstance().getAppService().login(userBean).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<LoginBean>() {
+    //UserBean userBean = new UserBean(name,password);
+    AppEngine.getInstance().getAppService().login(name,password).subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<LoginModel>>() {
       @Override
       public void onCompleted() {
 
@@ -99,11 +100,18 @@ public class EntryLoginActivity extends BaseActivity {
       }
 
       @Override
-      public void onNext(LoginBean loginBean) {
-        //自家服务器成功，存取token和id,訪問leancloud的服務器
-        UserCacheUtils.putString(getApplicationContext(),Urls.KEY_USERID,loginBean.getData().getId());
-        UserCacheUtils.putString(getApplicationContext(), Urls.KEY_TOKEN,loginBean.getData().getToken());
-        loginLeanchat(name, password, dialog);
+      public void onNext(BaseBean<LoginModel> loginBean) {
+        if(loginBean.getStatus() == 1) {
+          if(loginBean.getData() != null) {
+            //自家服务器成功，存取token和id,訪問leancloud的服務器
+            UserCacheUtils.putString(getApplicationContext(), Urls.KEY_USERID, loginBean.getData().getId());
+            UserCacheUtils.putString(getApplicationContext(), Urls.KEY_TOKEN, loginBean.getData().getToken());
+            loginLeanchat(name, password, dialog);
+          }
+        }else{
+          dialog.dismiss();
+          Utils.toast(R.string.login_error);
+        }
       }
     });
   }

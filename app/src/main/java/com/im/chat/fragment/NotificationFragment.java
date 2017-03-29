@@ -65,7 +65,7 @@ public class NotificationFragment extends BaseFragment {
       @Override
       public void onLoad(int skip, int limit, boolean isRefresh) {
 //        loadMoreNotificationData(skip, limit, isRefresh);
-        loadMoreData(skip,limit,isRefresh);
+        loadData(skip,limit,isRefresh);
       }
     });
     recyclerView.setRelationSwipeLayout(refreshLayout);
@@ -83,10 +83,10 @@ public class NotificationFragment extends BaseFragment {
     recyclerView.refreshData();
   }
 
-  private void loadMoreData(int skip,int limit,boolean isRefresh){
+  private void loadData(int skip,int limit,boolean isRefresh){
     //调用retrofit自己的服务器接口
-    NotifyListRequestBean notifyListRequestBean = new NotifyListRequestBean(skip,limit);
-    AppEngine.getInstance().getAppService().getNotifyList(notifyListRequestBean).subscribeOn(
+    //NotifyListRequestBean notifyListRequestBean = new NotifyListRequestBean(skip,limit);
+    AppEngine.getInstance().getAppService().getNotifyList(skip,limit).subscribeOn(
         Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<NotifyListBean>() {
       @Override public void onCompleted() {
 
@@ -114,38 +114,38 @@ public class NotificationFragment extends BaseFragment {
     });
   }
 
-  /**
-   * 加载数据
-   * @param skip
-   * @param limit
-   * @param isRefresh
-   */
-  private void loadMoreNotificationData(final int skip, final int limit, final boolean isRefresh) {
-    PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
-    AVGeoPoint geoPoint = preferenceMap.getLocation();
-    if (geoPoint == null) {
-      LogUtils.i("geo point is null");
-      return;
-    }
-    AVQuery<LeanchatUser> q = LeanchatUser.getQuery(LeanchatUser.class);
-    LeanchatUser user = LeanchatUser.getCurrentUser();
-    q.whereNotEqualTo(Constants.OBJECT_ID, user.getObjectId());
-    if (orderType == Constants.ORDER_DISTANCE) {
-      q.whereNear(LeanchatUser.LOCATION, geoPoint);
-    } else {
-      q.orderByDescending(Constants.UPDATED_AT);
-    }
-    q.skip(skip);
-    q.limit(limit);
-    q.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
-    q.findInBackground(new FindCallback<LeanchatUser>() {
-      @Override
-      public void done(List<LeanchatUser> list, AVException e) {
-        UserCacheUtils.cacheUsers(list);
-        recyclerView.setLoadComplete(list.toArray(), isRefresh);
-      }
-    });
-  }
+  ///**
+  // * 加载数据
+  // * @param skip
+  // * @param limit
+  // * @param isRefresh
+  // */
+  //private void loadMoreNotificationData(final int skip, final int limit, final boolean isRefresh) {
+  //  PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
+  //  AVGeoPoint geoPoint = preferenceMap.getLocation();
+  //  if (geoPoint == null) {
+  //    LogUtils.i("geo point is null");
+  //    return;
+  //  }
+  //  AVQuery<LeanchatUser> q = LeanchatUser.getQuery(LeanchatUser.class);
+  //  LeanchatUser user = LeanchatUser.getCurrentUser();
+  //  q.whereNotEqualTo(Constants.OBJECT_ID, user.getObjectId());
+  //  if (orderType == Constants.ORDER_DISTANCE) {
+  //    q.whereNear(LeanchatUser.LOCATION, geoPoint);
+  //  } else {
+  //    q.orderByDescending(Constants.UPDATED_AT);
+  //  }
+  //  q.skip(skip);
+  //  q.limit(limit);
+  //  q.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
+  //  q.findInBackground(new FindCallback<LeanchatUser>() {
+  //    @Override
+  //    public void done(List<LeanchatUser> list, AVException e) {
+  //      UserCacheUtils.cacheUsers(list);
+  //      recyclerView.setLoadComplete(list.toArray(), isRefresh);
+  //    }
+  //  });
+  //}
 
   @Override
   public void onDestroy() {
