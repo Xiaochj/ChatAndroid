@@ -2,11 +2,11 @@ package com.im.chat.adapter;
 
 import android.text.TextUtils;
 
-import com.im.chat.model.ContactItem;
-import com.im.chat.viewholder.ContactItemHolder;
-import com.im.chat.model.LeanchatUser;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
+import com.im.chat.model.ContactItem;
+import com.im.chat.model.ContactListModel;
+import com.im.chat.viewholder.ContactItemHolder;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -41,14 +41,14 @@ public class ContactsAdapter extends HeaderListAdapter<ContactItem> {
    * 设置成员列表，然后更新索引
    * 此处会对数据以 空格、数字、字母（汉字转化为拼音后的字母） 的顺序进行重新排列
    */
-  public void setUserList(List<LeanchatUser> list) {
+  public void setUserList(List<ContactListModel> list) {
     List<ContactItem> contactList = new ArrayList<>();
     if (null != list) {
-      for (LeanchatUser user : list) {
+      for (ContactListModel user : list) {
         ContactItem item = new ContactItem();
         item.user = user;
         //去掉两边的空格
-        item.sortContent = PinyinHelper.convertToPinyinString(user.getUsername(), "", PinyinFormat.WITHOUT_TONE).trim();
+        item.sortContent = PinyinHelper.convertToPinyinString(user.getName(), "", PinyinFormat.WITHOUT_TONE).trim();
         contactList.add(item);
       }
     }

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.im.chat.R;
 import com.im.chat.event.ContactItemClickEvent;
-import com.im.chat.event.ContactItemLongClickEvent;
 import com.im.chat.model.ContactItem;
 import com.squareup.picasso.Picasso;
 
@@ -42,18 +41,18 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        EventBus.getDefault().post(new ContactItemClickEvent(contactItem.user.getObjectId()));
+        EventBus.getDefault().post(new ContactItemClickEvent(contactItem.user.getId()));
       }
     });
 
-    //长按
-    itemView.setOnLongClickListener(new View.OnLongClickListener() {
-      @Override
-      public boolean onLongClick(View v) {
-        EventBus.getDefault().post(new ContactItemLongClickEvent(contactItem.user.getObjectId()));
-        return true;
-      }
-    });
+//    //长按
+//    itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//      @Override
+//      public boolean onLongClick(View v) {
+//        EventBus.getDefault().post(new ContactItemLongClickEvent(contactItem.user.getId()));
+//        return true;
+//      }
+//    });
   }
 
   @Override
@@ -66,9 +65,9 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
     } else {
       alpha.setText("");
     }
-    Picasso.with(getContext()).load(memberItem.user.getAvatarUrl())
+    Picasso.with(getContext()).load(memberItem.user.getHead())
       .placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
-    nameView.setText(memberItem.user.getUsername());
+    nameView.setText(memberItem.user.getName());
   }
 
   public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<ContactItemHolder>() {

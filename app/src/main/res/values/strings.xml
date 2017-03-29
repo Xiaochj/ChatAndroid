@@ -25,6 +25,7 @@
     <string name="converstaion_remove_leave">删除并退出</string>
     <string name="conversation_edit_name">请输入群聊名称</string>
     <string name="contact">通讯录</string>
+    <string name="contact_error">获取通讯录失败</string>
     <string name="send_message">发消息</string>
     <string name="profile_settings">Settings</string>
     <string name="profile_title">我的资料</string>

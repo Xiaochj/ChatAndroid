@@ -1,12 +1,13 @@
 package com.im.chat.engine;
 
 import com.im.chat.model.BaseBean;
-import com.im.chat.model.ContactListBean;
+import com.im.chat.model.ContactListModel;
 import com.im.chat.model.LoginModel;
 import com.im.chat.model.NotifyListBean;
-import com.im.chat.model.NotifyListRequestBean;
 import com.im.chat.model.ProfileInfoModel;
 import com.im.chat.model.ProfileResumeRequestBean;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -72,9 +73,10 @@ public interface AppService {
 
   /**
    * 獲取通訊錄
-   * @param contactListRequestBean
+   * @param
    * @return
      */
+  @FormUrlEncoded
   @POST("member/list.do")
-  Observable<ContactListBean> getContactList(@Body NotifyListRequestBean contactListRequestBean);
+  Observable<BaseBean<List<ContactListModel>>> getContactList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
 }

@@ -129,12 +129,19 @@ public class RefreshableRecyclerView extends RecyclerView {
           //如果是最后一个item
           if (lastVisibleItem == totalItemCount - 1) {
             View view = layoutManager.findViewByPosition(lastVisibleItem);
+//            WindowManager wm = (WindowManager) getContext()
+//                    .getSystemService(Context.WINDOW_SERVICE);
+//            int height = wm.getDefaultDisplay().getHeight();
             Rect rect = new Rect();
             view.getGlobalVisibleRect(rect);
-            if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
-              //加载更多
-              startLoad();
-            }
+//            Rect rectLocal = new Rect();
+//            view.getLocalVisibleRect(rectLocal);
+//            if(rectLocal.height() != view.getHeight()) {
+              if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
+                //加载更多
+                startLoad();
+              }
+//            }
           }
         }
       }
