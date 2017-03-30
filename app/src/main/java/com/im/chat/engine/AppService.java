@@ -4,6 +4,7 @@ import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.model.LoginModel;
 import com.im.chat.model.NotifyListBean;
+import com.im.chat.model.NotifyListModel;
 import com.im.chat.model.ProfileInfoModel;
 import com.im.chat.model.ProfileResumeRequestBean;
 
@@ -54,7 +55,7 @@ public interface AppService {
      */
   @FormUrlEncoded
   @POST("notice/list.do")
-  Observable<NotifyListBean> getNotifyList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
+  Observable<BaseBean<List<NotifyListModel>>> getNotifyList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
 
   /**
    * 更新用戶信息

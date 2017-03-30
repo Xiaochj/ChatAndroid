@@ -6,40 +6,49 @@ package com.im.chat.model;
  */
 
 public class BaseBean<T> {
-    private int status;
-    private String error;
-    private int code;
-    private T data;
+  private int status;
+  private String error;
+  private int code;
+  private T data;
+  private int total;//item个数
 
-    public T getData() {
-        return data;
-    }
+  public int getTotal() {
+    return total;
+  }
 
-    public void setData(T data) {
-        this.data = data;
-    }
+  public void setTotal(int total) {
+    this.total = total;
+  }
 
-    public int getStatus() {
-        return status;
-    }
+  public T getData() {
+    return data;
+  }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+  public void setData(T data) {
+    this.data = data;
+  }
 
-    public String getError() {
-        return error;
-    }
+  public int getStatus() {
+    return status;
+  }
 
-    public void setError(String error) {
-        this.error = error;
-    }
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
-    public int getCode() {
-        return code;
-    }
+  public String getError() {
+    return error;
+  }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
+  public void setError(String error) {
+    this.error = error;
+  }
+
+  public int getCode() {
+    return code;
+  }
+
+  public void setCode(int code) {
+    this.code = code;
+  }
 }

@@ -22,12 +22,12 @@ import java.util.Arrays;
  * 因为上拉加载需要有 footer，所以需要配合 HeaderListAdapter 使用
  */
 public class RefreshableRecyclerView extends RecyclerView {
-  private final int DEFAULT_PAGE_SIZE = 5;//每页加载的item数
+
+  public static final int DEFAULT_PAGE_SIZE = 10;//每页加载的item数
   public static int STATUS_NORMAL = 0;//普通状态
   public static int STATUS_LAOD_MORE = 2;//上拉加载
 
-  public final double VISIBLE_SCALE = 0.75;
-
+  public int currentScrollState = RecyclerView.SCROLL_STATE_IDLE;//滑动状态，默认停止
   private int pageSize = DEFAULT_PAGE_SIZE;//分页大小
   private int loadStatus = STATUS_NORMAL;//load状态，默认是普通状态
   public boolean enableLoadMore = true;//是否允许加载更多
@@ -118,31 +118,45 @@ public class RefreshableRecyclerView extends RecyclerView {
       }
     });
     //滑动
-    addOnScrollListener(new OnScrollListener() {
+    this.addOnScrollListener(new OnScrollListener() {
+
+      int lastVisibleItem = 0;
+
       @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         //如果允许加载并且当前状态正常
-        if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus()) {
+        if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus() ) {
           LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
-          int totalItemCount = layoutManager.getItemCount();
-          int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+          lastVisibleItem = layoutManager.findLastVisibleItemPosition();
           //如果是最后一个item
-          if (lastVisibleItem == totalItemCount - 1) {
-            View view = layoutManager.findViewByPosition(lastVisibleItem);
-//            WindowManager wm = (WindowManager) getContext()
-//                    .getSystemService(Context.WINDOW_SERVICE);
-//            int height = wm.getDefaultDisplay().getHeight();
-            Rect rect = new Rect();
-            view.getGlobalVisibleRect(rect);
-//            Rect rectLocal = new Rect();
-//            view.getLocalVisibleRect(rectLocal);
-//            if(rectLocal.height() != view.getHeight()) {
-              if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
-                //加载更多
-                startLoad();
-              }
-//            }
-          }
+//          if (lastVisibleItem == totalItemCount - 1) {
+//            View view = layoutManager.findViewByPosition(lastVisibleItem);
+////            WindowManager wm = (WindowManager) getContext()
+////                    .getSystemService(Context.WINDOW_SERVICE);
+////            int height = wm.getDefaultDisplay().getHeight();
+//            Rect rect = new Rect();
+//            view.getGlobalVisibleRect(rect);
+////            Rect rectLocal = new Rect();
+////            view.getLocalVisibleRect(rectLocal);
+////            if(rectLocal.height() != view.getHeight()) {
+//              if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
+//                //加载更多
+//                startLoad();
+//              }
+////            }
+//          }
+        }
+      }
+
+      @Override
+      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+        currentScrollState = newState;
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        int visibleItemCount = layoutManager.getChildCount();
+        int totalItemCount = layoutManager.getItemCount();
+        if ((visibleItemCount > 0 && currentScrollState == RecyclerView.SCROLL_STATE_IDLE && (lastVisibleItem) >= totalItemCount - 1)) {
+          startLoad();
         }
       }
     });

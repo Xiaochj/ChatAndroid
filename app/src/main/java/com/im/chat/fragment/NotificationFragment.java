@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.engine.AppEngine;
+import com.im.chat.model.BaseBean;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.model.NotifyItemBean;
 import com.im.chat.model.NotifyListBean;
@@ -40,6 +41,9 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
   protected LinearLayoutManager layoutManager;
 
   HeaderListAdapter<LeanchatUser> notificationAdapter;
+
+  int totalItem = RefreshableRecyclerView.DEFAULT_PAGE_SIZE;//总共多少个item
+
 //  int orderType;
 //  PreferenceMap preferenceMap;
 
@@ -69,8 +73,8 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
   private void loadData(int skip,int limit,boolean isRefresh){
     //调用retrofit自己的服务器接口
     //NotifyListRequestBean notifyListRequestBean = new NotifyListRequestBean(skip,limit);
-    AppEngine.getInstance().getAppService().getNotifyList(skip,limit).subscribeOn(
-        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<NotifyListBean>() {
+    AppEngine.getInstance().getAppService().getNotifyList(skip/limit+1,limit).subscribeOn(
+        Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<List<NotifyListModel>>>() {
       @Override public void onCompleted() {
 
       }
@@ -79,9 +83,10 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
 
       }
 
-      @Override public void onNext(NotifyListBean notifyListBean) {
+      @Override public void onNext(BaseBean<List<NotifyListModel>> notifyListBean) {
         if(notifyListBean.getStatus() == 1) {
-          if(notifyListBean.getData() != null) {
+          if(notifyListBean.getData() != null && notifyListBean.getTotal() > 0) {
+            totalItem = notifyListBean.getTotal();
             ArrayList<NotifyItemBean> list = new ArrayList<>();
             List<NotifyListModel> notifyListModelList = notifyListBean.getData();
             for (NotifyListModel notifyListModel : notifyListModelList) {
@@ -105,6 +110,8 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
 
   @Override
   public void onLoad(int skip, int limit, boolean isRefresh) {
-    loadData(skip,limit,isRefresh);
+    if(skip + limit <= totalItem) {
+      loadData(skip, limit, isRefresh);
+    }
   }
 }
