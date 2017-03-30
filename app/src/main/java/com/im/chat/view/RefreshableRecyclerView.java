@@ -1,7 +1,6 @@
 package com.im.chat.view;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,9 +94,9 @@ public class RefreshableRecyclerView extends RecyclerView {
   }
 
   /**
-   * 下拉刷新
+   * 初始化加载数据
    */
-  public void refreshData() {
+  public void initData() {
     startRefresh();
   }
 
@@ -119,32 +118,13 @@ public class RefreshableRecyclerView extends RecyclerView {
     });
     //滑动
     this.addOnScrollListener(new OnScrollListener() {
-
       int lastVisibleItem = 0;
-
       @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         //如果允许加载并且当前状态正常
         if (enableLoadMore && STATUS_LAOD_MORE != getLoadStatus() ) {
           LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
           lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-          //如果是最后一个item
-//          if (lastVisibleItem == totalItemCount - 1) {
-//            View view = layoutManager.findViewByPosition(lastVisibleItem);
-////            WindowManager wm = (WindowManager) getContext()
-////                    .getSystemService(Context.WINDOW_SERVICE);
-////            int height = wm.getDefaultDisplay().getHeight();
-//            Rect rect = new Rect();
-//            view.getGlobalVisibleRect(rect);
-////            Rect rectLocal = new Rect();
-////            view.getLocalVisibleRect(rectLocal);
-////            if(rectLocal.height() != view.getHeight()) {
-//              if (rect.height() / view.getHeight() > VISIBLE_SCALE) {
-//                //加载更多
-//                startLoad();
-//              }
-////            }
-//          }
         }
       }
 
@@ -204,15 +184,15 @@ public class RefreshableRecyclerView extends RecyclerView {
     loadMoreFooterView.onLoadStatusChanged(status);
   }
 
-  /**
-   * 设置刷新完毕
-   */
-  public void setLoadComplete() {
-    setLoadStatus(STATUS_NORMAL);
-    if (null != swipeRefreshLayout) {
-      swipeRefreshLayout.setRefreshing(false);
-    }
-  }
+//  /**
+//   * 设置刷新完毕
+//   */
+//  public void setLoadComplete() {
+//    setLoadStatus(STATUS_NORMAL);
+//    if (null != swipeRefreshLayout) {
+//      swipeRefreshLayout.setRefreshing(false);
+//    }
+//  }
 
   public int getLoadStatus() {
     return loadStatus;

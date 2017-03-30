@@ -13,7 +13,6 @@ import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.LeanchatUser;
 import com.im.chat.model.NotifyItemBean;
-import com.im.chat.model.NotifyListBean;
 import com.im.chat.model.NotifyListModel;
 import com.im.chat.view.RefreshableRecyclerView;
 import com.im.chat.viewholder.NotifyItemHolder;
@@ -32,26 +31,19 @@ import rx.schedulers.Schedulers;
  * Created by xiaochj on 14-9-17.
  */
 public class NotificationFragment extends BaseFragment implements RefreshableRecyclerView.OnLoadDataListener{
+
   @Bind(R.id.notify_pullrefresh)
   protected SwipeRefreshLayout refreshLayout;
-
   @Bind(R.id.notify_view)
   protected RefreshableRecyclerView recyclerView;
-
   protected LinearLayoutManager layoutManager;
-
   HeaderListAdapter<LeanchatUser> notificationAdapter;
-
   int totalItem = RefreshableRecyclerView.DEFAULT_PAGE_SIZE;//总共多少个item
-
-//  int orderType;
-//  PreferenceMap preferenceMap;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(com.im.chat.R.layout.notify_fragment, container, false);
     ButterKnife.bind(this, view);
-
     layoutManager = new LinearLayoutManager(getActivity());
     notificationAdapter = new HeaderListAdapter<>(NotifyItemHolder.class);
     recyclerView.setOnLoadDataListener(this);
@@ -64,15 +56,12 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-//    preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
-//    orderType = preferenceMap.getNearbyOrder();
     headerLayout.showTitle(com.im.chat.R.string.notification_title);
-    recyclerView.refreshData();
+    recyclerView.initData();
   }
 
   private void loadData(int skip,int limit,boolean isRefresh){
     //调用retrofit自己的服务器接口
-    //NotifyListRequestBean notifyListRequestBean = new NotifyListRequestBean(skip,limit);
     AppEngine.getInstance().getAppService().getNotifyList(skip/limit+1,limit).subscribeOn(
         Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<List<NotifyListModel>>>() {
       @Override public void onCompleted() {
@@ -105,7 +94,6 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
   @Override
   public void onDestroy() {
     super.onDestroy();
-//    preferenceMap.setNearbyOrder(orderType);
   }
 
   @Override
