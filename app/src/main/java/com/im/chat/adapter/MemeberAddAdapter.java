@@ -2,8 +2,9 @@ package com.im.chat.adapter;
 
 import android.view.ViewGroup;
 
+import com.im.chat.model.ContactListModel;
+import com.im.chat.model.UserModel;
 import com.im.chat.viewholder.MemeberCheckableItemHolder;
-import com.im.chat.model.LeanchatUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,33 +15,32 @@ import java.util.Set;
 import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
-
 /**
  * Created by wli on 15/12/2.
  */
-public class MemeberAddAdapter extends LCIMCommonListAdapter<LeanchatUser> {
+public class MemeberAddAdapter extends LCIMCommonListAdapter<ContactListModel> {
   private Map<Integer, Boolean> checkStatusMap = new HashMap<>();
 
   public MemeberAddAdapter() {
     super(MemeberCheckableItemHolder.class);
   }
 
-  @Override
-  public LCIMCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    final MemeberCheckableItemHolder itemHolder = (MemeberCheckableItemHolder) super.onCreateViewHolder(parent, viewType);
-    itemHolder.setOnCheckedChangeListener(new MemeberCheckableItemHolder.OnItemHolderCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(boolean isChecked) {
-        checkStatusMap.put(itemHolder.getAdapterPosition(), isChecked);
-      }
-    });
+  @Override public LCIMCommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    final MemeberCheckableItemHolder itemHolder =
+        (MemeberCheckableItemHolder) super.onCreateViewHolder(parent, viewType);
+    itemHolder.setOnCheckedChangeListener(
+        new MemeberCheckableItemHolder.OnItemHolderCheckedChangeListener() {
+          @Override public void onCheckedChanged(boolean isChecked) {
+            checkStatusMap.put(itemHolder.getAdapterPosition(), isChecked);
+          }
+        });
     return itemHolder;
   }
 
-  @Override
-  public void onBindViewHolder(LCIMCommonViewHolder holder, int position) {
+  @Override public void onBindViewHolder(LCIMCommonViewHolder holder, int position) {
     super.onBindViewHolder(holder, position);
-    ((MemeberCheckableItemHolder)holder).setChecked(checkStatusMap.containsKey(position) ? checkStatusMap.get(position) : false);
+    ((MemeberCheckableItemHolder) holder).setChecked(
+        checkStatusMap.containsKey(position) ? checkStatusMap.get(position) : false);
   }
 
   public List<String> getCheckedIds() {
@@ -48,7 +48,7 @@ public class MemeberAddAdapter extends LCIMCommonListAdapter<LeanchatUser> {
     Set<Integer> keySet = checkStatusMap.keySet();
     for (Integer integer : keySet) {
       if (checkStatusMap.get(integer)) {
-        idList.add(getDataList().get(integer).getObjectId());
+        idList.add(getDataList().get(integer).getId());
       }
     }
     return idList;

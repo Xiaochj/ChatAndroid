@@ -2,15 +2,11 @@ package com.im.chat.engine;
 
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
-import com.im.chat.model.LoginModel;
-import com.im.chat.model.NotifyListBean;
+import com.im.chat.model.UserModel;
 import com.im.chat.model.NotifyListModel;
-import com.im.chat.model.ProfileInfoModel;
-import com.im.chat.model.ProfileResumeRequestBean;
 
 import java.util.List;
 
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -24,60 +20,48 @@ public interface AppService {
 
   /**
    * 登录
-   * @param mobile
-   * @param password
-   * @return
-     */
-  @FormUrlEncoded
-  @POST("login/in.do")
-  Observable<BaseBean<LoginModel>> login(@Field("mobile")String mobile,@Field("password")String password);
+   */
+  @FormUrlEncoded @POST("login/in.do") Observable<BaseBean<UserModel>> login(
+      @Field("name") String name, @Field("password") String password);
 
   /**
    * 登出
-   * @return
-     */
-  @POST("login/out.do")
-  Observable<BaseBean> logout();
+   */
+  @POST("login/out.do") Observable<BaseBean> logout();
 
   /**
    * 上传图片
-   * @param base64Str
-   * @return
-     */
-  @POST("image/upload.do")
-  Observable<BaseBean> uploadPhoto(@Body String base64Str);
+   */
+  @POST("image/upload.do") Observable<BaseBean> uploadPhoto(@Field("data") String base64Str);
 
   /**
-   * 獲取通告列表
+   * 獲取通告列表 pageNo=1 && pageSize=-1 表示拿到所有数据
+   *
    * @param pageNo 页码
    * @param pageSize 分页大小
-   * @return
-     */
-  @FormUrlEncoded
-  @POST("notice/list.do")
-  Observable<BaseBean<List<NotifyListModel>>> getNotifyList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
+   */
+  @FormUrlEncoded @POST("notice/list.do") Observable<BaseBean<List<NotifyListModel>>> getNotifyList(
+      @Field("pageNo") int pageNo, @Field("pageSize") int pageSize);
 
   /**
    * 更新用戶信息
-   * @param profileResumeRequestBean
-   * @return
-     */
-  @POST("member/update.do")
-  Observable<BaseBean> setProfileResume(@Body ProfileResumeRequestBean profileResumeRequestBean);
+   */
+  @FormUrlEncoded @POST("member/update.do") Observable<BaseBean> setProfileResume(
+      @Field("mobile") String mobile, @Field("signature") String signature,
+      @Field("password") String password, @Field("mail") String mail);
 
   /**
    * 獲取用戶信息
-   * @return
-     */
-  @POST("member/info.do")
-  Observable<BaseBean<ProfileInfoModel>> getProfileInfo();
+   */
+  @POST("member/info.do") Observable<BaseBean<UserModel>> getProfileInfo();
 
   /**
-   * 獲取通訊錄
-   * @param
-   * @return
-     */
-  @FormUrlEncoded
-  @POST("member/list.do")
-  Observable<BaseBean<List<ContactListModel>>> getContactList(@Field("pageNo") int pageNo,@Field("pageSize") int pageSize);
+   * 獲取通訊錄  pageNo=1 && pageSize=-1 表示拿到所有数据
+   *
+   * @param pageNo 页码
+   * @param pageSize 分页大小
+   */
+  @FormUrlEncoded @POST("member/list.do")
+  Observable<BaseBean<List<ContactListModel>>> getContactList(@Field("pageNo") int pageNo,
+      @Field("pageSize") int pageSize);
 }

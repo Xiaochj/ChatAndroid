@@ -3,6 +3,7 @@ package com.im.chat.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,6 @@ import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
-import com.im.chat.model.LeanchatUser;
-import com.im.chat.model.NotifyItemBean;
 import com.im.chat.model.NotifyListModel;
 import com.im.chat.view.RefreshableRecyclerView;
 import com.im.chat.viewholder.NotifyItemHolder;
@@ -30,14 +29,14 @@ import rx.schedulers.Schedulers;
  * 通告页
  * Created by xiaochj on 14-9-17.
  */
-public class NotificationFragment extends BaseFragment implements RefreshableRecyclerView.OnLoadDataListener{
+public class NotificationFragment extends BaseFragment{
 
   @Bind(R.id.notify_pullrefresh)
   protected SwipeRefreshLayout refreshLayout;
   @Bind(R.id.notify_view)
-  protected RefreshableRecyclerView recyclerView;
+  protected RecyclerView recyclerView;
   protected LinearLayoutManager layoutManager;
-  HeaderListAdapter<LeanchatUser> notificationAdapter;
+  HeaderListAdapter<NotifyListModel> notificationAdapter;
   int totalItem = RefreshableRecyclerView.DEFAULT_PAGE_SIZE;//总共多少个item
 
   @Override
@@ -46,10 +45,14 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
     ButterKnife.bind(this, view);
     layoutManager = new LinearLayoutManager(getActivity());
     notificationAdapter = new HeaderListAdapter<>(NotifyItemHolder.class);
-    recyclerView.setOnLoadDataListener(this);
-    recyclerView.setRelationSwipeLayout(refreshLayout);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(notificationAdapter);
+    refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        getNotify();
+      }
+    });
     return view;
   }
 
@@ -57,12 +60,13 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     headerLayout.showTitle(com.im.chat.R.string.notification_title);
-    recyclerView.initData();
+    getNotify();
   }
 
-  private void loadData(int skip,int limit,boolean isRefresh){
+  private void getNotify(){
+    refreshLayout.setRefreshing(false);
     //调用retrofit自己的服务器接口
-    AppEngine.getInstance().getAppService().getNotifyList(skip/limit+1,limit).subscribeOn(
+    AppEngine.getInstance().getAppService().getNotifyList(/*skip/limit+1,limit*/1,-1).subscribeOn(
         Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<List<NotifyListModel>>>() {
       @Override public void onCompleted() {
 
@@ -76,15 +80,10 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
         if(notifyListBean.getStatus() == 1) {
           if(notifyListBean.getData() != null && notifyListBean.getTotal() > 0) {
             totalItem = notifyListBean.getTotal();
-            ArrayList<NotifyItemBean> list = new ArrayList<>();
+            ArrayList<NotifyListModel> list = new ArrayList<>();
             List<NotifyListModel> notifyListModelList = notifyListBean.getData();
-            for (NotifyListModel notifyListModel : notifyListModelList) {
-              NotifyItemBean notifyItemBean =
-                  new NotifyItemBean("", notifyListModel.getName(),
-                      notifyListModel.getDescription(), notifyListModel.getCreate_time(),notifyListModel.getUrl());
-              list.add(notifyItemBean);
-            }
-            recyclerView.setLoadComplete(list.toArray(), isRefresh);
+            notificationAdapter.setDataList(notifyListModelList);
+            notificationAdapter.notifyDataSetChanged();
           }
         }
       }
@@ -96,10 +95,10 @@ public class NotificationFragment extends BaseFragment implements RefreshableRec
     super.onDestroy();
   }
 
-  @Override
-  public void onLoad(int skip, int limit, boolean isRefresh) {
-    if(skip + limit <= totalItem) {
-      loadData(skip, limit, isRefresh);
-    }
-  }
+  //@Override
+  //public void onLoad(int skip, int limit, boolean isRefresh) {
+  //  if(skip + limit <= totalItem) {
+  //    loadData(skip, limit, isRefresh);
+  //  }
+  //}
 }

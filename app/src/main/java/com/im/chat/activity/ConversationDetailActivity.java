@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.LCChatKitUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
@@ -22,15 +23,19 @@ import com.im.chat.R;
 import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.event.ConversationMemberClickEvent;
 import com.im.chat.friends.ContactPersonInfoActivity;
+import com.im.chat.model.ContactListModel;
 import com.im.chat.model.ConversationType;
-import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.UserModel;
+import com.im.chat.util.ChatConstants;
+import com.im.chat.util.ChatUserCacheUtils;
+import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.Constants;
 import com.im.chat.util.ConversationUtils;
-import com.im.chat.util.UserCacheUtils;
-import com.im.chat.util.UserCacheUtils.CacheUserCallback;
+
 import com.im.chat.util.Utils;
 import com.im.chat.viewholder.ConversationDetailItemHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,7 +56,7 @@ public class ConversationDetailActivity extends BaseActivity {
   RecyclerView recyclerView;
 
   GridLayoutManager layoutManager;
-  HeaderListAdapter<LeanchatUser> listAdapter;
+  HeaderListAdapter<ContactListModel> listAdapter;
 
   View nameLayout;
   View quitLayout;
@@ -147,26 +152,35 @@ public class ConversationDetailActivity extends BaseActivity {
   }
 
   private void refresh() {
-    UserCacheUtils.fetchUsers(conversation.getMembers(), new CacheUserCallback() {
-      @Override
-      public void done(List<LeanchatUser> userList, Exception e) {
-        listAdapter.setDataList(userList);
-        listAdapter.notifyDataSetChanged();
+    List<ContactListModel> userList = new ArrayList<>();
+    List<String> ids = conversation.getMembers();
+    List<ContactListModel> contactListModels = ChatUserProvider.getInstance().getAllUsers();
+    for(String id : ids){
+      for(ContactListModel contactListModel : contactListModels){
+        if(id.equals(contactListModel.getId())){
+          userList.add(contactListModel);
+        }
       }
-    });
+    }
+    listAdapter.setDataList(userList);
+    listAdapter.notifyDataSetChanged();
   }
 
   public void onEvent(ConversationMemberClickEvent clickEvent) {
     if (clickEvent.isLongClick) {
-      removeMemeber(clickEvent.memberId);
+      removeMemeber(clickEvent.contactListModel.getId());
     } else {
-      gotoPersonalActivity(clickEvent.memberId);
+      gotoPersonalActivity(clickEvent.contactListModel);
     }
   }
 
-  private void gotoPersonalActivity(String memberId) {
+  /**
+   * 跳到会员信息页
+   * @param contactListModel
+   */
+  private void gotoPersonalActivity(ContactListModel contactListModel) {
     Intent intent = new Intent(this, ContactPersonInfoActivity.class);
-    intent.putExtra(Constants.LEANCHAT_USER_ID, memberId);
+    intent.putExtra(ChatConstants.CONTACT_USER, contactListModel);
     startActivity(intent);
   }
 
@@ -176,6 +190,10 @@ public class ConversationDetailActivity extends BaseActivity {
     startActivityForResult(intent, INTENT_NAME);
   }
 
+  /**
+   * 长按删除聊天好友
+   * @param memberId
+   */
   private void removeMemeber(final String memberId) {
     if (conversationType == ConversationType.Single) {
       return;

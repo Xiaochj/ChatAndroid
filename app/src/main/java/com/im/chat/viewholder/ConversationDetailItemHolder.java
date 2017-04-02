@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.im.chat.R;
 import com.im.chat.event.ConversationMemberClickEvent;
-import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.ContactListModel;
 import com.squareup.picasso.Picasso;
 
 import cn.leancloud.chatkit.view.RoundImageView;
@@ -18,11 +18,11 @@ import de.greenrobot.event.EventBus;
  * image和textview的viewholder
  * Created by cjxiao
  */
-public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatUser> {
+public class ConversationDetailItemHolder extends LCIMCommonViewHolder<ContactListModel> {
 
   RoundImageView avatarView;
   TextView nameView;
-  LeanchatUser leanchatUser;
+  ContactListModel contactListModel;
 
   public ConversationDetailItemHolder(Context context, ViewGroup root) {
     super(context, root, com.im.chat.R.layout.conversation_member_item);
@@ -32,8 +32,8 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatU
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (null != leanchatUser) {
-          EventBus.getDefault().post(new ConversationMemberClickEvent(leanchatUser.getObjectId(), false));
+        if (null != contactListModel) {
+          EventBus.getDefault().post(new ConversationMemberClickEvent(contactListModel, false));
         }
       }
     });
@@ -41,8 +41,8 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatU
     itemView.setOnLongClickListener(new View.OnLongClickListener() {
       @Override
       public boolean onLongClick(View v) {
-        if (null != leanchatUser) {
-          EventBus.getDefault().post(new ConversationMemberClickEvent(leanchatUser.getObjectId(), true));
+        if (null != contactListModel) {
+          EventBus.getDefault().post(new ConversationMemberClickEvent(contactListModel, true));
         }
         return true;
       }
@@ -50,11 +50,11 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<LeanchatU
   }
 
   @Override
-  public void bindData(LeanchatUser user) {
-    leanchatUser = user;
+  public void bindData(ContactListModel user) {
+    contactListModel = user;
     if (null != user) {
-      Picasso.with(getContext()).load(user.getAvatarUrl()).placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
-      nameView.setText(user.getUsername());
+      Picasso.with(getContext()).load(user.getHead()).placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
+      nameView.setText(user.getName());
     } else {
       avatarView.setImageResource(0);
       nameView.setText("");

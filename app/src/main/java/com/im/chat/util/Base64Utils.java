@@ -38,7 +38,7 @@ public class Base64Utils {
         /**
          * 压缩只对保存有效果bitmap还是原来的大小
          */
-        //bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         baos.flush();
         baos.close();
         // 转换为字节数组

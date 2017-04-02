@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import cn.leancloud.chatkit.LCChatKitUser;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
@@ -26,6 +27,8 @@ import com.im.chat.event.MemberLetterEvent;
 import com.im.chat.fragment.BaseFragment;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
+import com.im.chat.util.ChatConstants;
+import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.Constants;
 import com.im.chat.util.ConversationUtils;
 import com.im.chat.util.Utils;
@@ -44,10 +47,8 @@ import rx.schedulers.Schedulers;
 
 /**
  * 联系人列表 通讯录
- * <p/>
- * TODO
- * 1、替换 Fragment 的 title
- * 2、优化 findFriends 代码，现在还是冗余
+ * Created by xiaochj on 14-9-17.
+ *
  */
 
 public class ContactFragment extends BaseFragment {
@@ -134,32 +135,9 @@ public class ContactFragment extends BaseFragment {
         }
       }
     });
-    AppEngine.getInstance().getAppService().getContactList(0,0).subscribeOn(Schedulers.io()).
-            observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<BaseBean<List<ContactListModel>>>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-          Utils.toast(R.string.contact_error);
-          return;
-        }
-
-        @Override
-        public void onNext(BaseBean<List<ContactListModel>> listBaseBean) {
-          refreshLayout.setRefreshing(false);
-          if(listBaseBean.getStatus() == 1){
-            if(listBaseBean.getData() != null) {
-              itemAdapter.setUserList(listBaseBean.getData());
-              itemAdapter.notifyDataSetChanged();
-            }
-          }else{
-            Utils.toast(R.string.contact_error);
-          }
-        }
-    });
+    refreshLayout.setRefreshing(false);
+    //访问自己的服务器拉去通讯录
+    addChatUsers();
 //    FriendsManager.fetchFriends(isforce, new FindCallback<LeanchatUser>() {
 //      @Override
 //      public void done(List<LeanchatUser> list, AVException e) {
@@ -170,24 +148,42 @@ public class ContactFragment extends BaseFragment {
 //    });
   }
 
-//  public void showDeleteDialog(final String memberId) {
-//    new AlertDialog.Builder(ctx).setMessage(R.string.contact_deleteContact)
-//      .setPositiveButton(R.string.common_sure, new DialogInterface.OnClickListener() {
-//        @Override
-//        public void onClick(DialogInterface dialog, int which) {
-//          final ProgressDialog dialog1 = showSpinnerDialog();
-//          LeanchatUser.getCurrentUser().removeFriend(memberId, new SaveCallback() {
-//            @Override
-//            public void done(AVException e) {
-//              dialog1.dismiss();
-//              if (filterException(e)) {
-//                getMembers(true);
-//              }
-//            }
-//          });
-//        }
-//      }).setNegativeButton(R.string.chat_common_cancel, null).show();
-//  }
+  private void addChatUsers() {
+    ChatUserProvider.getInstance().getAllUsers().clear();
+    ChatUserProvider.getInstance().getLcChatKitUsers().clear();
+    AppEngine.getInstance().getAppService().getContactList(1, -1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Subscriber<BaseBean<List<ContactListModel>>>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            Utils.toast(R.string.contact_error);
+            return;
+          }
+
+          @Override public void onNext(BaseBean<List<ContactListModel>> listBaseBean) {
+            if (listBaseBean.getStatus() == 1) {
+              if (listBaseBean.getData() != null) {
+                ChatUserProvider.getInstance().getAllUsers().addAll(listBaseBean.getData());
+                List<ContactListModel> contactListModels = listBaseBean.getData();
+                for(ContactListModel contactListModel : contactListModels){
+                  ChatUserProvider.getInstance().getLcChatKitUsers().add(new LCChatKitUser(contactListModel.getId(),contactListModel.getName(),contactListModel.getHead()));
+                  //HashMap<String,ContactListModel> hashMap = new HashMap<String, ContactListModel>();
+                  //hashMap.put(contactListModel.getId(),contactListModel);
+                  //idToPartUsers.add(hashMap);
+                }
+                if(!ChatUserProvider.getInstance().getAllUsers().isEmpty()){
+                  itemAdapter.setUserList(ChatUserProvider.getInstance().getAllUsers());
+                  itemAdapter.notifyDataSetChanged();
+                }else{
+                  Utils.toast(R.string.contact_error);
+                }
+              }
+            }
+          }
+        });
+  }
 
   public void onEvent(ContactRefreshEvent event) {
     getMembers(true);
@@ -199,18 +195,9 @@ public class ContactFragment extends BaseFragment {
      */
   public void onEvent(ContactItemClickEvent event) {
     Intent intent = new Intent(getActivity(), ContactPersonInfoActivity.class);
-//    intent.putExtra(LCIMConstants.PEER_ID, event.memberId);
-    intent.putExtra(Constants.LEANCHAT_USER_ID, event.memberId);
+    intent.putExtra(ChatConstants.CONTACT_USER, event.contactListModel);
     startActivity(intent);
   }
-
-//  /**
-//   * 长按item
-//   * @param event
-//     */
-//  public void onEvent(ContactItemLongClickEvent event) {
-//    showDeleteDialog(event.memberId);
-//  }
 
   /**
    * 跳转到群聊页面

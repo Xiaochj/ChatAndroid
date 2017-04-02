@@ -1,152 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.im.chat"
-          android:versionCode="1"
-          android:versionName="1.0.0">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="1"
+    android:versionName="1.0.0"
+    package="com.im.chat">
 
-    <uses-sdk android:minSdkVersion="15"/>
+  <uses-sdk android:minSdkVersion="15"/>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-permission android:name="android.permission.READ_LOGS"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.GET_TASKS"/>
+  <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
 
-    <!-- baidumap 所需的权限 -start -->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+  <!-- baidumap 所需的权限 -start -->
+  <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
-    <!--location-->
-    <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 这个权限用于访问GPS定位-->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- SD卡读取权限，用户写入离线定位数据-->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <!-- baidumap 所需的权限 -end -->
+  <!--location-->
+  <!-- 这个权限用于进行网络定位-->
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <!-- 这个权限用于访问GPS定位-->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <!-- SD卡读取权限，用户写入离线定位数据-->
+  <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+  <!-- baidumap 所需的权限 -end -->
 
-    <application
-        android:name="com.im.chat.App"
-        android:icon="@drawable/icon"
-        android:label="@string/app_name"
-        android:theme="@style/LCIMKitTheme">
+  <application
+      android:name="com.im.chat.App"
+      android:icon="@drawable/icon"
+      android:label="@string/app_name"
+      android:theme="@style/LCIMKitTheme">
 
-        <activity
-            android:name="com.im.chat.activity.EntrySplashActivity"
-            android:theme="@style/LCIMActivity.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+    <activity
+        android:name="com.im.chat.activity.EntrySplashActivity"
+        android:theme="@style/LCIMActivity.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
 
-        <activity
-            android:name="com.im.chat.activity.ChatRoomActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="cn.leanclud.imkit.conversation_item_click_action"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+    <activity
+        android:name="com.im.chat.activity.ChatRoomActivity"
+        android:launchMode="singleTask">
+      <intent-filter>
+        <action android:name="cn.leanclud.imkit.conversation_item_click_action"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
 
-        <receiver android:name="com.im.chat.service.LeanchatReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <action android:name="com.avoscloud.chat.INVITATION_ACTION"/>
-            </intent-filter>
-        </receiver>
+    <receiver android:name="com.im.chat.service.LeanchatReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.USER_PRESENT"/>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+        <action android:name="com.avoscloud.chat.INVITATION_ACTION"/>
+      </intent-filter>
+    </receiver>
 
-        <service android:name="com.avos.avoscloud.PushService"/>
+    <service android:name="com.avos.avoscloud.PushService"/>
 
-        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-            </intent-filter>
-        </receiver>
+    <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.intent.action.USER_PRESENT"/>
+      </intent-filter>
+    </receiver>
 
-        <receiver android:name="com.im.chat.service.NotificationBroadcastReceiver">
-            <intent-filter>
-                <action android:name="com.avoscloud.chat.intent.client_notification"/>
-            </intent-filter>
-        </receiver>
+    <receiver android:name="com.im.chat.service.NotificationBroadcastReceiver">
+      <intent-filter>
+        <action android:name="com.avoscloud.chat.intent.client_notification"/>
+      </intent-filter>
+    </receiver>
 
-        <activity
-            android:name="com.im.chat.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/LCIMActivity.NoActionBar">
-            <intent-filter>
-                <action android:name="com.avos.leanchart.MAIN_ACTIVITY"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+    <activity
+        android:name="com.im.chat.activity.MainActivity"
+        android:launchMode="singleTask"
+        android:theme="@style/LCIMActivity.NoActionBar">
+      <intent-filter>
+        <action android:name="com.avos.leanchart.MAIN_ACTIVITY"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
 
-        <activity android:name="com.im.chat.activity.UpdateContentActivity"/>
+    <activity android:name="com.im.chat.activity.UpdateContentActivity"/>
 
-        <activity android:name="com.im.chat.activity.LocationActivity"/>
+    <activity android:name="com.im.chat.activity.LocationActivity"/>
 
-        <activity
-            android:name="com.im.chat.activity.EntryLoginActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.activity.EntryLoginActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <!--<activity-->
-            <!--android:name="com.im.chat.activity.EntryRegisterActivity"-->
-            <!--android:theme="@style/LCIMActivity.NoActionBar"/>-->
+    <!--<activity-->
+    <!--android:name="com.im.chat.activity.EntryRegisterActivity"-->
+    <!--android:theme="@style/LCIMActivity.NoActionBar"/>-->
 
-        <!--<activity android:name="com.im.chat.friends.ContactNewFriendActivity"/>-->
+    <!--<activity android:name="com.im.chat.friends.ContactNewFriendActivity"/>-->
 
-        <activity android:name="com.im.chat.activity.SearchActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.activity.SearchActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity android:name="com.im.chat.friends.ContactPersonInfoActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.friends.ContactPersonInfoActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity android:name="com.im.chat.activity.ProfileSettingActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.activity.ProfileSettingActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity android:name="com.im.chat.activity.NotifyDetailActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.activity.NotifyDetailActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity android:name="com.im.chat.activity.ProfileResumeActivity"
-            android:theme="@style/LCIMActivity.NoActionBar"/>
+    <activity
+        android:name="com.im.chat.activity.ProfileResumeActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
 
-        <activity
-            android:name="com.im.chat.activity.ConversationGroupListActivity"
-            android:label="@string/conversation_group"/>
+    <activity
+        android:name="com.im.chat.activity.ConversationGroupListActivity"
+        android:label="@string/conversation_group"/>
 
-        <activity android:name="com.im.chat.activity.ConversationDetailActivity" />
+    <activity android:name="com.im.chat.activity.ConversationDetailActivity"/>
 
-        <activity
-            android:name="com.im.chat.activity.ConversationAddMembersActivity" />
+    <activity
+        android:name="com.im.chat.activity.ConversationAddMembersActivity"/>
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote"/>
+    <service
+        android:name="com.baidu.location.f"
+        android:enabled="true"
+        android:process=":remote"/>
 
-        <!-- Don't forgot InitActivity -->
+    <!-- Don't forgot InitActivity -->
 
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="qdgGT2wl1aOFbeZfQwruDDY8"/>
+    <meta-data
+        android:name="com.baidu.lbsapi.API_KEY"
+        android:value="qdgGT2wl1aOFbeZfQwruDDY8"/>
 
-        <!--prod-->
-        <!--<meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="PUT3u7lIPY49Ck0bqceFA3ue" />-->
-    </application>
+    <!--prod-->
+    <!--<meta-data
+        android:name="com.baidu.lbsapi.API_KEY"
+        android:value="PUT3u7lIPY49Ck0bqceFA3ue" />-->
+  </application>
 </manifest>

@@ -1,13 +1,15 @@
 package com.im.chat.event;
 
+import com.im.chat.model.ContactListModel;
+
 /**
  * Created by cjxiao
  */
 public class ContactItemClickEvent {
 
-  public String memberId;
+  public ContactListModel contactListModel;
 
-  public ContactItemClickEvent(String id) {
-    memberId = id;
+  public ContactItemClickEvent(ContactListModel id) {
+    contactListModel = id;
   }
 }

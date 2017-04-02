@@ -7,9 +7,9 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.baidu.mapapi.SDKInitializer;
 import com.im.chat.engine.AppEngine;
-import com.im.chat.model.LeanchatUser;
+import com.im.chat.model.UserModel;
 import com.im.chat.service.PushManager;
-import com.im.chat.util.LeanchatUserProvider;
+import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.Utils;
 
 import cn.leancloud.chatkit.LCChatKit;
@@ -36,7 +36,7 @@ public class App extends Application {
 
     AppEngine.init(getApplicationContext());
 
-    LeanchatUser.alwaysUseSubUserClass(LeanchatUser.class);
+    UserModel.alwaysUseSubUserClass(UserModel.class);
 
     //AVObject.registerSubclass(AddRequest.class);
     //AVObject.registerSubclass(UpdateInfo.class);
@@ -44,13 +44,12 @@ public class App extends Application {
     // 节省流量
     AVOSCloud.setLastModifyEnabled(true);
 
-    LCChatKit.getInstance().setProfileProvider(new LeanchatUserProvider());
     LCChatKit.getInstance().init(this, appId, appKey);
-
+    LCChatKit.getInstance().setProfileProvider(ChatUserProvider.getInstance());
     PushManager.getInstance().init(ctx);
     AVOSCloud.setDebugLogEnabled(debug);
     AVAnalytics.enableCrashReport(this, !debug);
-    initBaiduMap();
+    //initBaiduMap();
     if (App.debug) {
       openStrictMode();
     }
@@ -71,7 +70,7 @@ public class App extends Application {
             .build());
   }
 
-  private void initBaiduMap() {
-    SDKInitializer.initialize(this);
-  }
+  //private void initBaiduMap() {
+  //  SDKInitializer.initialize(this);
+  //}
 }

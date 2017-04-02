@@ -1,126 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
 
-  <include layout="@layout/common_header_layout"
-      android:id="@+id/title_layout"/>
+  <include
+      layout="@layout/common_header_layout"
+      android:id="@+id/title_layout"
+      />
 
   <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/light_white"
         android:orientation="vertical"
-        android:background="@color/light_white">
+        >
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/white"
-      android:layout_marginTop="@dimen/dp25">
-
-    <View
-        android:id="@+id/top_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp27.5"
-        android:background="@color/light_white"/>
-
-    <cn.leancloud.chatkit.view.RoundImageView
-        android:id="@+id/contact_detail_avatar"
-        android:layout_width="@dimen/dp75"
-        android:layout_height="@dimen/dp75"
-        android:src="@drawable/lcim_default_avatar_icon"
-        android:layout_centerInParent="true"/>
-  </RelativeLayout>
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:background="@color/white"
-      android:gravity="center_horizontal">
-    <RelativeLayout
-        android:id="@+id/contact_detail_layout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp20"
-        android:paddingBottom="@dimen/dp40"
-        android:gravity="center_horizontal">
-      <TextView
-          android:id="@+id/contact_detail_name"
-          android:layout_width="wrap_content"
+      <RelativeLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="周晓龙"
-          android:textSize="@dimen/sp20"
-          android:textColor="@color/high_text"
-          android:layout_marginRight="@dimen/dp10"/>
-      <TextView
-          android:id="@+id/contact_detail_sex"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_toRightOf="@id/contact_detail_name"
-          android:layout_alignBottom="@id/contact_detail_name"
-          android:text="/男"
-          android:textSize="@dimen/sp16"
-          android:textColor="@color/high_text"/>
-    </RelativeLayout>
+          android:layout_marginTop="@dimen/dp25"
+          android:background="@color/white"
+          >
 
-    <TextView
-        android:id="@+id/contact_detail_mark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contact_detail_layout1"
-        android:gravity="center"
-        android:paddingLeft="@dimen/dp40"
-        android:paddingRight="@dimen/dp40"
-        android:textSize="@dimen/sp16"
-        android:textColor="@color/high_text"
-        android:text="我已走过高山火海，已看过人来人往，但是一成不变的，还是那颗永不言弃的初心。"/>
+        <View
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp27.5"
+            android:background="@color/light_white"
+            />
 
-    <TextView
-        android:id="@+id/contact_detail_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contact_detail_mark"
-        android:drawableLeft="@drawable/phone"
-        android:paddingTop="@dimen/dp20"
-        android:paddingBottom="@dimen/dp20"
-        android:text="13883831122"
-        android:gravity="center"
-        android:textSize="@dimen/sp16"
-        android:textColor="@color/high_text"
-        android:layout_centerHorizontal="true"/>
+        <cn.leancloud.chatkit.view.RoundImageView
+            android:id="@+id/contact_detail_avatar"
+            android:layout_width="@dimen/dp75"
+            android:layout_height="@dimen/dp75"
+            android:layout_centerInParent="true"
+            android:src="@drawable/lcim_default_avatar_icon"
+            />
+      </RelativeLayout>
 
-    <TextView
-        android:id="@+id/contact_detail_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contact_detail_phone"
-        android:drawableLeft="@drawable/mail"
-        android:text="222@qq.com"
-        android:gravity="center"
-        android:textSize="@dimen/sp16"
-        android:textColor="@color/high_text"
-        android:layout_centerHorizontal="true"/>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:background="@color/white"
+          android:gravity="center_horizontal"
+          >
+        <RelativeLayout
+            android:id="@+id/contact_detail_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/dp40"
+            android:paddingTop="@dimen/dp20"
+            >
+          <TextView
+              android:id="@+id/contact_detail_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="@dimen/dp10"
+              android:textColor="@color/high_text"
+              android:textSize="@dimen/sp20"
+              />
+          <TextView
+              android:id="@+id/contact_detail_sex"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignBottom="@id/contact_detail_name"
+              android:layout_toRightOf="@id/contact_detail_name"
+              android:textColor="@color/high_text"
+              android:textSize="@dimen/sp16"
+              />
+        </RelativeLayout>
 
-    <Button
-        android:id="@+id/contact_detail_btn"
-        style="@style/My.Button.theme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp40"
-        android:layout_marginRight="@dimen/dp40"
-        android:layout_marginTop="@dimen/dp30"
-        android:padding="@dimen/dp10"
-        android:textSize="@dimen/sp16"
-        android:text="@string/send_message"
-        android:layout_below="@id/contact_detail_mail"/>
-  </RelativeLayout>
+        <TextView
+            android:id="@+id/contact_detail_mark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_detail_layout1"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp40"
+            android:paddingRight="@dimen/dp40"
+            android:textColor="@color/high_text"
+            android:textSize="@dimen/sp16"
+            />
+        <TextView
+            android:id="@+id/contact_detail_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_detail_mark"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/phone"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp20"
+            android:paddingTop="@dimen/dp20"
+            android:textColor="@color/high_text"
+            android:textSize="@dimen/sp16"
+            />
+
+        <TextView
+            android:id="@+id/contact_detail_mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_detail_phone"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/mail"
+            android:gravity="center"
+            android:textColor="@color/high_text"
+            android:textSize="@dimen/sp16"
+            />
+
+        <Button
+            android:id="@+id/contact_detail_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact_detail_mail"
+            android:layout_marginLeft="@dimen/dp40"
+            android:layout_marginRight="@dimen/dp40"
+            android:layout_marginTop="@dimen/dp30"
+            android:padding="@dimen/dp10"
+            android:text="@string/send_message"
+            android:textSize="@dimen/sp16"
+            style="@style/My.Button.theme"
+            />
+      </RelativeLayout>
     </LinearLayout>
   </ScrollView>
 

@@ -6,6 +6,9 @@ package com.im.chat.util;
  */
 public class Constants {
 
+  public static final String CONTACT_USER = getPrefixConstant("contact_user");//通讯录的item对象
+  public static final String USER_ID = getPrefixConstant("user_id");//用户的唯一标示
+
   public static final String OBJECT_ID = "objectId";
   public static final int PAGE_SIZE = 10;
   public static final String CREATED_AT = "createdAt";
@@ -18,8 +21,6 @@ public class Constants {
   private static final String LEANMESSAGE_CONSTANTS_PREFIX = "com.avoscloud.leanchatlib.";
 
   public static final String INVITATION_ACTION = "invitation_action";
-
-  public static final String LEANCHAT_USER_ID = getPrefixConstant("leanchat_user_id");
 
   public static final String INTENT_KEY = getPrefixConstant("intent_key");
   public static final String INTENT_VALUE = getPrefixConstant("intent_value");

@@ -54,9 +54,10 @@ public class LCIMConversationActivity extends AppCompatActivity {
 
     Bundle extras = intent.getExtras();
     if (null != extras) {
+      //一对一聊天
       if (extras.containsKey(LCIMConstants.PEER_ID)) {
         getConversation(extras.getString(LCIMConstants.PEER_ID));
-      } else if (extras.containsKey(LCIMConstants.CONVERSATION_ID)) {
+      } else if (extras.containsKey(LCIMConstants.CONVERSATION_ID)) {//群聊
         String conversationId = extras.getString(LCIMConstants.CONVERSATION_ID);
         updateConversation(LCChatKit.getInstance().getClient().getConversation(conversationId));
       } else {

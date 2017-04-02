@@ -44,7 +44,7 @@ public class LCIMConversationListFragment extends Fragment {
     layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.addItemDecoration(new LCIMDividerItemDecoration(getActivity()));
-    itemAdapter = new LCIMCommonListAdapter<AVIMConversation>(LCIMConversationItemHolder.class);
+    itemAdapter = new LCIMCommonListAdapter<>(LCIMConversationItemHolder.class);
     recyclerView.setAdapter(itemAdapter);
     EventBus.getDefault().register(this);
     return view;

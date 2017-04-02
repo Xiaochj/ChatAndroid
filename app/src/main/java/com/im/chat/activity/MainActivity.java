@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
+import cn.leancloud.chatkit.LCChatKit;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.SaveCallback;
@@ -17,16 +18,9 @@ import com.im.chat.fragment.ConversationListFragment;
 import com.im.chat.fragment.NotificationFragment;
 import com.im.chat.fragment.ProfileFragment;
 import com.im.chat.friends.ContactFragment;
-import com.im.chat.model.LeanchatUser;
-import com.im.chat.service.PreferenceMap;
-import com.im.chat.util.LogUtils;
-import com.im.chat.util.UserCacheUtils;
-import com.im.chat.util.Utils;
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-
+import com.im.chat.model.UserModel;
+import com.im.chat.util.ChatUserCacheUtils;
+import com.im.chat.util.ChatUserProvider;
 
 /**
  * 主界面
@@ -46,8 +40,8 @@ public class MainActivity extends BaseActivity {
   private static final String[] fragmentTags = new String[]{FRAGMENT_TAG_CONVERSATION, FRAGMENT_TAG_CONTACT,
           FRAGMENT_TAG_NOTIFICATION, FRAGMENT_TAG_PROFILE};
 
-  public LocationClient locClient;
-  public MyLocationListener locationListener;
+  //public LocationClient locClient;
+  //public MyLocationListener locationListener;
   Button conversationBtn, contactBtn, notificationBtn, mySpaceBtn;
   View fragmentContainer;
   Button[] tabs;
@@ -64,36 +58,32 @@ public class MainActivity extends BaseActivity {
     setContentView(R.layout.main_activity);
     findView();
     init();
-
     conversationBtn.performClick();
-    initBaiduLocClient();
-    updateUserLocation();
-    UserCacheUtils.cacheUser(LeanchatUser.getCurrentUser());
+    //initBaiduLocClient();
+    //updateUserLocation();
+    ChatUserCacheUtils.cacheUser(UserModel.getCurrentUser());
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    ////更新版本
-    //UpdateService updateService = UpdateService.getInstance(this);
-    //updateService.checkUpdate();
   }
 
-  private void initBaiduLocClient() {
-    locClient = new LocationClient(this.getApplicationContext());
-    locClient.setDebug(true);
-    LocationClientOption option = new LocationClientOption();
-    option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-    option.setScanSpan(5000);
-    option.setIsNeedAddress(false);
-    option.setCoorType("bd09ll");
-    option.setIsNeedAddress(true);
-    locClient.setLocOption(option);
-
-    locationListener = new MyLocationListener();
-    locClient.registerLocationListener(locationListener);
-    locClient.start();
-  }
+  //private void initBaiduLocClient() {
+  //  locClient = new LocationClient(this.getApplicationContext());
+  //  locClient.setDebug(true);
+  //  LocationClientOption option = new LocationClientOption();
+  //  option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+  //  option.setScanSpan(5000);
+  //  option.setIsNeedAddress(false);
+  //  option.setCoorType("bd09ll");
+  //  option.setIsNeedAddress(true);
+  //  locClient.setLocOption(option);
+  //
+  //  locationListener = new MyLocationListener();
+  //  locClient.registerLocationListener(locationListener);
+  //  locClient.start();
+  //}
 
   private void init() {
     tabs = new Button[]{conversationBtn, contactBtn, notificationBtn, mySpaceBtn};
@@ -170,60 +160,60 @@ public class MainActivity extends BaseActivity {
     }
   }
 
-  public static void updateUserLocation() {
-    PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
-    AVGeoPoint lastLocation = preferenceMap.getLocation();
-    if (lastLocation != null) {
-      final LeanchatUser user = LeanchatUser.getCurrentUser();
-      final AVGeoPoint location = user.getAVGeoPoint(LeanchatUser.LOCATION);
-      if (location == null || !Utils.doubleEqual(location.getLatitude(), lastLocation.getLatitude())
-              || !Utils.doubleEqual(location.getLongitude(), lastLocation.getLongitude())) {
-        user.put(LeanchatUser.LOCATION, lastLocation);
-        user.saveInBackground(new SaveCallback() {
-          @Override
-          public void done(AVException e) {
-            if (e != null) {
-              LogUtils.logException(e);
-            } else {
-              AVGeoPoint avGeoPoint = user.getAVGeoPoint(LeanchatUser.LOCATION);
-              if (avGeoPoint == null) {
-                LogUtils.e("avGeopoint is null");
-              } else {
-                LogUtils.v("save location succeed latitude " + avGeoPoint.getLatitude()
-                        + " longitude " + avGeoPoint.getLongitude());
-              }
-            }
-          }
-        });
-      }
-    }
-  }
+  //public static void updateUserLocation() {
+  //  PreferenceMap preferenceMap = PreferenceMap.getCurUserPrefDao(App.ctx);
+  //  AVGeoPoint lastLocation = preferenceMap.getLocation();
+  //  if (lastLocation != null) {
+  //    final LeanchatUser user = LeanchatUser.getCurrentUser();
+  //    final AVGeoPoint location = user.getAVGeoPoint(LeanchatUser.LOCATION);
+  //    if (location == null || !Utils.doubleEqual(location.getLatitude(), lastLocation.getLatitude())
+  //            || !Utils.doubleEqual(location.getLongitude(), lastLocation.getLongitude())) {
+  //      user.put(LeanchatUser.LOCATION, lastLocation);
+  //      user.saveInBackground(new SaveCallback() {
+  //        @Override
+  //        public void done(AVException e) {
+  //          if (e != null) {
+  //            LogUtils.logException(e);
+  //          } else {
+  //            AVGeoPoint avGeoPoint = user.getAVGeoPoint(LeanchatUser.LOCATION);
+  //            if (avGeoPoint == null) {
+  //              LogUtils.e("avGeopoint is null");
+  //            } else {
+  //              LogUtils.v("save location succeed latitude " + avGeoPoint.getLatitude()
+  //                      + " longitude " + avGeoPoint.getLongitude());
+  //            }
+  //          }
+  //        }
+  //      });
+  //    }
+  //  }
+  //}
 
-  public class MyLocationListener implements BDLocationListener {
-
-    @Override
-    public void onReceiveLocation(BDLocation location) {
-      double latitude = location.getLatitude();
-      double longitude = location.getLongitude();
-      int locType = location.getLocType();
-      LogUtils.d("onReceiveLocation latitude=" + latitude + " longitude=" + longitude
-              + " locType=" + locType + " address=" + location.getAddrStr());
-      String currentUserId = LeanchatUser.getCurrentUserId();
-      if (!TextUtils.isEmpty(currentUserId)) {
-        PreferenceMap preferenceMap = new PreferenceMap(MainActivity.this, currentUserId);
-        AVGeoPoint avGeoPoint = preferenceMap.getLocation();
-        if (avGeoPoint != null && avGeoPoint.getLatitude() == location.getLatitude()
-                && avGeoPoint.getLongitude() == location.getLongitude()) {
-          updateUserLocation();
-          locClient.stop();
-        } else {
-          AVGeoPoint newGeoPoint = new AVGeoPoint(location.getLatitude(),
-                  location.getLongitude());
-          if (newGeoPoint != null) {
-            preferenceMap.setLocation(newGeoPoint);
-          }
-        }
-      }
-    }
-  }
+  //public class MyLocationListener implements BDLocationListener {
+  //
+  //  @Override
+  //  public void onReceiveLocation(BDLocation location) {
+  //    double latitude = location.getLatitude();
+  //    double longitude = location.getLongitude();
+  //    int locType = location.getLocType();
+  //    LogUtils.d("onReceiveLocation latitude=" + latitude + " longitude=" + longitude
+  //            + " locType=" + locType + " address=" + location.getAddrStr());
+  //    String currentUserId = LeanchatUser.getCurrentUserId();
+  //    if (!TextUtils.isEmpty(currentUserId)) {
+  //      PreferenceMap preferenceMap = new PreferenceMap(MainActivity.this, currentUserId);
+  //      AVGeoPoint avGeoPoint = preferenceMap.getLocation();
+  //      if (avGeoPoint != null && avGeoPoint.getLatitude() == location.getLatitude()
+  //              && avGeoPoint.getLongitude() == location.getLongitude()) {
+  //        updateUserLocation();
+  //        locClient.stop();
+  //      } else {
+  //        AVGeoPoint newGeoPoint = new AVGeoPoint(location.getLatitude(),
+  //                location.getLongitude());
+  //        if (newGeoPoint != null) {
+  //          preferenceMap.setLocation(newGeoPoint);
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 }

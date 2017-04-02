@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.im.chat.view.RefreshableRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/notify_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

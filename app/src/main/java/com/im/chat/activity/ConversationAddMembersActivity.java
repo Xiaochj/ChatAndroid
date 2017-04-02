@@ -19,13 +19,18 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.im.chat.R;
 import com.im.chat.adapter.MemeberAddAdapter;
 import com.im.chat.friends.FriendsManager;
+import com.im.chat.model.ContactListModel;
 import com.im.chat.model.ConversationType;
+import com.im.chat.model.UserModel;
+import com.im.chat.util.ChatUserCacheUtils;
+import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.ConversationUtils;
 import com.im.chat.util.Utils;
-import com.im.chat.model.LeanchatUser;
-import com.im.chat.util.UserCacheUtils;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -66,26 +71,28 @@ public class ConversationAddMembersActivity extends BaseActivity {
     setListData();
   }
 
-  private void setListData() {
-    FriendsManager.fetchFriends(false, new FindCallback<LeanchatUser>() {
-      @Override
-      public void done(List<LeanchatUser> list, AVException e) {
-        if (filterException(e)) {
-          final List<String> userIds = new ArrayList<String>();
-          for (LeanchatUser user : list) {
-            userIds.add(user.getObjectId());
-          }
-          userIds.removeAll(conversation.getMembers());
-          UserCacheUtils.fetchUsers(userIds, new UserCacheUtils.CacheUserCallback() {
-            @Override
-            public void done(List<LeanchatUser> userList, Exception e) {
-              adapter.setDataList(userList);
-              adapter.notifyDataSetChanged();
-            }
-          });
+  private List<ContactListModel> screenBlackNameList(){
+    List<ContactListModel> source = new ArrayList<>();
+    source.addAll(ChatUserProvider.getInstance().getAllUsers());
+    List<ContactListModel> tempList = source;
+    List<String > memberList = conversation.getMembers();
+    for(int j = memberList.size() - 1; j >= 0; j--){
+      for(int i = source.size() -1; i >= 0; i--){
+        if(memberList.get(j).toString().equals(source.get(i).getId().toString())){
+          tempList.remove(source.get(i));
         }
       }
-    });
+    }
+    return tempList;
+  }
+
+  /**
+   * 初始化list，把已经是成员的人去掉，只存入非成员名单
+   */
+  private void setListData() {
+    List<ContactListModel> tempList = screenBlackNameList();
+    adapter.setDataList(tempList);
+    adapter.notifyDataSetChanged();
   }
 
   @Override
@@ -112,6 +119,9 @@ public class ConversationAddMembersActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * 确定按钮触发后，加入members
+   */
   private void addMembers() {
     final List<String> checkedUsers = adapter.getCheckedIds();
     final ProgressDialog dialog = showSpinnerDialog();

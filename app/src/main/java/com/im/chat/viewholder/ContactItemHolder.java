@@ -41,7 +41,7 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
     itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        EventBus.getDefault().post(new ContactItemClickEvent(contactItem.user.getId()));
+        EventBus.getDefault().post(new ContactItemClickEvent(contactItem.user));
       }
     });
 
@@ -61,7 +61,13 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
     //索引行
     alpha.setVisibility(memberItem.initialVisible ? View.VISIBLE : View.GONE);
     if (!TextUtils.isEmpty(memberItem.sortContent)) {
-      alpha.setText(String.valueOf(Character.toUpperCase(memberItem.sortContent.charAt(0))));
+      char curChar = Character.toUpperCase(memberItem.sortContent.charAt(0));
+      //如果不是A-Z的字母
+      if(curChar < 65 || curChar > 90 ) {
+        alpha.setText("#");
+      }else{
+        alpha.setText(String.valueOf(curChar));
+      }
     } else {
       alpha.setText("");
     }

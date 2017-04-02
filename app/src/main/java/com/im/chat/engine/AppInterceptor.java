@@ -1,7 +1,9 @@
 package com.im.chat.engine;
 
 import com.im.chat.App;
-import com.im.chat.util.UserCacheUtils;
+import com.im.chat.util.ChatConstants;
+import com.im.chat.util.SpUtils;
+
 
 import java.io.IOException;
 
@@ -18,9 +20,9 @@ public class AppInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
         //userId
-        builder.header(Urls.KEY_USERID,UserCacheUtils.getString(App.ctx,Urls.KEY_USERID));
+        builder.header(ChatConstants.KEY_USERID, SpUtils.getString(App.ctx,ChatConstants.KEY_USERID));
         //token
-        builder.header(Urls.KEY_TOKEN,UserCacheUtils.getString(App.ctx,Urls.KEY_TOKEN));
+        builder.header(ChatConstants.KEY_TOKEN,SpUtils.getString(App.ctx,ChatConstants.KEY_TOKEN));
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_TYPE, "1");
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_VERSION, DeviceInfoUtil.getOsVersion(Ctvapplication.getContext()));
         //builder.header(AppConstants.Http.HEADER_DEVICE_MODEL, DeviceInfoUtil.getModel());

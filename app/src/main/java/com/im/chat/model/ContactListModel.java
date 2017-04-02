@@ -1,10 +1,13 @@
 package com.im.chat.model;
 
+import cn.leancloud.chatkit.LCChatKitUser;
+import java.io.Serializable;
+
 /**
  * Created by xiaochj on 2017/3/27.
  */
 
-public class ContactListModel {
+public class ContactListModel implements Serializable{
     String name;
     String initials;
     String mobile;
@@ -13,6 +16,15 @@ public class ContactListModel {
     String mail;
     String id;
     String type;
+    String sex;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getInitials() {
         return initials;
