@@ -34,7 +34,8 @@ public class ConversationFragment extends LCIMConversationFragment {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    addBaiduView();
+    //先不发送位置信息
+    //addBaiduView();
   }
 
   @Override
