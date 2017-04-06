@@ -32,6 +32,7 @@ public interface AppService {
   /**
    * 上传图片
    */
+  @FormUrlEncoded
   @POST("image/upload.do") Observable<BaseBean> uploadPhoto(@Field("data") String base64Str);
 
   /**

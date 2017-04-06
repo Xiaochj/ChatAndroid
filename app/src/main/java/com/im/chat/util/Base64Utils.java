@@ -27,7 +27,6 @@ public class Base64Utils {
    * @Title: bitmapToBase64
    * @Description: TODO(Bitmap 转换为字符串)
    */
-
   public static String bitmapToBase64(Bitmap bitmap) {
     // 要返回的字符串
     String reslut = null;
@@ -38,7 +37,7 @@ public class Base64Utils {
         /**
          * 压缩只对保存有效果bitmap还是原来的大小
          */
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 60, baos);
         baos.flush();
         baos.close();
         // 转换为字节数组

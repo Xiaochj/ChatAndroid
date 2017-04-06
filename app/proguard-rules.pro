@@ -75,6 +75,10 @@
 -dontwarn retrofit2.**
 -keepattributes Signature
 -keepattributes Exceptions
+-keep class retrofit2.** {*;}
+-keepclasseswithmembers class * {
+  @retrofit2.http.* <methods>;
+}
 
 -dontwarn javax.annotation.**
 -dontwarn com.android.volley.toolbox.**
@@ -132,9 +136,11 @@
     void onEvent*(**);
 }
 
+#okhttp3
 -dontwarn okio.**
 -dontwarn com.squareup.okhttp.**
 -dontwarn okhttp3.**
+-keep class okhttp3.internal.** {*;}
 
 #picasso
 -dontwarn com.squareup.picasso.**
@@ -143,6 +149,11 @@
 #rx
 -dontwarn rx.**
 -keepclassmembers class rx.** { *; }
+
+#Gson
+-keep class com.google.gson.stream.** {*;}
+-keepattributes EnclosingMethod
+
 # retrolambda
 -dontwarn java.lang.invoke.*
 
@@ -150,6 +161,8 @@
 -dontwarn com.github.stuxuhai.jpinyin.**
 -keep class com.github.stuxuhai.jpinyin.** {*;}
 
+#实体类
+-keep class com.im.chat.model.** {*;}
 -dontwarn com.im.chat.engine.EmptyJsonLenientConverterFactory
 -keep class com.im.chat.engine.EmptyJsonLenientConverterFactory
 

@@ -112,7 +112,7 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
 
   private void updateDatas(String mobile, String signature, String mail, String oldpassword,
       String password) {
-    ProgressDialog progressBar = Utils.showSpinnerDialog(this);
+    ProgressDialog progressBar = showSpinnerDialog();
     mAppservice.setProfileResume(mobile, signature, password, mail)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

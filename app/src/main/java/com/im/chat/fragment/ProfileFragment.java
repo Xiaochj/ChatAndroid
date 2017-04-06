@@ -1,7 +1,9 @@
 package com.im.chat.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.view.RoundImageView;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -62,7 +65,7 @@ public class ProfileFragment extends BaseFragment {
   private static final int IMAGE_PICK_REQUEST = 1;
   private static final int CROP_REQUEST = 2;
 
-  @Bind(R.id.profile_avatar) ImageView mAvatarView;
+  @Bind(R.id.profile_avatar) RoundImageView mAvatarView;
   @Bind(R.id.profile_name) TextView mNameTv;
   @Bind(R.id.profile_sex) TextView mSexTv;
   @Bind(R.id.profile_mark) TextView mMarkTv;
@@ -106,11 +109,10 @@ public class ProfileFragment extends BaseFragment {
             //获取用户信息
             UserModel profileInfoModel = profileInfoModelBaseBean.getData();
             if (profileInfoModel.getHead() != null) {
-              Picasso.with(getContext())
-                  .load(profileInfoModel.getHead())
-                  .error(R.drawable.lcim_default_avatar_icon)
-                  .placeholder(R.drawable.lcim_default_avatar_icon)
-                  .into(mAvatarView);
+              //Picasso.with(getContext()).load(profileInfoModel.getHead())
+                  //.error(R.drawable.lcim_default_avatar_icon)
+                  //.placeholder(R.drawable.lcim_default_avatar_icon)
+                  //.into(mAvatarView);
             }
             if (profileInfoModel.getName() != null) mNameTv.setText(profileInfoModel.getName());
             if (profileInfoModel.getSex() != null) mSexTv.setText(profileInfoModel.getSex());
@@ -131,9 +133,24 @@ public class ProfileFragment extends BaseFragment {
    * 头像
    */
   @OnClick(R.id.profile_avatar) public void onAvatarClick() {
-    Intent intent = new Intent(Intent.ACTION_PICK, null);
-    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-    startActivityForResult(intent, IMAGE_PICK_REQUEST);
+    String[] strings = { "拍照","相册" };
+    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+    alertDialog.setItems(strings, new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        if (which == 0) {
+          Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+          //takePictureIntent.putExtra("return-data", false);
+          startActivityForResult(takePictureIntent, CROP_REQUEST);
+        } else if (which == 1) {
+          Intent pickImgintent = new Intent(Intent.ACTION_PICK, null);
+          pickImgintent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+          startActivityForResult(pickImgintent, IMAGE_PICK_REQUEST);
+        }
+      }
+    }).create();
+    if (!getActivity().isFinishing()) {
+      alertDialog.show();
+    }
   }
 
   /**
@@ -236,7 +253,7 @@ public class ProfileFragment extends BaseFragment {
     }
   }
 
-  public Uri startImageCrop(Uri uri, int outputX, int outputY, int requestCode) {
+  public void startImageCrop(Uri uri, int outputX, int outputY, int requestCode) {
     Intent intent = new Intent("com.android.camera.action.CROP");
     intent.setDataAndType(uri, "image/*");
     intent.putExtra("crop", "true");
@@ -245,14 +262,14 @@ public class ProfileFragment extends BaseFragment {
     intent.putExtra("outputX", outputX);
     intent.putExtra("outputY", outputY);
     intent.putExtra("scale", true);
-    String outputPath = PathUtils.getAvatarTmpPath();
-    Uri outputUri = Uri.fromFile(new File(outputPath));
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+    //String outputPath = PathUtils.getAvatarTmpPath();
+    //Uri outputUri = Uri.fromFile(new File(outputPath));
+    //intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
     intent.putExtra("return-data", true);
     intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
     intent.putExtra("noFaceDetection", false); // face detection
     startActivityForResult(intent, requestCode);
-    return outputUri;
+    //return outputUri;
   }
 
   private void uploadCropAvatar(Intent data) {
@@ -276,23 +293,23 @@ public class ProfileFragment extends BaseFragment {
               @Override public void onError(Throwable e) {
                 dialog.dismiss();
                 Utils.toast(R.string.upload_avatar_error);
-                if (bitmap != null && bitmap.isRecycled() == false) {
-                  bitmap.recycle();
-                }
+                //if (bitmap != null && bitmap.isRecycled() == false) {
+                //  bitmap.recycle();
+                //}
                 return;
               }
 
               @Override public void onNext(BaseBean baseBean) {
                 dialog.dismiss();
+                mAvatarView.setImageBitmap(bitmap);
                 if (baseBean.getStatus() == 1) {
                   Utils.toast(R.string.upload_avatar_success);
-                  mAvatarView.setImageBitmap(bitmap);
                 } else {
                   Utils.toast(R.string.upload_avatar_error);
                 }
-                if (bitmap != null && bitmap.isRecycled() == false) {
-                  bitmap.recycle();
-                }
+                //if (bitmap != null && bitmap.isRecycled() == false) {
+                //  bitmap.recycle();
+                //}
               }
             });
       }
