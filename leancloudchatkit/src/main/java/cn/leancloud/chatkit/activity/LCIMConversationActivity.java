@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
@@ -65,6 +66,7 @@ public class LCIMConversationActivity extends AppCompatActivity {
         finish();
       }
     }
+
   }
 
   /**
@@ -101,6 +103,7 @@ public class LCIMConversationActivity extends AppCompatActivity {
   protected void updateConversation(final AVIMConversation conversation) {
     if (null != conversation) {
       conversationFragment.setConversation(conversation);
+      //清空当前的未读消息数量
       LCIMConversationItemCache.getInstance().clearUnread(conversation.getConversationId());
       LCIMConversationUtils.getConversationName(conversation, new AVCallback<String>() {
         @Override

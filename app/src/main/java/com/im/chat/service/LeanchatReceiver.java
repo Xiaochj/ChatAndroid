@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.LCChatKitUser;
 import com.im.chat.event.InvitationEvent;
 import com.im.chat.util.Constants;
 import com.im.chat.util.LogUtils;

@@ -5,8 +5,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import cn.leancloud.chatkit.utils.LCIMPreferenceMap;
+import cn.leancloud.chatkit.utils.SpUtils;
 import com.im.chat.R;
-import com.im.chat.service.PreferenceMap;
+import com.im.chat.util.ChatConstants;
 
 /**
  * 提醒通知
@@ -17,7 +19,7 @@ public class ProfileNotifySettingFragment extends PreferenceFragment implements 
   public static final String VOICE_NOTIFY = "voiceNotify";
   public static final String VIBRATE_NOTIFY = "vibrateNotify";
 
-  PreferenceMap preferenceMap;
+  LCIMPreferenceMap preferenceMap;
   CheckBoxPreference notifyWhenNews, voiceNotify, vibrateNotify;
 
   @Override
@@ -29,7 +31,8 @@ public class ProfileNotifySettingFragment extends PreferenceFragment implements 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    preferenceMap = PreferenceMap.getCurUserPrefDao(getActivity());
+    preferenceMap = LCIMPreferenceMap.getInstance(getActivity(), SpUtils.getString(
+        getActivity(),ChatConstants.KEY_USERID));
     notifyWhenNews = (CheckBoxPreference) findPreference(NOTIFY_WHEN_NEWS);
     voiceNotify = (CheckBoxPreference) findPreference(VOICE_NOTIFY);
     vibrateNotify = (CheckBoxPreference) findPreference(VIBRATE_NOTIFY);

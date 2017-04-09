@@ -12,9 +12,9 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.utils.SpUtils;
 import cn.leancloud.chatkit.view.RoundImageView;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -24,27 +24,18 @@ import com.im.chat.activity.EntryLoginActivity;
 import com.im.chat.activity.ProfileResumeActivity;
 import com.im.chat.activity.ProfileSettingActivity;
 import com.im.chat.engine.AppEngine;
-import com.im.chat.engine.Urls;
 import com.im.chat.model.BaseBean;
-import com.im.chat.model.ProfileInfoModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.Base64Utils;
 import com.im.chat.util.ChatConstants;
-import com.im.chat.util.ChatUserCacheUtils;
-import com.im.chat.util.PathUtils;
-import com.im.chat.util.SpUtils;
 
 import com.im.chat.util.Utils;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

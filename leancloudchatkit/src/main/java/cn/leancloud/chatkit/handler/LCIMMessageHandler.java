@@ -1,5 +1,6 @@
 package cn.leancloud.chatkit.handler;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
@@ -112,7 +113,11 @@ public class LCIMMessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage
     intent.setAction(LCIMConstants.CHAT_NOTIFICATION_ACTION);
     intent.putExtra(LCIMConstants.CONVERSATION_ID, conversationId);
     intent.putExtra(LCIMConstants.PEER_ID, peerId);
-    intent.setPackage(context.getPackageName());
+    //intent.setPackage(context.getPackageName());
+
+    //点击notify跳转到app主页面
+    ComponentName cn = new ComponentName(context.getPackageName(),"com.im.chat.activity.MainActivity");
+    intent.setComponent(cn);
     intent.addCategory(Intent.CATEGORY_DEFAULT);
     return intent;
   }

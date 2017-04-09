@@ -1,6 +1,8 @@
 package com.im.chat.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.utils.LCIMConstants;
+import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.SaveCallback;
@@ -56,12 +60,20 @@ public class MainActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main_activity);
-    findView();
-    init();
+    initView();
     conversationBtn.performClick();
     //initBaiduLocClient();
     //updateUserLocation();
     ChatUserCacheUtils.cacheUser(UserModel.getCurrentUser());
+
+    performNotify(getIntent());
+
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    performNotify(intent);
   }
 
   @Override
@@ -85,11 +97,19 @@ public class MainActivity extends BaseActivity {
   //  locClient.start();
   //}
 
-  private void init() {
-    tabs = new Button[]{conversationBtn, contactBtn, notificationBtn, mySpaceBtn};
+  /**
+   *  收到的消息推送通知，点开之后此方法用来关闭其余的所有通知notify
+   * @param intent
+   */
+  private void performNotify(@NonNull Intent intent) {
+    if(intent.getAction() != null) {
+      if (intent.getAction().toString().equals(LCIMConstants.CHAT_NOTIFICATION_ACTION)) {
+        LCIMNotificationUtils.cancelNotification(this);
+      }
+    }
   }
 
-  private void findView() {
+  private void initView() {
     conversationBtn = (Button) findViewById(R.id.btn_message);
     contactBtn = (Button) findViewById(R.id.btn_contact);
     notificationBtn = (Button) findViewById(R.id.btn_notification);
@@ -97,6 +117,7 @@ public class MainActivity extends BaseActivity {
     fragmentContainer = findViewById(R.id.fragment_container);
     recentTips = findViewById(R.id.iv_recent_tips);
     contactTips = findViewById(R.id.iv_contact_tips);
+    tabs = new Button[]{conversationBtn, contactBtn, notificationBtn, mySpaceBtn};
   }
 
   public void onTabSelect(View v) {

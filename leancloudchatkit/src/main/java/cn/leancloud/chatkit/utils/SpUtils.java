@@ -1,4 +1,4 @@
-package com.im.chat.util;
+package cn.leancloud.chatkit.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,9 +1,8 @@
 package com.im.chat.engine;
 
+import cn.leancloud.chatkit.utils.SpUtils;
 import com.im.chat.App;
 import com.im.chat.util.ChatConstants;
-import com.im.chat.util.SpUtils;
-
 
 import java.io.IOException;
 
@@ -22,7 +21,7 @@ public class AppInterceptor implements Interceptor {
         //userId
         builder.header(ChatConstants.KEY_USERID, SpUtils.getString(App.ctx,ChatConstants.KEY_USERID));
         //token
-        builder.header(ChatConstants.KEY_TOKEN,SpUtils.getString(App.ctx,ChatConstants.KEY_TOKEN));
+        builder.header(ChatConstants.KEY_TOKEN, SpUtils.getString(App.ctx,ChatConstants.KEY_TOKEN));
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_TYPE, "1");
         //builder.header(AppConstants.Http.HEADER_DEVICE_OS_VERSION, DeviceInfoUtil.getOsVersion(Ctvapplication.getContext()));
         //builder.header(AppConstants.Http.HEADER_DEVICE_MODEL, DeviceInfoUtil.getModel());

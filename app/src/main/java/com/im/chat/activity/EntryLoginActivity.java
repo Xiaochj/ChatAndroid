@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.utils.SpUtils;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -18,7 +19,6 @@ import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.UserModel;
 import com.im.chat.util.ChatConstants;
-import com.im.chat.util.SpUtils;
 import com.im.chat.util.Utils;
 import com.im.chat.view.HeaderLayout;
 
@@ -90,6 +90,7 @@ public class EntryLoginActivity extends BaseActivity {
 
       @Override
       public void onNext(BaseBean<UserModel> loginBean) {
+        dialog.dismiss();
         if(loginBean.getStatus() == 1) {
           if(loginBean.getData() != null) {
             //自家服务器成功，存取token和id
@@ -99,7 +100,6 @@ public class EntryLoginActivity extends BaseActivity {
             //loginLeanchat(name, password, dialog);
           }
         }else{
-          dialog.dismiss();
           Utils.toast(R.string.login_error);
         }
       }

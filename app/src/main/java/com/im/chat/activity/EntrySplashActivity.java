@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import cn.leancloud.chatkit.utils.SpUtils;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.im.chat.R;
 import cn.leancloud.chatkit.LCChatKit;
-import com.im.chat.model.UserModel;
 import com.im.chat.util.ChatConstants;
-import com.im.chat.util.SpUtils;
 
 /**
  * 欢迎页

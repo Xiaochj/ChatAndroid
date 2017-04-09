@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import cn.leancloud.chatkit.LCChatKit;
 import com.avos.avospush.notification.NotificationCompat;
 
 import java.util.LinkedList;
@@ -64,12 +65,23 @@ public class LCIMNotificationUtils {
   }
 
   public static void showNotification(Context context, String title, String content, String sound, Intent intent) {
+    LCIMPreferenceMap preferenceMap = LCIMPreferenceMap.getInstance(context, SpUtils.getString(
+        context,"userid"));
     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
         .setSmallIcon(context.getApplicationInfo().icon)
         .setContentTitle(title).setAutoCancel(true).setContentIntent(contentIntent)
-        .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_SOUND)
         .setContentText(content);
+    //判断当前的提醒设置状态
+    if(preferenceMap.isNotifyWhenNews()) {
+      if (preferenceMap.isVoiceNotify() && preferenceMap.isVibrateNotify()) {
+        mBuilder.setDefaults(Notification.DEFAULT_ALL);
+      }else if (preferenceMap.isVibrateNotify() && !preferenceMap.isVoiceNotify()) {
+        mBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+      }else if (!preferenceMap.isVibrateNotify() && preferenceMap.isVoiceNotify()) {
+        mBuilder.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND);
+      }
+    }
     NotificationManager manager =
       (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     Notification notification = mBuilder.build();
@@ -78,5 +90,14 @@ public class LCIMNotificationUtils {
     }
     lastNotificationId = (lastNotificationId > 10000 ? 0 : lastNotificationId + 1);
     manager.notify(lastNotificationId, notification);
+  }
+
+  /**
+   *
+   * @param context
+   */
+  public static void cancelNotification(Context context) {
+    NotificationManager nMgr = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+    nMgr.cancelAll();
   }
 }
