@@ -6,17 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
-import cn.leancloud.chatkit.LCChatKit;
-import cn.leancloud.chatkit.utils.LCIMConstants;
-import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVGeoPoint;
-import com.avos.avoscloud.SaveCallback;
-import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.fragment.ConversationListFragment;
 import com.im.chat.fragment.NotificationFragment;
@@ -24,7 +17,10 @@ import com.im.chat.fragment.ProfileFragment;
 import com.im.chat.friends.ContactFragment;
 import com.im.chat.model.UserModel;
 import com.im.chat.util.ChatUserCacheUtils;
-import com.im.chat.util.ChatUserProvider;
+import com.im.chat.util.Utils;
+
+import cn.leancloud.chatkit.utils.LCIMConstants;
+import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 
 /**
  * 主界面
@@ -55,6 +51,8 @@ public class MainActivity extends BaseActivity {
   ContactFragment contactFragment;//通讯录
   NotificationFragment notificationFragment;//通告
   ProfileFragment profileFragment;//我
+
+  private long exitTime = 0L;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -237,4 +235,26 @@ public class MainActivity extends BaseActivity {
   //    }
   //  }
   //}
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if(keyCode == KeyEvent.KEYCODE_BACK){
+      exit();
+      return false;
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * 按兩次退出app
+   */
+  private void exit(){
+    if(System.currentTimeMillis() - exitTime > 2000){
+      Utils.toast(this,R.string.keycodeback_twice);
+      exitTime = System.currentTimeMillis();
+    }else{
+      finish();
+      System.exit(0);
+    }
+  }
 }
