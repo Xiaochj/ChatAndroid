@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         //支持lamba表达式
         classpath 'org.robolectric:robolectric-gradle-plugin:0.14.+'
         classpath 'me.tatarka:gradle-retrolambda:3.2.0'
