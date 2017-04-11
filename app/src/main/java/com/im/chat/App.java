@@ -1,6 +1,9 @@
 package com.im.chat;
 
 import android.app.Application;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.StrictMode;
 
 import com.avos.avoscloud.AVAnalytics;
@@ -8,6 +11,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.baidu.mapapi.SDKInitializer;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.UserModel;
+import com.im.chat.service.NetworkCheckReceiver;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.Utils;
@@ -20,11 +24,16 @@ import cn.leancloud.chatkit.LCChatKit;
 public class App extends Application {
   public static boolean debug = true;
   public static App ctx;
+  private NetworkCheckReceiver networkCheckReceiver;
 
   @Override
   public void onCreate() {
     super.onCreate();
     ctx = this;
+
+    //注册网络监听器
+    registerNetworkCheckReceiver();
+
     Utils.fixAsyncTaskBug();
 
     //测试appid 和 appkey
@@ -53,6 +62,21 @@ public class App extends Application {
     if (App.debug) {
       openStrictMode();
     }
+  }
+
+  @Override public void onTerminate() {
+    super.onTerminate();
+    //反注册网络监听
+    if(networkCheckReceiver != null) {
+      unregisterReceiver(networkCheckReceiver);
+    }
+  }
+
+  private void registerNetworkCheckReceiver(){
+    networkCheckReceiver = new NetworkCheckReceiver();
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+    registerReceiver(networkCheckReceiver,filter);
   }
 
   public void openStrictMode() {

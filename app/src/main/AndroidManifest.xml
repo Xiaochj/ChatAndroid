@@ -61,6 +61,10 @@
       </intent-filter>
     </activity>
 
+    <!-- 网络监听 -->
+    <receiver android:name=".service.NetworkCheckReceiver">
+    </receiver>
+
     <receiver android:name="com.im.chat.service.LeanchatReceiver">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
