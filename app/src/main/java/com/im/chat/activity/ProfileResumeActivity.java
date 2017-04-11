@@ -113,7 +113,7 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
   private void updateDatas(String mobile, String signature, String mail, String oldpassword,
       String password) {
     ProgressDialog progressBar = showSpinnerDialog();
-    mAppservice.setProfileResume(mobile, signature, password, mail)
+    mAppservice.setProfileResume(mobile, signature, oldpassword, password, mail)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Subscriber<BaseBean>() {
@@ -133,13 +133,15 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
               if (baseBean.getCode() == 1) {// success
                 Utils.toast(R.string.profile_resume_success);
                 ProfileResumeActivity.this.finish();
-              } else if (baseBean.getCode() == 800) {//原密码输入有误
-                Utils.toast(R.string.profile_resume_pwd_original_error);
-              } else {
+              }  else {
                 Utils.toast(R.string.profile_resume_error);
               }
             } else {
-              Utils.toast(R.string.profile_resume_error);
+              if(baseBean.getCode() == 800) {//原密码输入有误
+                Utils.toast(R.string.profile_resume_pwd_original_error);
+              }else {
+                Utils.toast(R.string.profile_resume_error);
+              }
             }
             return;
           }

@@ -32,8 +32,8 @@ public interface AppService {
   /**
    * 上传图片
    */
-  @FormUrlEncoded
-  @POST("image/upload.do") Observable<BaseBean> uploadPhoto(@Field("data") String base64Str);
+  @FormUrlEncoded @POST("image/upload.do") Observable<BaseBean> uploadPhoto(
+      @Field("data") String base64Str);
 
   /**
    * 獲取通告列表 pageNo=1 && pageSize=-1 表示拿到所有数据
@@ -49,7 +49,8 @@ public interface AppService {
    */
   @FormUrlEncoded @POST("member/update.do") Observable<BaseBean> setProfileResume(
       @Field("mobile") String mobile, @Field("signature") String signature,
-      @Field("password") String password, @Field("mail") String mail);
+      @Field("oldpassword") String oldpassword, @Field("password") String password,
+      @Field("mail") String mail);
 
   /**
    * 獲取用戶信息
