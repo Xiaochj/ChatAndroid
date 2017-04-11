@@ -103,18 +103,12 @@
         android:name="com.im.chat.activity.EntryLoginActivity"
         android:theme="@style/LCIMActivity.NoActionBar"/>
 
-    <!--<activity-->
-    <!--android:name="com.im.chat.activity.EntryRegisterActivity"-->
-    <!--android:theme="@style/LCIMActivity.NoActionBar"/>-->
-
-    <!--<activity android:name="com.im.chat.friends.ContactNewFriendActivity"/>-->
-
     <activity
         android:name="com.im.chat.activity.SearchActivity"
         android:theme="@style/LCIMActivity.NoActionBar"/>
 
     <activity
-        android:name="com.im.chat.friends.ContactPersonInfoActivity"
+        android:name="com.im.chat.activity.ContactPersonInfoActivity"
         android:theme="@style/LCIMActivity.NoActionBar"/>
 
     <activity

@@ -1,4 +1,4 @@
-package com.im.chat.friends;
+package com.im.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.im.chat.R;
-import com.im.chat.activity.BaseActivity;
-import com.im.chat.activity.ChatRoomActivity;
-import com.im.chat.model.ContactListModel;
-import com.im.chat.util.ChatConstants;
-import com.im.chat.util.Constants;
-
-import com.im.chat.view.HeaderLayout;
-
 import butterknife.Bind;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.view.RoundImageView;
+import com.im.chat.R;
+import com.im.chat.model.ContactListModel;
+import com.im.chat.util.ChatConstants;
+import com.im.chat.view.HeaderLayout;
 import com.squareup.picasso.Picasso;
 
 /**

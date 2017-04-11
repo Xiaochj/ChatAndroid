@@ -2,7 +2,6 @@ package com.im.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,12 +13,10 @@ import android.widget.TextView;
 
 import com.im.chat.R;
 
-import com.im.chat.friends.ContactPersonInfoActivity;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.ChatUserProvider;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;

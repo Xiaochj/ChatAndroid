@@ -10,27 +10,20 @@ import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.im.chat.R;
 import com.im.chat.adapter.MemeberAddAdapter;
-import com.im.chat.friends.FriendsManager;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.model.ConversationType;
-import com.im.chat.model.UserModel;
-import com.im.chat.util.ChatUserCacheUtils;
 import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.ConversationUtils;
 import com.im.chat.util.Utils;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import butterknife.Bind;

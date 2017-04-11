@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.im.chat.R;
+import com.im.chat.fragment.ContactFragment;
 import com.im.chat.fragment.ConversationListFragment;
 import com.im.chat.fragment.NotificationFragment;
 import com.im.chat.fragment.ProfileFragment;
-import com.im.chat.friends.ContactFragment;
 import com.im.chat.model.UserModel;
 import com.im.chat.util.ChatUserCacheUtils;
 import com.im.chat.util.Utils;

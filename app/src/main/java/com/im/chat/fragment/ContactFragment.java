@@ -1,4 +1,4 @@
-package com.im.chat.friends;
+package com.im.chat.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.im.chat.App;
 import com.im.chat.R;
 import com.im.chat.activity.ChatRoomActivity;
+import com.im.chat.activity.ContactPersonInfoActivity;
 import com.im.chat.activity.SearchActivity;
 import com.im.chat.adapter.ContactsAdapter;
 import com.im.chat.engine.AppEngine;
@@ -24,23 +28,15 @@ import com.im.chat.event.ContactItemClickEvent;
 import com.im.chat.event.ContactRefreshEvent;
 import com.im.chat.event.GroupItemClickEvent;
 import com.im.chat.event.MemberLetterEvent;
-import com.im.chat.fragment.BaseFragment;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.ChatUserProvider;
-import com.im.chat.util.Constants;
 import com.im.chat.util.ConversationUtils;
 import com.im.chat.util.Utils;
 import com.im.chat.viewholder.GroupItemHolder;
-
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
-import cn.leancloud.chatkit.utils.LCIMConstants;
 import de.greenrobot.event.EventBus;
+import java.util.List;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

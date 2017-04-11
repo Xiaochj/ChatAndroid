@@ -8,9 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.im.chat.R;
-import com.im.chat.friends.ContactPersonInfoActivity;
+import com.im.chat.activity.ContactPersonInfoActivity;
 import com.im.chat.model.UserModel;
-import com.im.chat.util.Constants;
 import com.squareup.picasso.Picasso;
 
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;

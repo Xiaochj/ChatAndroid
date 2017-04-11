@@ -8,7 +8,7 @@ import cn.leancloud.chatkit.R;
  * Created by xiaochj on 2017/4/9.
  */
 
-public class LCIMPreferenceMap {
+public class PreferenceMap {
 
   private Context ctx;
   public static final String NOTIFY_WHEN_NEWS = "notifyWhenNews";
@@ -16,17 +16,17 @@ public class LCIMPreferenceMap {
   public static final String VIBRATE_NOTIFY = "vibrateNotify";
   SharedPreferences pref;
   SharedPreferences.Editor editor;
-  public static LCIMPreferenceMap instance;
+  public static PreferenceMap instance;
 
-  public LCIMPreferenceMap(Context cxt, String prefName) {
+  public PreferenceMap(Context cxt, String prefName) {
     this.ctx = cxt;
     pref = cxt.getSharedPreferences(prefName, Context.MODE_PRIVATE);
     editor = pref.edit();
   }
 
-  public static LCIMPreferenceMap getInstance(Context ctx,String prefName) {
+  public static PreferenceMap getInstance(Context ctx,String prefName) {
     if (instance == null) {
-      instance = new LCIMPreferenceMap(ctx.getApplicationContext(), prefName);
+      instance = new PreferenceMap(ctx.getApplicationContext(), prefName);
     }
     return instance;
   }

@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import cn.leancloud.chatkit.LCChatKit;
 import com.avos.avospush.notification.NotificationCompat;
 
 import java.util.LinkedList;
@@ -65,7 +64,7 @@ public class LCIMNotificationUtils {
   }
 
   public static void showNotification(Context context, String title, String content, String sound, Intent intent) {
-    LCIMPreferenceMap preferenceMap = LCIMPreferenceMap.getInstance(context, SpUtils.getString(
+    PreferenceMap preferenceMap = PreferenceMap.getInstance(context, SpUtils.getString(
         context,"userid"));
     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, 0);
     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)

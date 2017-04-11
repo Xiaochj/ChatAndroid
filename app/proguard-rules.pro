@@ -163,8 +163,6 @@
 
 #实体类
 -keep class com.im.chat.model.** {*;}
--dontwarn com.im.chat.engine.EmptyJsonLenientConverterFactory
--keep class com.im.chat.engine.EmptyJsonLenientConverterFactory
 
 
 #leancloud sdk   https://leancloud.cn/docs/android_faq.html#代码混淆怎么做
