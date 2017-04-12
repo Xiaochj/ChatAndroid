@@ -195,10 +195,13 @@ public class ProfileFragment extends BaseFragment {
    * 登出
    */
   @OnClick(R.id.profile_logout_btn) public void onLogoutClick() {
-    LCChatKit.getInstance().close(new AVIMClientCallback() {
-      @Override public void done(AVIMClient avimClient, AVIMException e) {
-      }
-    });
+    if(LCChatKit.getInstance().getCurrentUserId() != null) {
+      LCChatKit.getInstance().close(new AVIMClientCallback() {
+        @Override public void done(AVIMClient avimClient, AVIMException e) {
+          filterException(e);
+        }
+      });
+    }
     PushManager.getInstance().unsubscribeCurrentUserChannel();
     UserModel.logOut();
     //登出自己的服务器
