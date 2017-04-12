@@ -205,7 +205,7 @@ public class ConversationDetailActivity extends BaseActivity {
               @Override
               public void done(AVIMException e) {
                 progress.dismiss();
-                if (filterException(e)) {
+                if (e == null) {
                   Utils.toast(R.string.conversation_detail_kickSucceed);
                   refresh();
                 }
@@ -228,7 +228,7 @@ public class ConversationDetailActivity extends BaseActivity {
           conversation.quit(new AVIMConversationCallback() {
             @Override
             public void done(AVIMException e) {
-              if (filterException(e)) {
+              if (e == null) {
                 LCIMConversationItemCache.getInstance().deleteConversation(convid);
                 Utils.toast(R.string.conversation_alreadyQuitConv);
                 setResult(RESULT_OK);
@@ -249,7 +249,7 @@ public class ConversationDetailActivity extends BaseActivity {
         updateName(conversation, newName, new AVIMConversationCallback() {
           @Override
           public void done(AVIMException e) {
-            if (filterException(e)) {
+            if (e == null) {
               refresh();
             }
           }

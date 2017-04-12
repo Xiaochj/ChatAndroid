@@ -128,7 +128,7 @@ public class ConversationAddMembersActivity extends BaseActivity {
         ConversationUtils.createGroupConversation(members, new AVIMConversationCreatedCallback() {
           @Override
           public void done(final AVIMConversation conversation, AVIMException e) {
-            if (filterException(e)) {
+            if (e == null) {
               Intent intent = new Intent(ConversationAddMembersActivity.this, ChatRoomActivity.class);
               intent.putExtra(LCIMConstants.CONVERSATION_ID, conversation.getConversationId());
               startActivity(intent);
@@ -141,7 +141,7 @@ public class ConversationAddMembersActivity extends BaseActivity {
           @Override
           public void done(AVIMException e) {
             dialog.dismiss();
-            if (filterException(e)) {
+            if (e == null) {
               Utils.toast(R.string.conversation_inviteSucceed);
               setResult(RESULT_OK);
               finish();

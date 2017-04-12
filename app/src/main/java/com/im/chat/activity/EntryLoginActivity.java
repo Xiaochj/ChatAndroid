@@ -9,8 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import cn.leancloud.chatkit.LCChatKit;
-import cn.leancloud.chatkit.utils.SpUtils;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -24,6 +22,8 @@ import com.im.chat.view.HeaderLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.utils.SpUtils;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -138,7 +138,7 @@ public class EntryLoginActivity extends BaseActivity {
     LCChatKit.getInstance().open(SpUtils.getString(this,ChatConstants.KEY_USERID), new AVIMClientCallback() {
       @Override
       public void done(AVIMClient avimClient, AVIMException e) {
-        if (filterException(e)) {
+        if (e == null) {
           Intent intent = new Intent(EntryLoginActivity.this, MainActivity.class);
           startActivity(intent);
           finish();

@@ -63,15 +63,15 @@ public class BaseActivity extends AppCompatActivity {
     }
   }
 
-  protected boolean filterException(Exception e) {
-    if (e != null) {
-      e.printStackTrace();
-      toast(e.getMessage());
-      return false;
-    } else {
-      return true;
-    }
-  }
+//  protected boolean filterException(Exception e) {
+//    if (e != null) {
+//      e.printStackTrace();
+//      toast(e.getMessage());
+//      return false;
+//    } else {
+//      return true;
+//    }
+//  }
 
   protected void toast(String str) {
     Toast.makeText(this, str, Toast.LENGTH_SHORT).show();

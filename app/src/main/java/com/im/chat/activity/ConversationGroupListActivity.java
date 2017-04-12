@@ -54,7 +54,7 @@ public class ConversationGroupListActivity extends BaseActivity {
     ConversationUtils.findGroupConversationsIncludeMe(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> conversations, AVIMException e) {
-        if (filterException(e)) {
+        if (e == null) {
           itemAdapter.setDataList(conversations);
           itemAdapter.notifyDataSetChanged();
         }
