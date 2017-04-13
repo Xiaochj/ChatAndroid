@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.widget.Toast;
 
 import com.im.chat.App;
@@ -91,6 +92,27 @@ public class Utils {
       return false;
     } else {
       return true;
+    }
+  }
+
+  private static boolean isExternalStorageWritable() {
+    String state = Environment.getExternalStorageState();
+    return Environment.MEDIA_MOUNTED.equals(state);
+  }
+
+  public static String getAvatarCropPath() {
+    return new File(getAvailableCacheDir(), "avatar_crop").getAbsolutePath();
+  }
+
+  public static String getAvatarTmpPath() {
+    return new File(getAvailableCacheDir(), "avatar_tmp").getAbsolutePath();
+  }
+
+  private static File getAvailableCacheDir() {
+    if (isExternalStorageWritable()) {
+      return App.ctx.getExternalCacheDir();
+    } else {
+      return App.ctx.getCacheDir();
     }
   }
 
