@@ -52,8 +52,6 @@ public class MainActivity extends BaseActivity {
   NotificationFragment notificationFragment;//通告
   ProfileFragment profileFragment;//我
 
-  private long exitTime = 0L;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -236,25 +234,4 @@ public class MainActivity extends BaseActivity {
   //  }
   //}
 
-  @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if(keyCode == KeyEvent.KEYCODE_BACK){
-      exit();
-      return false;
-    }
-    return super.onKeyDown(keyCode, event);
-  }
-
-  /**
-   * 按兩次退出app
-   */
-  private void exit(){
-    if(System.currentTimeMillis() - exitTime > 2000){
-      Utils.toast(this,R.string.keycodeback_twice);
-      exitTime = System.currentTimeMillis();
-    }else{
-      finish();
-      System.exit(0);
-    }
-  }
 }
