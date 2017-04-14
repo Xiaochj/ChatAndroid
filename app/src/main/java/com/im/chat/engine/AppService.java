@@ -2,6 +2,7 @@ package com.im.chat.engine;
 
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
+import com.im.chat.model.UploadImageModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.model.NotifyListModel;
 
@@ -32,7 +33,7 @@ public interface AppService {
   /**
    * 上传图片
    */
-  @FormUrlEncoded @POST("image/upload.do") Observable<BaseBean> uploadPhoto(
+  @FormUrlEncoded @POST("image/upload.do") Observable<BaseBean<UploadImageModel>> uploadPhoto(
       @Field("data") String base64Str);
 
   /**

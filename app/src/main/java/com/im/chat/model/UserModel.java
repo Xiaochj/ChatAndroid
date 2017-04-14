@@ -155,49 +155,4 @@ public class UserModel extends AVUser {
   public static UserModel getCurrentUser() {
     return getCurrentUser(UserModel.class);
   }
-
-  public void updateUserInfo() {
-    AVInstallation installation = AVInstallation.getCurrentInstallation();
-    if (installation != null) {
-      put(INSTALLATION, installation);
-      saveInBackground();
-    }
-  }
-
-  public AVGeoPoint getGeoPoint() {
-    return getAVGeoPoint(LOCATION);
-  }
-
-  public void setGeoPoint(AVGeoPoint point) {
-    put(LOCATION, point);
-  }
-
-  public static void signUpByNameAndPwd(String name, String password, SignUpCallback callback) {
-    AVUser user = new AVUser();
-    user.setUsername(name);
-    user.setPassword(password);
-    user.signUpInBackground(callback);
-  }
-
-  public void removeFriend(String friendId, final SaveCallback saveCallback) {
-    unfollowInBackground(friendId, new FollowCallback() {
-      @Override public void done(AVObject object, AVException e) {
-        if (saveCallback != null) {
-          saveCallback.done(e);
-        }
-      }
-    });
-  }
-
-  public void findFriendsWithCachePolicy(AVQuery.CachePolicy cachePolicy,
-      FindCallback<UserModel> findCallback) {
-    AVQuery<UserModel> q = null;
-    try {
-      q = followeeQuery(UserModel.class);
-    } catch (Exception e) {
-    }
-    q.setCachePolicy(cachePolicy);
-    q.setMaxCacheAge(TimeUnit.MINUTES.toMillis(1));
-    q.findInBackground(findCallback);
-  }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import com.im.chat.R;
 import com.im.chat.event.ConversationMemberClickEvent;
 import com.im.chat.model.ContactListModel;
@@ -26,12 +27,11 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<ContactLi
 
   public ConversationDetailItemHolder(Context context, ViewGroup root) {
     super(context, root, com.im.chat.R.layout.conversation_member_item);
-    avatarView = (RoundImageView)itemView.findViewById(com.im.chat.R.id.avatar);
-    nameView = (TextView)itemView.findViewById(com.im.chat.R.id.username);
+    avatarView = (RoundImageView) itemView.findViewById(com.im.chat.R.id.avatar);
+    nameView = (TextView) itemView.findViewById(com.im.chat.R.id.username);
 
     itemView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+      @Override public void onClick(View v) {
         if (null != contactListModel) {
           EventBus.getDefault().post(new ConversationMemberClickEvent(contactListModel, false));
         }
@@ -39,8 +39,7 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<ContactLi
     });
 
     itemView.setOnLongClickListener(new View.OnLongClickListener() {
-      @Override
-      public boolean onLongClick(View v) {
+      @Override public boolean onLongClick(View v) {
         if (null != contactListModel) {
           EventBus.getDefault().post(new ConversationMemberClickEvent(contactListModel, true));
         }
@@ -49,11 +48,15 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<ContactLi
     });
   }
 
-  @Override
-  public void bindData(ContactListModel user) {
+  @Override public void bindData(ContactListModel user) {
     contactListModel = user;
     if (null != user) {
-      Picasso.with(getContext()).load(user.getHead()).placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
+      Picasso.with(getContext())
+          .load(user.getHead())
+          .resize(DenstiyUtil.dip2px(getContext(), 45), DenstiyUtil.dip2px(getContext(), 45))
+          .placeholder(R.drawable.lcim_default_avatar_icon)
+          .centerCrop()
+          .into(avatarView);
       nameView.setText(user.getName());
     } else {
       avatarView.setImageResource(0);
@@ -61,10 +64,11 @@ public class ConversationDetailItemHolder extends LCIMCommonViewHolder<ContactLi
     }
   }
 
-  public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<ConversationDetailItemHolder>() {
-    @Override
-    public ConversationDetailItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
-      return new ConversationDetailItemHolder(parent.getContext(), parent);
-    }
-  };
+  public static ViewHolderCreator HOLDER_CREATOR =
+      new ViewHolderCreator<ConversationDetailItemHolder>() {
+        @Override public ConversationDetailItemHolder createByViewGroupAndType(ViewGroup parent,
+            int viewType) {
+          return new ConversationDetailItemHolder(parent.getContext(), parent);
+        }
+      };
 }

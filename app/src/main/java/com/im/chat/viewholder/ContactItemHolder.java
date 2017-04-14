@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import com.im.chat.R;
 import com.im.chat.event.ContactItemClickEvent;
 import com.im.chat.model.ContactItem;
@@ -33,52 +34,52 @@ public class ContactItemHolder extends LCIMCommonViewHolder<ContactItem> {
   }
 
   public void initView() {
-    alpha = (TextView)itemView.findViewById(R.id.alpha);
-    nameView = (TextView)itemView.findViewById(R.id.tv_friend_name);
-    avatarView = (RoundImageView)itemView.findViewById(R.id.img_friend_avatar);
+    alpha = (TextView) itemView.findViewById(R.id.alpha);
+    nameView = (TextView) itemView.findViewById(R.id.tv_friend_name);
+    avatarView = (RoundImageView) itemView.findViewById(R.id.img_friend_avatar);
 
     //点击
     itemView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+      @Override public void onClick(View v) {
         EventBus.getDefault().post(new ContactItemClickEvent(contactItem.user));
       }
     });
 
-//    //长按
-//    itemView.setOnLongClickListener(new View.OnLongClickListener() {
-//      @Override
-//      public boolean onLongClick(View v) {
-//        EventBus.getDefault().post(new ContactItemLongClickEvent(contactItem.user.getId()));
-//        return true;
-//      }
-//    });
+    //    //长按
+    //    itemView.setOnLongClickListener(new View.OnLongClickListener() {
+    //      @Override
+    //      public boolean onLongClick(View v) {
+    //        EventBus.getDefault().post(new ContactItemLongClickEvent(contactItem.user.getId()));
+    //        return true;
+    //      }
+    //    });
   }
 
-  @Override
-  public void bindData(ContactItem memberItem) {
+  @Override public void bindData(ContactItem memberItem) {
     contactItem = memberItem;
     //索引行
     alpha.setVisibility(memberItem.initialVisible ? View.VISIBLE : View.GONE);
     if (!TextUtils.isEmpty(memberItem.sortContent)) {
       char curChar = Character.toUpperCase(memberItem.sortContent.charAt(0));
       //如果不是A-Z的字母
-      if(curChar < 65 || curChar > 90 ) {
+      if (curChar < 65 || curChar > 90) {
         alpha.setText("#");
-      }else{
+      } else {
         alpha.setText(String.valueOf(curChar));
       }
     } else {
       alpha.setText("");
     }
-    Picasso.with(getContext()).load(memberItem.user.getHead())
-      .placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
+    Picasso.with(getContext())
+        .load(memberItem.user.getHead())
+        .resize(DenstiyUtil.dip2px(getContext(), 45), DenstiyUtil.dip2px(getContext(), 45))
+        .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop()
+        .into(avatarView);
     nameView.setText(memberItem.user.getName());
   }
 
   public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<ContactItemHolder>() {
-    @Override
-    public ContactItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
+    @Override public ContactItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
       return new ContactItemHolder(parent.getContext(), parent);
     }
   };

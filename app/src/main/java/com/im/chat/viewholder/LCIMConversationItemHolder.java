@@ -1,12 +1,10 @@
 package com.im.chat.viewholder;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,6 +14,7 @@ import cn.leancloud.chatkit.LCChatMessageInterface;
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.cache.LCIMConversationItemCache;
 import cn.leancloud.chatkit.event.LCIMConversationItemLongClickEvent;
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMConversationUtils;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
@@ -31,7 +30,6 @@ import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.im.chat.activity.ChatRoomActivity;
-import com.im.chat.activity.ConversationGroupListActivity;
 import com.squareup.picasso.Picasso;
 import de.greenrobot.event.EventBus;
 import java.text.SimpleDateFormat;
@@ -66,15 +64,13 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
     contentLayout = (LinearLayout) itemView.findViewById(R.id.conversation_item_layout_content);
   }
 
-  @Override
-  public void bindData(Object o) {
+  @Override public void bindData(Object o) {
     reset();
     final AVIMConversation conversation = (AVIMConversation) o;
     if (null != conversation) {
       if (null == conversation.getCreatedAt()) {
         conversation.fetchInfoInBackground(new AVIMConversationCallback() {
-          @Override
-          public void done(AVIMException e) {
+          @Override public void done(AVIMException e) {
             if (e != null) {
               LCIMLogUtils.logException(e);
             } else {
@@ -91,17 +87,15 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
       updateUnreadCount(conversation);
       updateLastMessage(conversation.getLastMessage());
       itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
+        @Override public void onClick(View v) {
           onConversationItemClick(conversation);
         }
       });
 
       itemView.setOnLongClickListener(new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
+        @Override public boolean onLongClick(View v) {
           AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-          builder.setItems(new String[]{"删除该聊天"}, new DialogInterface.OnClickListener() {
+          builder.setItems(new String[] { "删除该聊天" }, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
               EventBus.getDefault().post(new LCIMConversationItemLongClickEvent(conversation));
             }
@@ -127,13 +121,10 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
 
   /**
    * 更新 name，单聊的话展示对方姓名，群聊展示所有用户的用户名
-   *
-   * @param conversation
    */
   private void updateName(AVIMConversation conversation) {
     LCIMConversationUtils.getConversationName(conversation, new AVCallback<String>() {
-      @Override
-      protected void internalDone0(String s, AVException e) {
+      @Override protected void internalDone0(String s, AVException e) {
         if (null != e) {
           LCIMLogUtils.logException(e);
         } else {
@@ -147,8 +138,6 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
    * 更新 item icon，目前的逻辑为：
    * 单聊：展示对方的头像
    * 群聊：展示一个静态的 icon
-   *
-   * @param conversation
    */
   private void updateIcon(AVIMConversation conversation) {
     if (null != conversation) {
@@ -156,14 +145,18 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
         avatarView.setImageResource(R.drawable.lcim_group_icon);
       } else {
         LCIMConversationUtils.getConversationPeerIcon(conversation, new AVCallback<String>() {
-          @Override
-          protected void internalDone0(String s, AVException e) {
+          @Override protected void internalDone0(String s, AVException e) {
             if (null != e) {
               LCIMLogUtils.logException(e);
             }
             if (!TextUtils.isEmpty(s)) {
-              Picasso.with(getContext()).load(s)
-                .placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
+              Picasso.with(getContext())
+                  .load(s)
+                  .resize(DenstiyUtil.dip2px(getContext(), 50),
+                      DenstiyUtil.dip2px(getContext(), 50))
+                  .placeholder(R.drawable.lcim_default_avatar_icon)
+                  .centerCrop()
+                  .into(avatarView);
             } else {
               avatarView.setImageResource(R.drawable.lcim_default_avatar_icon);
             }
@@ -175,19 +168,16 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
 
   /**
    * 更新未读消息数量
-   *
-   * @param conversation
    */
   private void updateUnreadCount(AVIMConversation conversation) {
-    int num = LCIMConversationItemCache.getInstance().getUnreadCount(conversation.getConversationId());
+    int num =
+        LCIMConversationItemCache.getInstance().getUnreadCount(conversation.getConversationId());
     unreadView.setText(num + "");
     unreadView.setVisibility(num > 0 ? View.VISIBLE : View.GONE);
   }
 
   /**
    * 更新 item 的展示内容，及最后一条消息的内容
-   *
-   * @param message
    */
   private void updateLastMessage(AVIMMessage message) {
     if (null != message) {
@@ -215,17 +205,18 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
     getContext().startActivity(intent);
   }
 
-  public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<LCIMConversationItemHolder>() {
-    @Override
-    public LCIMConversationItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
-      return new LCIMConversationItemHolder(parent);
-    }
-  };
+  public static ViewHolderCreator HOLDER_CREATOR =
+      new ViewHolderCreator<LCIMConversationItemHolder>() {
+        @Override
+        public LCIMConversationItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {
+          return new LCIMConversationItemHolder(parent);
+        }
+      };
 
   private static CharSequence getMessageeShorthand(Context context, AVIMMessage message) {
     if (message instanceof AVIMTypedMessage) {
       AVIMReservedMessageType type = AVIMReservedMessageType.getAVIMReservedMessageType(
-        ((AVIMTypedMessage) message).getMessageType());
+          ((AVIMTypedMessage) message).getMessageType());
       switch (type) {
         case TextMessageType:
           return ((AVIMTextMessage) message).getText();

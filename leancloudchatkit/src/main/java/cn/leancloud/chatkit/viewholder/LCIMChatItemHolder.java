@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
@@ -94,8 +95,8 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
           nameView.setText(userProfile.getUserName());
           final String avatarUrl = userProfile.getAvatarUrl();
           if (!TextUtils.isEmpty(avatarUrl)) {
-            Picasso.with(getContext()).load(avatarUrl)
-              .placeholder(R.drawable.lcim_default_avatar_icon).into(avatarView);
+            Picasso.with(getContext()).load(avatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))
+              .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop().into(avatarView);
           }
         }
       }

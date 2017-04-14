@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
     conversationBtn.performClick();
     //initBaiduLocClient();
     //updateUserLocation();
-    ChatUserCacheUtils.cacheUser(UserModel.getCurrentUser());
+    //ChatUserCacheUtils.cacheUser(UserModel.getCurrentUser());
 
     performNotify(getIntent());
 

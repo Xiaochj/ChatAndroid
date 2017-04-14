@@ -30,6 +30,7 @@ import com.im.chat.activity.ProfileSettingActivity;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
+import com.im.chat.model.UploadImageModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.Base64Utils;
@@ -71,6 +72,8 @@ public class ProfileFragment extends BaseFragment {
   @Bind(R.id.profile_version) TextView mVersion;
   @Bind(R.id.profile_logout_btn) TextView mLogoutBtn;
 
+  UserModel profileInfoModel;
+
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.profile_fragment, container, false);
@@ -104,7 +107,7 @@ public class ProfileFragment extends BaseFragment {
         if (profileInfoModelBaseBean.getStatus() == 1) {
           if (profileInfoModelBaseBean.getData() != null) {
             //获取用户信息
-            UserModel profileInfoModel = profileInfoModelBaseBean.getData();
+            profileInfoModel = profileInfoModelBaseBean.getData();
             if (profileInfoModel.getHead() != null) {
               Picasso.with(getContext()).load(profileInfoModel.getHead())
                   .error(R.drawable.lcim_default_avatar_icon)
@@ -278,8 +281,8 @@ public class ProfileFragment extends BaseFragment {
     if (extras != null) {
       Bitmap bitmap = extras.getParcelable("data");
       if (bitmap != null) {
-        //String path = Utils.getAvatarCropPath();
-        //Utils.saveBitmap(path,bitmap);//保存图片到本地
+        String path = Utils.getAvatarCropPath();
+        Utils.saveBitmap(path,bitmap);//保存图片到本地
         base64 = Base64Utils.bitmapToBase64(bitmap);
         final ProgressDialog dialog = showSpinnerDialog();
         AppEngine.getInstance()
@@ -287,7 +290,7 @@ public class ProfileFragment extends BaseFragment {
             .uploadPhoto(base64)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<BaseBean>() {
+            .subscribe(new Subscriber<BaseBean<UploadImageModel>>() {
               @Override public void onCompleted() {
 
               }
@@ -301,15 +304,15 @@ public class ProfileFragment extends BaseFragment {
                 return;
               }
 
-              @Override public void onNext(BaseBean baseBean) {
+              @Override public void onNext(BaseBean<UploadImageModel> baseBean) {
                 dialog.dismiss();
                 mAvatarView.setImageBitmap(bitmap);
                 if (baseBean.getStatus() == 1) {
                   Utils.toast(R.string.upload_avatar_success);
-                  //if(path != null) {
-                  //  ContactListModel user = ContactListModel.getCurrentUser();
-                  //  user.saveAvatar(path, null);
-                  //}
+                  LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
+                  if(path != null) {
+                    profileInfoModel.saveAvatar(path, null);
+                  }
                 } else {
                   Utils.toast(R.string.upload_avatar_error);
                 }
