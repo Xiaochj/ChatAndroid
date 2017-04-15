@@ -26,12 +26,12 @@
     <style name="LCIMActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColor">@color/lcim_bottom_bar_text_black</item>
         <item name="android:textColorPrimary">@color/lcim_bottom_bar_text_black</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="MenuTextStyle">
         <item name="android:textColor">@color/lcim_bottom_bar_text_black</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
     <!--<style name="LCIMActivity.FullScreen" >-->
         <!--<item name="android:windowFullscreen">true</item>-->

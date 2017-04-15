@@ -45,19 +45,18 @@
 
             <TextView
                 android:id="@+id/conversation_item_tv_name"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="top"
                 android:singleLine="true"
-                android:text="张三李四网二"
                 android:textColor="@color/lcim_bottom_bar_text_black"/>
 
             <TextView
                 android:id="@+id/conversation_item_tv_time"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/light_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -68,7 +67,7 @@
 
         <TextView
             android:id="@+id/conversation_item_tv_message"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/light_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

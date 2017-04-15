@@ -24,36 +24,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/notify_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sdfasdfasdf"
-                android:textSize="@dimen/sp18"
-                android:textColor="@color/high_text"
                 android:layout_alignParentLeft="true"
-                android:maxLines="2"/>
+                android:layout_marginRight="@dimen/dp75"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/high_text"
+                android:textSize="@dimen/sp16" />
+
             <TextView
                 android:id="@+id/notify_item_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12-21"
-                android:textSize="@dimen/sp14"
+                android:layout_alignParentRight="true"
                 android:textColor="@color/light_text"
-                android:layout_alignParentRight="true"/>
+                android:textSize="@dimen/sp12" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/notify_item_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dp8"
-            android:textSize="@dimen/sp16"
+            android:textSize="@dimen/sp13"
             android:textColor="@color/light_text"
-            android:text="asdfasdfasdfasdfasdfasdlfjasldjfalsdjfalsdjflasdjf的说法是的发送到发送到发送到发斯蒂芬"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:ellipsize="end"/>
     </LinearLayout>
 
     </LinearLayout>

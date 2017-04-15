@@ -13,7 +13,7 @@
         android:paddingBottom="@dimen/dp2"
         android:paddingTop="@dimen/dp2"
         android:textColor="@color/high_text"
-        android:textSize="@dimen/sp16"
+        android:textSize="@dimen/sp14"
         android:text="@string/conversation_qunliao"/>
 
     <android.support.v7.widget.RecyclerView

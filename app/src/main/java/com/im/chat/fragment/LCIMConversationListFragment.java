@@ -8,19 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.im.chat.R;
+import com.im.chat.viewholder.LCIMConversationItemHolder;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.leancloud.chatkit.LCChatKit;
-import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
 import cn.leancloud.chatkit.cache.LCIMConversationItemCache;
 import cn.leancloud.chatkit.event.LCIMConversationItemLongClickEvent;
 import cn.leancloud.chatkit.event.LCIMIMTypeMessageEvent;
 import cn.leancloud.chatkit.event.LCIMOfflineMessageCountChangeEvent;
 import cn.leancloud.chatkit.view.LCIMDividerItemDecoration;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.im.chat.viewholder.LCIMConversationItemHolder;
 import de.greenrobot.event.EventBus;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by wli on 16/2/29.

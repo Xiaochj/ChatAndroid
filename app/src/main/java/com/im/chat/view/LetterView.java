@@ -51,6 +51,7 @@ public class LetterView extends LinearLayout {
       view.setGravity(Gravity.CENTER);
       view.setIncludeFontPadding(false);
       view.setText(content.toString());
+      view.setTextSize(12);
       addView(view);
     }
 

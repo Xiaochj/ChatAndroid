@@ -67,7 +67,7 @@
               android:layout_height="wrap_content"
               android:layout_marginRight="@dimen/dp10"
               android:textColor="@color/high_text"
-              android:textSize="@dimen/sp20"
+              android:textSize="@dimen/sp18"
               />
           <TextView
               android:id="@+id/contact_detail_sex"

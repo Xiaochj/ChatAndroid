@@ -28,7 +28,7 @@
             android:singleLine="true"
             android:ellipsize="middle"
             android:text="name"
-            android:textSize="@dimen/sp18" />
+            android:textSize="@dimen/sp16" />
     </RelativeLayout>
 
     <View style="@style/LCIMDividerLine.Horizontal"
