@@ -76,6 +76,7 @@ public class LCIMConversationUtils {
       if (1 == conversation.getMembers().size()) {
         peerId = conversation.getMembers().get(0);
       }
+      //*********************************請求id獲取head
       LCIMProfileCache.getInstance().getUserAvatar(peerId, callback);
     } else {
       callback.internalDone(null, new AVException(new Throwable("cannot find icon!")));

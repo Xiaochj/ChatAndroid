@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.im.chat.R;
+import com.im.chat.event.MainTabEvent;
 import com.im.chat.viewholder.LCIMConversationItemHolder;
 
 import java.util.ArrayList;
@@ -69,6 +70,10 @@ public class LCIMConversationListFragment extends Fragment {
   public void onDestroyView() {
     super.onDestroyView();
     EventBus.getDefault().unregister(this);
+  }
+
+  public void onEvent(MainTabEvent event){
+    updateConversationList();
   }
 
   /**

@@ -6,21 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
 import com.im.chat.R;
+import com.im.chat.event.MainTabEvent;
 import com.im.chat.fragment.ContactFragment;
 import com.im.chat.fragment.ConversationListFragment;
 import com.im.chat.fragment.NotificationFragment;
 import com.im.chat.fragment.ProfileFragment;
-import com.im.chat.model.UserModel;
-import com.im.chat.util.ChatUserCacheUtils;
-import com.im.chat.util.Utils;
 
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
+import de.greenrobot.event.EventBus;
 
 /**
  * 主界面
@@ -127,6 +125,7 @@ public class MainActivity extends BaseActivity {
         conversationListFragment = new ConversationListFragment();
         transaction.add(R.id.fragment_container, conversationListFragment, FRAGMENT_TAG_CONVERSATION);
       }
+      EventBus.getDefault().post(new MainTabEvent(id));
       transaction.show(conversationListFragment);
     } else if (id == R.id.btn_contact) {
       if (contactFragment == null) {

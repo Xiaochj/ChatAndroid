@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import cn.leancloud.chatkit.utils.DenstiyUtil;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
@@ -26,6 +25,7 @@ import cn.leancloud.chatkit.LCChatKitUser;
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.cache.LCIMProfileCache;
 import cn.leancloud.chatkit.event.LCIMMessageResendEvent;
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
 import cn.leancloud.chatkit.view.RoundImageView;
@@ -93,6 +93,7 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
           LCIMLogUtils.logException(e);
         } else if (null != userProfile) {
           nameView.setText(userProfile.getUserName());
+          //************************請求id獲取head
           final String avatarUrl = userProfile.getAvatarUrl();
           if (!TextUtils.isEmpty(avatarUrl)) {
             Picasso.with(getContext()).load(avatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))

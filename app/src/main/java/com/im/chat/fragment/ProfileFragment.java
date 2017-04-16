@@ -14,12 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import cn.leancloud.chatkit.LCChatKitUser;
-import cn.leancloud.chatkit.cache.LCIMProfileCache;
-import cn.leancloud.chatkit.utils.SpUtils;
-import cn.leancloud.chatkit.view.RoundImageView;
-import com.avos.avoscloud.AVCallback;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -29,20 +23,20 @@ import com.im.chat.activity.ProfileResumeActivity;
 import com.im.chat.activity.ProfileSettingActivity;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
-import com.im.chat.model.ContactListModel;
 import com.im.chat.model.UploadImageModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.service.PushManager;
 import com.im.chat.util.Base64Utils;
 import com.im.chat.util.ChatConstants;
-
 import com.im.chat.util.Utils;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
-import com.squareup.picasso.Picasso;
+import cn.leancloud.chatkit.utils.SpUtils;
+import cn.leancloud.chatkit.view.RoundImageView;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -281,8 +275,8 @@ public class ProfileFragment extends BaseFragment {
     if (extras != null) {
       Bitmap bitmap = extras.getParcelable("data");
       if (bitmap != null) {
-        String path = Utils.getAvatarCropPath();
-        Utils.saveBitmap(path,bitmap);//保存图片到本地
+//        String path = Utils.getAvatarCropPath();
+//        Utils.saveBitmap(path,bitmap);//保存图片到本地
         base64 = Base64Utils.bitmapToBase64(bitmap);
         final ProgressDialog dialog = showSpinnerDialog();
         AppEngine.getInstance()
@@ -309,10 +303,10 @@ public class ProfileFragment extends BaseFragment {
                 mAvatarView.setImageBitmap(bitmap);
                 if (baseBean.getStatus() == 1) {
                   Utils.toast(R.string.upload_avatar_success);
-                  LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
-                  if(path != null) {
-                    profileInfoModel.saveAvatar(path, null);
-                  }
+//                  LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
+//                  if(path != null) {
+//                    profileInfoModel.saveAvatar(path, null);
+//                  }
                 } else {
                   Utils.toast(R.string.upload_avatar_error);
                 }
