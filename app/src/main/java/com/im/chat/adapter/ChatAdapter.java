@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 
-import cn.leancloud.chatkit.adapter.LCIMChatAdapter;
-
 /**
  * Created by wli on 16/7/11.
  */

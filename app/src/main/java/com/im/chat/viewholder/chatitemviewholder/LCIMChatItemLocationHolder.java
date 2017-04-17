@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.viewholder;
+package com.im.chat.viewholder.chatitemviewholder;
 
 import android.content.Context;
 import android.view.View;

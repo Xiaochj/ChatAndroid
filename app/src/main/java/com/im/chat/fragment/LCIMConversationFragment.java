@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.activity;
+package com.im.chat.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,13 +26,13 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.im.chat.adapter.LCIMChatAdapter;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import cn.leancloud.chatkit.R;
-import cn.leancloud.chatkit.adapter.LCIMChatAdapter;
 import cn.leancloud.chatkit.event.LCIMIMTypeMessageEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarRecordEvent;
@@ -273,7 +273,7 @@ public class LCIMConversationFragment extends Fragment {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     Uri imageUri = Uri.fromFile(new File(localCameraPath));
     takePictureIntent.putExtra("return-data", false);
-    takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri);
+    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
     if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
       startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }

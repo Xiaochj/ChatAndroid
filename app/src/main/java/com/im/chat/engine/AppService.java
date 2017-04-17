@@ -2,6 +2,7 @@ package com.im.chat.engine;
 
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
+import com.im.chat.model.HeadModel;
 import com.im.chat.model.UploadImageModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.model.NotifyListModel;
@@ -67,4 +68,12 @@ public interface AppService {
   @FormUrlEncoded @POST("member/list.do")
   Observable<BaseBean<List<ContactListModel>>> getContactList(@Field("pageNo") int pageNo,
       @Field("pageSize") int pageSize);
+
+  /**
+   * 根据userId获取head
+   * @param userid
+   * @return
+   */
+  @FormUrlEncoded @POST("member/head.do")
+  Observable<BaseBean<HeadModel>> getHeadFromUserId(@Field("userid") String userid);
 }

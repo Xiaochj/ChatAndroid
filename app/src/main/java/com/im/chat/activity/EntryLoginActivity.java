@@ -106,31 +106,6 @@ public class EntryLoginActivity extends BaseActivity {
     });
   }
 
-  //private void loginLeanchat(final String name, final String password,
-  //    final ProgressDialog dialog) {
-  //  LeanchatUser.logInInBackground(name, password, new LogInCallback<LeanchatUser>() {
-  //    @Override
-  //    public void done(LeanchatUser avUser, AVException e) {
-  //      //请求leancloud服务器，如果登陆成功,直接进行实时通讯
-  //      if (e == null) {
-  //        dialog.dismiss();
-  //        imLogin();
-  //      }else{//如果登录失败，那么请求leancloud的注册接口，假装注册leancloud
-  //        LeanchatUser.signUpByNameAndPwd(name, password, new SignUpCallback() {
-  //          @Override
-  //          public void done(AVException e) {
-  //            dialog.dismiss();
-  //            //再进行实时通讯
-  //            if(e == null) {
-  //              imLogin();
-  //            }
-  //          }
-  //        });
-  //      }
-  //    }
-  //  }, LeanchatUser.class);
-  //}
-
   /**
    *  openClient 进行实时通讯
    */

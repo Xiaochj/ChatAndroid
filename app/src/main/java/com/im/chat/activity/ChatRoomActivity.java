@@ -11,7 +11,6 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.im.chat.R;
 import com.im.chat.util.ConversationUtils;
 
-import cn.leancloud.chatkit.activity.LCIMConversationActivity;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 
 /**

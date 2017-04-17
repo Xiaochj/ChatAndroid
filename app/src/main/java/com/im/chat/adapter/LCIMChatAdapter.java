@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.adapter;
+package com.im.chat.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -6,17 +6,17 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMReservedMessageType;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+import com.im.chat.viewholder.chatitemviewholder.LCIMChatItemAudioHolder;
+import com.im.chat.viewholder.chatitemviewholder.LCIMChatItemHolder;
+import com.im.chat.viewholder.chatitemviewholder.LCIMChatItemImageHolder;
+import com.im.chat.viewholder.chatitemviewholder.LCIMChatItemLocationHolder;
+import com.im.chat.viewholder.chatitemviewholder.LCIMChatItemTextHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cn.leancloud.chatkit.LCChatKit;
-import cn.leancloud.chatkit.viewholder.LCIMChatItemAudioHolder;
-import cn.leancloud.chatkit.viewholder.LCIMChatItemHolder;
-import cn.leancloud.chatkit.viewholder.LCIMChatItemImageHolder;
-import cn.leancloud.chatkit.viewholder.LCIMChatItemLocationHolder;
-import cn.leancloud.chatkit.viewholder.LCIMChatItemTextHolder;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
 /**

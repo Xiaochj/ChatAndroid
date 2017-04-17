@@ -16,9 +16,8 @@ import com.avos.avoscloud.im.v2.messages.AVIMLocationMessage;
 import com.im.chat.R;
 import com.im.chat.activity.LocationActivity;
 import com.im.chat.adapter.ChatAdapter;
+import com.im.chat.adapter.LCIMChatAdapter;
 
-import cn.leancloud.chatkit.activity.LCIMConversationFragment;
-import cn.leancloud.chatkit.adapter.LCIMChatAdapter;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarLocationClickEvent;
 import cn.leancloud.chatkit.event.LCIMLocationItemClickEvent;

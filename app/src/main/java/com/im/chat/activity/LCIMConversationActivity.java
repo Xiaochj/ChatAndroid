@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.activity;
+package com.im.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.im.chat.fragment.LCIMConversationFragment;
 
 import java.util.Arrays;
 

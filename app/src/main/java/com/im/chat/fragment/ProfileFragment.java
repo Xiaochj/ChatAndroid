@@ -35,6 +35,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.LCChatKitUser;
+import cn.leancloud.chatkit.cache.LCIMProfileCache;
 import cn.leancloud.chatkit.utils.SpUtils;
 import cn.leancloud.chatkit.view.RoundImageView;
 import rx.Subscriber;
@@ -303,7 +305,7 @@ public class ProfileFragment extends BaseFragment {
                 mAvatarView.setImageBitmap(bitmap);
                 if (baseBean.getStatus() == 1) {
                   Utils.toast(R.string.upload_avatar_success);
-//                  LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
+                  LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
 //                  if(path != null) {
 //                    profileInfoModel.saveAvatar(path, null);
 //                  }

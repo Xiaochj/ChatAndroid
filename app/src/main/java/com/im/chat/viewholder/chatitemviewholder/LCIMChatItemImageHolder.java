@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.viewholder;
+package com.im.chat.viewholder.chatitemviewholder;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;

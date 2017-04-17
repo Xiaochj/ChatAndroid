@@ -1,4 +1,4 @@
-package cn.leancloud.chatkit.viewholder;
+package com.im.chat.viewholder.chatitemviewholder;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -16,6 +16,9 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.im.chat.engine.AppEngine;
+import com.im.chat.model.BaseBean;
+import com.im.chat.model.HeadModel;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +32,11 @@ import cn.leancloud.chatkit.utils.DenstiyUtil;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
 import cn.leancloud.chatkit.view.RoundImageView;
+import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 import de.greenrobot.event.EventBus;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by wli on 15/9/17.
@@ -93,12 +100,40 @@ public class LCIMChatItemHolder extends LCIMCommonViewHolder {
           LCIMLogUtils.logException(e);
         } else if (null != userProfile) {
           nameView.setText(userProfile.getUserName());
-          //************************請求id獲取head
           final String avatarUrl = userProfile.getAvatarUrl();
-          if (!TextUtils.isEmpty(avatarUrl)) {
-            Picasso.with(getContext()).load(avatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))
-              .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop().into(avatarView);
-          }
+          AppEngine.getInstance().getAppService().getHeadFromUserId(userProfile.getUserId()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new Subscriber<BaseBean<HeadModel>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                      if (!TextUtils.isEmpty(avatarUrl)) {
+                        Picasso.with(getContext()).load(avatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))
+                                .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop().into(avatarView);
+                      }
+                    }
+
+                    @Override
+                    public void onNext(BaseBean<HeadModel> headModelBaseBean) {
+                      if (headModelBaseBean.getStatus() == 1) {
+                        if (headModelBaseBean.getData() != null) {
+                          String netAvatarUrl = headModelBaseBean.getData().getHead();
+                          if(!netAvatarUrl.equalsIgnoreCase(avatarUrl)){
+                            LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(userProfile.getUserId(),userProfile.getUserName(),netAvatarUrl));
+                            Picasso.with(getContext()).load(netAvatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))
+                                    .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop().into(avatarView);
+                          }else{
+                            Picasso.with(getContext()).load(avatarUrl).resize(DenstiyUtil.dip2px(getContext(), 45),DenstiyUtil.dip2px(getContext(),45))
+                                    .placeholder(R.drawable.lcim_default_avatar_icon).centerCrop().into(avatarView);
+                          }
+                        }
+                      }
+                    }
+                  });
+
         }
       }
     });
