@@ -1,6 +1,9 @@
 package cn.leancloud.chatkit.utils;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 
 import java.io.IOException;
 
@@ -14,16 +17,29 @@ public class LCIMAudioHelper {
   private AudioFinishCallback finishCallback;
   private String audioPath;
   private boolean onceStart = false;
+  private AudioManager audioManager;
 
-  private LCIMAudioHelper() {
+  private LCIMAudioHelper(Context context) {
     mediaPlayer = new MediaPlayer();
+    initAudioManager(context);
   }
 
-  public static synchronized LCIMAudioHelper getInstance() {
+  public static synchronized LCIMAudioHelper getInstance(Context context) {
     if (audioHelper == null) {
-      audioHelper = new LCIMAudioHelper();
+      audioHelper = new LCIMAudioHelper(context);
     }
     return audioHelper;
+  }
+
+  private void initAudioManager(Context context){
+    audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    //设置听筒播放
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+      audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+    } else {
+      audioManager.setMode(AudioManager.MODE_IN_CALL);
+    }
+    audioManager.setSpeakerphoneOn(false);
   }
 
   /**

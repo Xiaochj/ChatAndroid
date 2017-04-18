@@ -136,7 +136,7 @@ public class LCIMRecordButton extends Button {
   }
 
   private void startRecord() {
-    LCIMAudioHelper.getInstance().stopPlayer();
+    LCIMAudioHelper.getInstance(getContext()).stopPlayer();
     initRecordDialog();
     startTime = System.currentTimeMillis();
     setBackgroundResource(BACK_RECORDING);

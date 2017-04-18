@@ -139,7 +139,7 @@ public class LCIMConversationFragment extends Fragment {
   @Override
   public void onPause() {
     super.onPause();
-    LCIMAudioHelper.getInstance().stopPlayer();
+    LCIMAudioHelper.getInstance(getContext()).stopPlayer();
     if (null != imConversation) {
       LCIMNotificationUtils.removeTag(imConversation.getConversationId());
     }

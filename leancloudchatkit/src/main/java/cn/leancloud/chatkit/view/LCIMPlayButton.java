@@ -58,7 +58,7 @@ public class LCIMPlayButton extends TextView implements View.OnClickListener {
     this.path = path;
     stopRecordAnimation();
     if (isPlaying()) {
-      LCIMAudioHelper.getInstance().addFinishCallback(new LCIMAudioHelper.AudioFinishCallback() {
+      LCIMAudioHelper.getInstance(getContext()).addFinishCallback(new LCIMAudioHelper.AudioFinishCallback() {
         @Override
         public void onFinish() {
           stopRecordAnimation();
@@ -69,19 +69,19 @@ public class LCIMPlayButton extends TextView implements View.OnClickListener {
   }
 
   private boolean isPlaying() {
-    return LCIMAudioHelper.getInstance().isPlaying() == true &&
-      LCIMAudioHelper.getInstance().getAudioPath().equals(path);
+    return LCIMAudioHelper.getInstance(getContext()).isPlaying() == true &&
+      LCIMAudioHelper.getInstance(getContext()).getAudioPath().equals(path);
   }
 
   @Override
   public void onClick(View v) {
-    if (LCIMAudioHelper.getInstance().isPlaying() == true &&
-      LCIMAudioHelper.getInstance().getAudioPath().equals(path)) {
-      LCIMAudioHelper.getInstance().pausePlayer();
+    if (LCIMAudioHelper.getInstance(getContext()).isPlaying() == true &&
+      LCIMAudioHelper.getInstance(getContext()).getAudioPath().equals(path)) {
+      LCIMAudioHelper.getInstance(getContext()).pausePlayer();
       stopRecordAnimation();
     } else {
-      LCIMAudioHelper.getInstance().playAudio(path);
-      LCIMAudioHelper.getInstance().addFinishCallback(new LCIMAudioHelper.AudioFinishCallback() {
+      LCIMAudioHelper.getInstance(getContext()).playAudio(path);
+      LCIMAudioHelper.getInstance(getContext()).addFinishCallback(new LCIMAudioHelper.AudioFinishCallback() {
         @Override
         public void onFinish() {
           stopRecordAnimation();
