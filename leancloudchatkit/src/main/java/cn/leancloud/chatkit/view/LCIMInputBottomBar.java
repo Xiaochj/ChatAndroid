@@ -85,7 +85,6 @@ public class LCIMInputBottomBar extends LinearLayout {
     initView(context);
   }
 
-
   /**
    * 隐藏底部的图片、emtion 等 layout
    */
@@ -255,5 +254,10 @@ public class LCIMInputBottomBar extends LinearLayout {
       public void afterTextChanged(Editable editable) {
       }
     });
+  }
+
+  public void setRecordBtnEnabled(boolean isEnabled){
+    voiceBtn.setEnabled(isEnabled);
+    voiceBtn.setClickable(isEnabled);
   }
 }

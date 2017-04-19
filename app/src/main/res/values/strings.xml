@@ -20,6 +20,7 @@
     <string name="logout_error">退出失败</string>
     <string name="conversation_qunliao">群聊</string>
     <string name="conversation_messages">聊天</string>
+    <string name="conversion_record_error">语音功能不可用</string>
     <string name="conversation_name">群聊名称：</string>
     <string name="conversation_name_nomaohao">群聊名称</string>
     <string name="conversation_detail_invite">邀请好友</string>

@@ -1,10 +1,16 @@
 package com.im.chat.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.widget.Toast;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
@@ -22,31 +28,26 @@ public class ChatRoomActivity extends LCIMConversationActivity {
 
   public static final int QUIT_GROUP_REQUEST = 200;
 
-  @Override
-  protected void onResume() {
+  @Override protected void onResume() {
     super.onResume();
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.chat_ativity_menu, menu);
     if (null != menu && menu.size() > 0) {
       MenuItem item = menu.getItem(0);
-      item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+      item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
     return super.onCreateOptionsMenu(menu);
   }
 
-  @Override
-  protected void updateConversation(AVIMConversation conversation) {
+  @Override protected void updateConversation(AVIMConversation conversation) {
     super.updateConversation(conversation);
     this.conversation = conversation;
   }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
     int menuId = item.getItemId();
     if (menuId == R.id.people) {
       if (null != conversation) {
@@ -58,8 +59,7 @@ public class ChatRoomActivity extends LCIMConversationActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
     super.onActivityResult(requestCode, resultCode, intent);
     if (resultCode == RESULT_OK) {
       switch (requestCode) {
@@ -70,12 +70,10 @@ public class ChatRoomActivity extends LCIMConversationActivity {
     }
   }
 
-  @Override
-  protected void getConversation(String memberId) {
+  @Override protected void getConversation(String memberId) {
     super.getConversation(memberId);
     ConversationUtils.createSingleConversation(memberId, new AVIMConversationCreatedCallback() {
-      @Override
-      public void done(AVIMConversation avimConversation, AVIMException e) {
+      @Override public void done(AVIMConversation avimConversation, AVIMException e) {
         updateConversation(avimConversation);
       }
     });

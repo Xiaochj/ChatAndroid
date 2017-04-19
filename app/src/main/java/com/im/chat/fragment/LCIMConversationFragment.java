@@ -1,14 +1,18 @@
 package com.im.chat.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +32,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.im.chat.adapter.LCIMChatAdapter;
 
+import com.im.chat.util.Utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -53,6 +58,8 @@ public class LCIMConversationFragment extends Fragment {
 
   private static final int REQUEST_IMAGE_CAPTURE = 1;
   private static final int REQUEST_IMAGE_PICK = 2;
+
+  private static final int PERMISSION_RECORD = 100;
 
   protected AVIMConversation imConversation;
 
@@ -94,7 +101,35 @@ public class LCIMConversationFragment extends Fragment {
     recyclerView.setAdapter(itemAdapter);
 
     EventBus.getDefault().register(this);
+
+    checkPermissionRecord();
+
     return view;
+  }
+
+  private void checkPermissionRecord() {
+    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
+        != PackageManager.PERMISSION_GRANTED) {
+      requestPermissions( new String[] { Manifest.permission.RECORD_AUDIO },
+          PERMISSION_RECORD);
+    }else{
+      inputBottomBar.setRecordBtnEnabled(true);
+    }
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    if (requestCode == PERMISSION_RECORD) {
+      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        inputBottomBar.setRecordBtnEnabled(true);
+      }else{
+        // Permission Denied
+        Utils.toast(getContext(),com.im.chat.R.string.conversion_record_error);
+        inputBottomBar.setRecordBtnEnabled(false);
+      }
+      return;
+    }
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
   @Override
