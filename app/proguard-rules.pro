@@ -104,6 +104,7 @@
 -dontwarn com.baidu.location.**
 -keep class com.baidu.** {*;}
 -keep class com.baidu.location.** {*;}
+-keep class vi.com.gdi.bgl.android.**{*;}
 
 #tencent
 -dontwarn com.tencent.mm.**

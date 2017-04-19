@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarEvent;
-import cn.leancloud.chatkit.event.LCIMInputBottomBarLocationClickEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarRecordEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarTextEvent;
 import cn.leancloud.chatkit.utils.LCIMPathUtils;
@@ -69,6 +68,7 @@ public class LCIMInputBottomBar extends LinearLayout {
   private LinearLayout actionLayout;
   private View cameraBtn;
   private View pictureBtn;
+  private View locationBtn;
 
   /**
    * 最小间隔时间为 1 秒，避免多次点击
@@ -106,6 +106,7 @@ public class LCIMInputBottomBar extends LinearLayout {
     actionLayout = (LinearLayout) findViewById(R.id.input_bar_layout_action);
     cameraBtn = findViewById(R.id.input_bar_btn_camera);
     pictureBtn = findViewById(R.id.input_bar_btn_picture);
+    locationBtn = findViewById(R.id.input_bar_btn_location);
 
     setEditTextChangeListener();
     initRecordBtn();
@@ -178,7 +179,15 @@ public class LCIMInputBottomBar extends LinearLayout {
       @Override
       public void onClick(View v) {
         EventBus.getDefault().post(new LCIMInputBottomBarEvent(
-          LCIMInputBottomBarEvent.INPUTBOTTOMBAR_CAMERA_ACTION, getTag()));
+                LCIMInputBottomBarEvent.INPUTBOTTOMBAR_CAMERA_ACTION, getTag()));
+      }
+    });
+
+    locationBtn.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        EventBus.getDefault().post(new LCIMInputBottomBarEvent(
+                LCIMInputBottomBarEvent.INPUTBOTTOMBAR_LOCATION_ACTION, getTag()));
       }
     });
   }

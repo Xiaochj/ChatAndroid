@@ -30,6 +30,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.im.chat.activity.LocationActivity;
 import com.im.chat.adapter.LCIMChatAdapter;
 
 import com.im.chat.util.Utils;
@@ -49,6 +50,8 @@ import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import cn.leancloud.chatkit.utils.LCIMPathUtils;
 import cn.leancloud.chatkit.view.LCIMInputBottomBar;
 import de.greenrobot.event.EventBus;
+
+import static com.im.chat.fragment.ConversationFragment.LOCATION_REQUEST;
 
 /**
  * Created by wli on 15/8/27.
@@ -281,6 +284,8 @@ public class LCIMConversationFragment extends Fragment {
         case LCIMInputBottomBarEvent.INPUTBOTTOMBAR_CAMERA_ACTION:
           dispatchTakePictureIntent();
           break;
+        case LCIMInputBottomBarEvent.INPUTBOTTOMBAR_LOCATION_ACTION:
+          LocationActivity.startToSelectLocationForResult(this, LOCATION_REQUEST);
         default:
           break;
       }

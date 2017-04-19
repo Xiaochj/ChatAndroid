@@ -101,7 +101,7 @@
 
     <activity android:name="com.im.chat.activity.UpdateContentActivity"/>
 
-    <activity android:name="com.im.chat.activity.LocationActivity"/>
+    <activity android:name="com.im.chat.activity.LocationActivity" />
 
     <activity
         android:name="com.im.chat.activity.EntryLoginActivity"
@@ -145,7 +145,7 @@
 
     <meta-data
         android:name="com.baidu.lbsapi.API_KEY"
-        android:value="qdgGT2wl1aOFbeZfQwruDDY8"/>
+        android:value="mPSrPi5mmf67DtNG7rBfjZhlI1VpyrOl"/>
 
     <!--prod-->
     <!--<meta-data

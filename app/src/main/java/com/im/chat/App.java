@@ -1,10 +1,9 @@
 package com.im.chat;
 
-import android.app.Application;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.os.StrictMode;
+import android.support.multidex.MultiDexApplication;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
@@ -21,7 +20,7 @@ import cn.leancloud.chatkit.LCChatKit;
 /**
  * Created by cjxiao
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
   public static boolean debug = true;
   public static App ctx;
   private NetworkCheckReceiver networkCheckReceiver;
@@ -58,7 +57,7 @@ public class App extends Application {
     PushManager.getInstance().init(ctx);
     AVOSCloud.setDebugLogEnabled(debug);
     AVAnalytics.enableCrashReport(this, !debug);
-    //initBaiduMap();
+    initBaiduMap();
     if (App.debug) {
       openStrictMode();
     }
@@ -94,7 +93,7 @@ public class App extends Application {
             .build());
   }
 
-  //private void initBaiduMap() {
-  //  SDKInitializer.initialize(this);
-  //}
+  private void initBaiduMap() {
+    SDKInitializer.initialize(this);
+  }
 }

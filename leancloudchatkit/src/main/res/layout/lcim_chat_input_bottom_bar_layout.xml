@@ -24,7 +24,7 @@
                 android:id="@+id/input_bar_btn_action"
                 android:layout_width="@dimen/lcim_bottom_bar_button_size"
                 android:layout_height="@dimen/lcim_bottom_bar_button_size"
-                android:layout_marginLeft="3dp"
+                android:layout_marginLeft="6dp"
                 android:background="@drawable/lcim_bottom_bar_action_button_bg"/>
         </LinearLayout>
 

@@ -46,6 +46,7 @@ public class LocationActivity extends BaseActivity implements
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.chat_location_activity);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     initBaiduMap();
   }
 
@@ -115,6 +116,10 @@ public class LocationActivity extends BaseActivity implements
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     int id = item.getItemId();
+    if(id == android.R.id.home) {
+      this.onBackPressed();
+      return true;
+    }
     if (id == SEND) {
       gotoChatPage();
     }
