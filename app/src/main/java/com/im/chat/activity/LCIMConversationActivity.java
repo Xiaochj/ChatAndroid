@@ -1,6 +1,10 @@
 package com.im.chat.activity;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,18 +23,23 @@ import java.util.Arrays;
 import cn.leancloud.chatkit.LCChatKit;
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.cache.LCIMConversationItemCache;
+import cn.leancloud.chatkit.utils.LCIMAudioHelper;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.utils.LCIMConversationUtils;
 import cn.leancloud.chatkit.utils.LCIMLogUtils;
 
 /**
- * Created by wli on 16/2/29.
+ * Created by cjxiao
  * 会话详情页
  * 包含会话的创建以及拉取，具体的 UI 细节在 LCIMConversationFragment 中
+ * TODO:根据距离改变语音的播放是听筒还是外音
  */
-public class LCIMConversationActivity extends AppCompatActivity {
+public class LCIMConversationActivity extends AppCompatActivity implements SensorEventListener{
 
   protected LCIMConversationFragment conversationFragment;
+
+  private SensorManager mSensorManager;
+  private Sensor mSensor;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +47,26 @@ public class LCIMConversationActivity extends AppCompatActivity {
     setContentView(R.layout.lcim_conversation_activity);
     conversationFragment = (LCIMConversationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_chat);
     initByIntent(getIntent());
+    mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+    mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    mSensorManager.unregisterListener(this);
   }
 
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     initByIntent(intent);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mSensorManager.registerListener(this,mSensor,SensorManager.SENSOR_DELAY_NORMAL);
   }
 
   private void initByIntent(Intent intent) {
@@ -143,5 +166,20 @@ public class LCIMConversationActivity extends AppCompatActivity {
    */
   private void showToast(String content) {
     Toast.makeText(LCIMConversationActivity.this, content, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void onSensorChanged(SensorEvent event) {
+    //如果传感器距离达到了临界峰值
+    if (event.values[0] == mSensor.getMaximumRange()) {
+      LCIMAudioHelper.getInstance(this).setAudioModeSpokenOn();
+    } else {
+      LCIMAudioHelper.getInstance(this).setAudioModeSpokenOff();
+    }
+  }
+
+  @Override
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
   }
 }

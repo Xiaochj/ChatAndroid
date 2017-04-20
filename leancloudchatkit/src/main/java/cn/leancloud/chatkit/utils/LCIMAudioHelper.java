@@ -33,6 +33,15 @@ public class LCIMAudioHelper {
 
   private void initAudioManager(Context context){
     audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+    setAudioModeSpokenOff();
+  }
+
+  public void setAudioModeSpokenOn(){
+    audioManager.setMode(AudioManager.MODE_NORMAL);
+    audioManager.setSpeakerphoneOn(true);
+  }
+
+  public void setAudioModeSpokenOff(){
     //设置听筒播放
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
       audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
