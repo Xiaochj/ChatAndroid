@@ -28,7 +28,7 @@ public class LCIMConversationItemCache {
   private final String CONVERSATION_ITEM_TABLE_NAME = "ConversationItem";
 
   private Map<String, LCIMConversationItem> conversationItemMap;
-  private LCIMLocalStorage conversationItemDBHelper;
+  private LCIMLocalStorage conversationItemDBHelper = null;
 
   private LCIMConversationItemCache() {
     conversationItemMap = new HashMap<String, LCIMConversationItem>();
@@ -49,7 +49,10 @@ public class LCIMConversationItemCache {
    * 因为需要同步数据，所以此处需要有回调
    */
   public synchronized void initDB(Context context, String clientId, AVCallback callback) {
-    conversationItemDBHelper = new LCIMLocalStorage(context, clientId, CONVERSATION_ITEM_TABLE_NAME);
+    if(conversationItemDBHelper == null) {
+      conversationItemDBHelper =
+          new LCIMLocalStorage(context, clientId, CONVERSATION_ITEM_TABLE_NAME);
+    }
     conversationItemMap.clear();
     syncData(callback);
   }
@@ -200,7 +203,9 @@ public class LCIMConversationItemCache {
   private void syncToCache(LCIMConversationItem item) {
     if (null != item) {
       conversationItemMap.put(item.conversationId, item);
-      conversationItemDBHelper.insertData(item.conversationId, item.toJsonString());
+      if(conversationItemDBHelper != null) {
+        conversationItemDBHelper.insertData(item.conversationId, item.toJsonString());
+      }
     }
   }
 }

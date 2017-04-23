@@ -95,48 +95,12 @@ public class LCIMMessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage
       notificationContent = "";
       if(message instanceof AVIMTextMessage){
         if(((AVIMTextMessage) message).getAttrs() != null){
-          List<Object> atStrList = Arrays.asList(((AVIMTextMessage) message).getAttrs().get("at_person_detail"));
-          JSONArray jsonArray0 = JSON.parseArray(atStrList.toString());
-          List<String> atStringList0 = new ArrayList<>();
-          for (int i = 0; i < jsonArray0.getJSONArray(0).size(); i++) {
-            String str = jsonArray0.getJSONArray(0).get(i).toString();
-            atStringList0.add(str);
-          }
-          for(String str0 : atStringList0) {
-            if(notificationContent.equals(context.getString(R.string.at_you))){
-              break;
-            }
-            final String atStr = str0.trim();
-            //final String atStr = ((AVIMTextMessage) message).getAttrs().get("at_person_detail").toString().trim();
-            List<Object> atIds = Arrays.asList(((AVIMTextMessage) message).getAttrs().get("at_person_members"));
-            JSONArray jsonArray = JSON.parseArray(atIds.toString());
-            List<String> atIdStrs = new ArrayList<>();
-            for (int i = 0; i < jsonArray.getJSONArray(0).size(); i++) {
-              String str = jsonArray.getJSONArray(0).get(i).toString();
-              atIdStrs.add(str);
-            }
-            if (!atStr.isEmpty()) {
-              LCIMProfileCache.getInstance().getCachedUsers(atIdStrs, new AVCallback<List<LCChatKitUser>>() {
-                @Override
-                protected void internalDone0(List<LCChatKitUser> lcChatKitUsers, AVException e) {
-                  for (LCChatKitUser lcChatKitUser : lcChatKitUsers) {
-                    if (lcChatKitUser.getUserName().equals(atStr)) {
-                      if (lcChatKitUser.getUserId().equals(SpUtils.getString(context, "userid"))) {
-                        notificationContent = context.getString(R.string.at_you);
-                        LCIMConstants.isSomeoneAtYou = true;
-                        break;
-                      } else {
-                        notificationContent = ((AVIMTextMessage) message).getText();
-                        LCIMConstants.isSomeoneAtYou = false;
-                      }
-                    }
-                  }
-                }
-              });
-            } else {
-              notificationContent = ((AVIMTextMessage) message).getText();
-              LCIMConstants.isSomeoneAtYou = false;
-            }
+          //如果是ios发来的信息
+          if (((AVIMTextMessage) message).getAttrs().containsKey("username")
+              && ((AVIMTextMessage) message).getAttrs().containsKey("conversationType")) {
+            iosTextMessage(message,conversation);
+          }else {
+            androidTextMessage(message,conversation);
           }
         }else{
           notificationContent = ((AVIMTextMessage) message).getText();
@@ -161,6 +125,83 @@ public class LCIMMessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessage
         }
       });
     }
+  }
+
+  private void androidTextMessage(final AVIMTypedMessage message,AVIMConversation conversation){
+    List<Object> atStrList = Arrays.asList(((AVIMTextMessage) message).getAttrs().get("at_person_detail"));
+    JSONArray jsonArray0 = JSON.parseArray(atStrList.toString());
+    List<String> atStringList0 = new ArrayList<>();
+    for (int i = 0; i < jsonArray0.getJSONArray(0).size(); i++) {
+      String str = jsonArray0.getJSONArray(0).get(i).toString();
+      atStringList0.add(str);
+    }
+    for(String str0 : atStringList0) {
+      if(notificationContent.equals(context.getString(R.string.at_you))){
+        break;
+      }
+      final String atStr = str0.trim();
+      //final String atStr = ((AVIMTextMessage) message).getAttrs().get("at_person_detail").toString().trim();
+      List<Object> atIds = Arrays.asList(((AVIMTextMessage) message).getAttrs().get("at_person_members"));
+      JSONArray jsonArray = JSON.parseArray(atIds.toString());
+      List<String> atIdStrs = new ArrayList<>();
+      for (int i = 0; i < jsonArray.getJSONArray(0).size(); i++) {
+        String str = jsonArray.getJSONArray(0).get(i).toString();
+        atIdStrs.add(str);
+      }
+      if (!atStr.isEmpty()) {
+        LCIMProfileCache.getInstance().getCachedUsers(atIdStrs, new AVCallback<List<LCChatKitUser>>() {
+          @Override
+          protected void internalDone0(List<LCChatKitUser> lcChatKitUsers, AVException e) {
+            for (LCChatKitUser lcChatKitUser : lcChatKitUsers) {
+              if (lcChatKitUser.getUserName().equals(atStr)) {
+                if (lcChatKitUser.getUserId().equals(SpUtils.getString(context, "userid"))) {
+                  notificationContent = context.getString(R.string.at_you);
+                  LCIMConstants.isSomeoneAtYou = true;
+                  break;
+                } else {
+                  notificationContent = ((AVIMTextMessage) message).getText();
+                  LCIMConstants.isSomeoneAtYou = false;
+                }
+              }
+            }
+          }
+        });
+      } else {
+        notificationContent = ((AVIMTextMessage) message).getText();
+        LCIMConstants.isSomeoneAtYou = false;
+      }
+    }
+  }
+
+  private void iosTextMessage(final AVIMTypedMessage message,AVIMConversation conversation){
+      if (((AVIMTextMessage) message).getText().contains("@")) {
+        String iosmsgText = ((AVIMTextMessage) message).getText();
+        final String[] iosStrArr = iosmsgText.split("@");
+        LCIMProfileCache.getInstance()
+            .getCachedUsers(conversation.getMembers(), new AVCallback<List<LCChatKitUser>>() {
+              @Override protected void internalDone0(List<LCChatKitUser> lcChatKitUsers,
+                  AVException e) {
+                loop: for (LCChatKitUser lcChatKitUser : lcChatKitUsers) {
+                  for (String iosStr : iosStrArr) {
+                    if (iosStr.indexOf(lcChatKitUser.getUserName()) == 0) {
+                      if (lcChatKitUser.getUserId()
+                          .equals(SpUtils.getString(context, "userid"))) {
+                        notificationContent = context.getString(R.string.at_you);
+                        LCIMConstants.isSomeoneAtYou = true;
+                        break loop;
+                      } else {
+                        notificationContent = ((AVIMTextMessage) message).getText();
+                        LCIMConstants.isSomeoneAtYou = false;
+                      }
+                    }
+                  }
+                }
+              }
+            });
+      }else{
+        notificationContent = ((AVIMTextMessage) message).getText();
+        LCIMConstants.isSomeoneAtYou = false;
+      }
   }
 
   /**
