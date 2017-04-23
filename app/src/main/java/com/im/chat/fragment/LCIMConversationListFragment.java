@@ -50,7 +50,9 @@ public class LCIMConversationListFragment extends Fragment {
     recyclerView.addItemDecoration(new LCIMDividerItemDecoration(getActivity()));
     itemAdapter = new LCIMCommonListAdapter<>(LCIMConversationItemHolder.class);
     recyclerView.setAdapter(itemAdapter);
-    EventBus.getDefault().register(this);
+    if (!EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().register(this);
+    }
     return view;
   }
 
@@ -69,7 +71,9 @@ public class LCIMConversationListFragment extends Fragment {
   @Override
   public void onDestroyView() {
     super.onDestroyView();
-    EventBus.getDefault().unregister(this);
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
+    }
   }
 
   public void onEvent(MainTabEvent event){

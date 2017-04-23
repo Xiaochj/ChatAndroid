@@ -222,7 +222,11 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
           ((AVIMTypedMessage) message).getMessageType());
       switch (type) {
         case TextMessageType:
-          return ((AVIMTextMessage) message).getText();
+          if(LCIMConstants.isSomeoneAtYou){
+            return context.getString(R.string.at_you);
+          }else {
+            return ((AVIMTextMessage) message).getText();
+          }
         case ImageMessageType:
           return context.getString(R.string.lcim_message_shorthand_image);
         case LocationMessageType:

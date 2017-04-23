@@ -150,6 +150,7 @@ public class ConversationDetailActivity extends BaseActivity {
   private void refresh() {
     List<ContactListModel> userList = new ArrayList<>();
     List<String> ids = conversation.getMembers();
+    //从缓存中读
     List<ContactListModel> contactListModels = ChatUserProvider.getInstance().getAllUsers();
     for(String id : ids){
       for(ContactListModel contactListModel : contactListModels){

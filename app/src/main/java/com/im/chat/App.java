@@ -1,9 +1,9 @@
 package com.im.chat;
 
+import android.app.Application;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.StrictMode;
-import android.support.multidex.MultiDexApplication;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
@@ -12,6 +12,7 @@ import com.im.chat.engine.AppEngine;
 import com.im.chat.model.UserModel;
 import com.im.chat.service.NetworkCheckReceiver;
 import com.im.chat.service.PushManager;
+import com.im.chat.service.RequestContact;
 import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.Utils;
 
@@ -20,7 +21,7 @@ import cn.leancloud.chatkit.LCChatKit;
 /**
  * Created by cjxiao
  */
-public class App extends MultiDexApplication {
+public class App extends Application {
   public static boolean debug = true;
   public static App ctx;
   private NetworkCheckReceiver networkCheckReceiver;

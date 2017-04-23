@@ -5,6 +5,9 @@ package cn.leancloud.chatkit.utils;
  * 所有常量值均放到此类里边
  */
 public class LCIMConstants {
+
+  public static boolean isSomeoneAtYou = false;
+
   private static final String LEANMESSAGE_CONSTANTS_PREFIX = "cn.leancloud.chatkit.";
 
   private static String getPrefixConstant(String str) {

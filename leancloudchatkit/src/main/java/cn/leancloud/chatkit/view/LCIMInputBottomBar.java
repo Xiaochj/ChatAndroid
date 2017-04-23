@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import cn.leancloud.chatkit.event.LCIMInputBottomBarRecordEvent;
 import cn.leancloud.chatkit.event.LCIMInputBottomBarTextEvent;
 import cn.leancloud.chatkit.utils.LCIMPathUtils;
 import cn.leancloud.chatkit.utils.LCIMSoftInputUtils;
+import com.avos.avoscloud.LogUtil;
 import de.greenrobot.event.EventBus;
 
 
@@ -242,6 +244,16 @@ public class LCIMInputBottomBar extends LinearLayout {
     LCIMSoftInputUtils.hideSoftInput(getContext(), contentEditText);
   }
 
+  private OnTextChangedCallback onTextChangedCallback = null;
+
+  public interface OnTextChangedCallback{
+    void onTextChanged(CharSequence s);
+  }
+
+  public void setOnTextChangedCallback(OnTextChangedCallback onTextChangedCallback){
+    this.onTextChangedCallback = onTextChangedCallback;
+  }
+
   /**
    * 设置 text change 事件，有文本时展示发送按钮，没有文本时展示切换语音的按钮
    */
@@ -252,11 +264,15 @@ public class LCIMInputBottomBar extends LinearLayout {
       }
 
       @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+      public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
         boolean showSend = charSequence.length() > 0;
         keyboardBtn.setVisibility(!showSend ? View.VISIBLE : GONE);
         sendTextBtn.setVisibility(showSend ? View.VISIBLE : GONE);
         voiceBtn.setVisibility(View.GONE);
+        if(onTextChangedCallback != null ){
+          if(showSend && count > 0)//如果字符不为空并且是在输入不是在删除（count>0）
+            onTextChangedCallback.onTextChanged(charSequence);
+        }
       }
 
       @Override
@@ -268,5 +284,16 @@ public class LCIMInputBottomBar extends LinearLayout {
   public void setRecordBtnEnabled(boolean isEnabled){
     voiceBtn.setEnabled(isEnabled);
     voiceBtn.setClickable(isEnabled);
+  }
+
+  /**
+   * 添加@某人到edittext中
+   * @param atStr
+   */
+  public void addAtNameText(String atStr){
+    StringBuffer stringBuffer = new StringBuffer(contentEditText.getText().toString());
+    stringBuffer.append(atStr);
+    contentEditText.setText(stringBuffer.toString());
+    contentEditText.setSelection(contentEditText.getText().length());
   }
 }

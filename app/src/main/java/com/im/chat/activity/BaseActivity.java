@@ -44,13 +44,22 @@ public class BaseActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
-    EventBus.getDefault().register(this);
+    if (!EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().register(this);
+    }
   }
 
   @Override
   protected void onPause() {
     super.onPause();
-    EventBus.getDefault().unregister(this);
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
+    }
+  }
+
+  @Override
+  protected void onDestroy(){
+    super.onDestroy();
   }
 
   protected void onViewCreated() {}

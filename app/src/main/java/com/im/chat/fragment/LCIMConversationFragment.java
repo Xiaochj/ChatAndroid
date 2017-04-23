@@ -30,12 +30,17 @@ import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMAudioMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.im.chat.activity.AtPersonListActivity;
 import com.im.chat.activity.LocationActivity;
 import com.im.chat.adapter.LCIMChatAdapter;
 
+import com.im.chat.util.ChatConstants;
 import com.im.chat.util.Utils;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.leancloud.chatkit.R;
@@ -50,6 +55,7 @@ import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import cn.leancloud.chatkit.utils.LCIMPathUtils;
 import cn.leancloud.chatkit.view.LCIMInputBottomBar;
 import de.greenrobot.event.EventBus;
+import java.util.Map;
 
 import static com.im.chat.fragment.ConversationFragment.LOCATION_REQUEST;
 
@@ -61,6 +67,7 @@ public class LCIMConversationFragment extends Fragment {
 
   private static final int REQUEST_IMAGE_CAPTURE = 1;
   private static final int REQUEST_IMAGE_PICK = 2;
+  public static final int REQUEST_AT_PERSON_DETAIL = 3;
 
   private static final int PERMISSION_RECORD = 100;
 
@@ -87,35 +94,57 @@ public class LCIMConversationFragment extends Fragment {
   // 记录拍照等的文件路径
   protected String localCameraPath;
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  //@某人
+  String atPersonStr = "";
+  //@列表
+  List<String> atPersonList = new ArrayList<>();
+
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.lcim_conversation_fragment, container, false);
 
     recyclerView = (RecyclerView) view.findViewById(R.id.fragment_chat_rv_chat);
     refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_chat_srl_pullrefresh);
     refreshLayout.setEnabled(false);
     inputBottomBar = (LCIMInputBottomBar) view.findViewById(R.id.fragment_chat_inputbottombar);
+    //监听"@"字符
+    inputBottomBar.setOnTextChangedCallback(new TextChangedListener());
     layoutManager = new LinearLayoutManager(getActivity());
     recyclerView.setLayoutManager(layoutManager);
 
     itemAdapter = getAdpter();
     itemAdapter.resetRecycledViewPoolSize(recyclerView);
     recyclerView.setAdapter(itemAdapter);
-
-    EventBus.getDefault().register(this);
+    if (!EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().register(this);
+    }
 
     checkPermissionRecord();
 
     return view;
   }
 
+  class TextChangedListener implements LCIMInputBottomBar.OnTextChangedCallback {
+    @Override public void onTextChanged(CharSequence charSequence) {
+      //如果是群聊，拦截"@"
+      if (imConversation.getMembers().size() > 2) {
+        if (charSequence.charAt(charSequence.length() - 1) == '@') {
+          Intent intent = new Intent(getActivity(), AtPersonListActivity.class);
+          Bundle bundle = new Bundle();
+          bundle.putStringArrayList(ChatConstants.AT_PERSON,
+              new ArrayList<>(imConversation.getMembers()));
+          intent.putExtras(bundle);
+          startActivityForResult(intent, REQUEST_AT_PERSON_DETAIL);
+        }
+      }
+    }
+  }
+
   private void checkPermissionRecord() {
     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
         != PackageManager.PERMISSION_GRANTED) {
-      requestPermissions( new String[] { Manifest.permission.RECORD_AUDIO },
-          PERMISSION_RECORD);
-    }else{
+      requestPermissions(new String[] { Manifest.permission.RECORD_AUDIO }, PERMISSION_RECORD);
+    } else {
       inputBottomBar.setRecordBtnEnabled(true);
     }
   }
@@ -125,9 +154,9 @@ public class LCIMConversationFragment extends Fragment {
     if (requestCode == PERMISSION_RECORD) {
       if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         inputBottomBar.setRecordBtnEnabled(true);
-      }else{
+      } else {
         // Permission Denied
-        Utils.toast(getContext(),com.im.chat.R.string.conversion_record_error);
+        Utils.toast(getContext(), com.im.chat.R.string.conversion_record_error);
         inputBottomBar.setRecordBtnEnabled(false);
       }
       return;
@@ -135,28 +164,26 @@ public class LCIMConversationFragment extends Fragment {
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
   }
 
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState) {
+  @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override
-      public void onRefresh() {
+      @Override public void onRefresh() {
         AVIMMessage message = itemAdapter.getFirstMessage();
         if (null == message) {
           refreshLayout.setRefreshing(false);
         } else {
-          imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20, new AVIMMessagesQueryCallback() {
-            @Override
-            public void done(List<AVIMMessage> list, AVIMException e) {
-              refreshLayout.setRefreshing(false);
-              if (filterException(e)) {
-                if (null != list && list.size() > 0) {
-                  itemAdapter.addMessageList(list);
-                  itemAdapter.notifyDataSetChanged();
-                  layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+          imConversation.queryMessages(message.getMessageId(), message.getTimestamp(), 20,
+              new AVIMMessagesQueryCallback() {
+                @Override public void done(List<AVIMMessage> list, AVIMException e) {
+                  refreshLayout.setRefreshing(false);
+                  if (filterException(e)) {
+                    if (null != list && list.size() > 0) {
+                      itemAdapter.addMessageList(list);
+                      itemAdapter.notifyDataSetChanged();
+                      layoutManager.scrollToPositionWithOffset(list.size() - 1, 0);
+                    }
+                  }
                 }
-              }
-            }
-          });
+              });
         }
       }
     });
@@ -166,16 +193,14 @@ public class LCIMConversationFragment extends Fragment {
     return new LCIMChatAdapter();
   }
 
-  @Override
-  public void onResume() {
+  @Override public void onResume() {
     super.onResume();
     if (null != imConversation) {
       LCIMNotificationUtils.addTag(imConversation.getConversationId());
     }
   }
 
-  @Override
-  public void onPause() {
+  @Override public void onPause() {
     super.onPause();
     LCIMAudioHelper.getInstance(getContext()).stopPlayer();
     if (null != imConversation) {
@@ -183,10 +208,11 @@ public class LCIMConversationFragment extends Fragment {
     }
   }
 
-  @Override
-  public void onDestroyView() {
+  @Override public void onDestroyView() {
     super.onDestroyView();
-    EventBus.getDefault().unregister(this);
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
+    }
   }
 
   public void setConversation(final AVIMConversation conversation) {
@@ -198,8 +224,7 @@ public class LCIMConversationFragment extends Fragment {
     if (!conversation.isTransient()) {
       if (conversation.getMembers().size() == 0) {
         conversation.fetchInfoInBackground(new AVIMConversationCallback() {
-          @Override
-          public void done(AVIMException e) {
+          @Override public void done(AVIMException e) {
             if (null != e) {
               LCIMLogUtils.logException(e);
             }
@@ -212,7 +237,6 @@ public class LCIMConversationFragment extends Fragment {
     } else {
       itemAdapter.showUserName(true);
     }
-
   }
 
   /**
@@ -220,8 +244,7 @@ public class LCIMConversationFragment extends Fragment {
    */
   private void fetchMessages() {
     imConversation.queryMessages(new AVIMMessagesQueryCallback() {
-      @Override
-      public void done(List<AVIMMessage> messageList, AVIMException e) {
+      @Override public void done(List<AVIMMessage> messageList, AVIMException e) {
         if (filterException(e)) {
           itemAdapter.setMessageList(messageList);
           recyclerView.setAdapter(itemAdapter);
@@ -238,7 +261,8 @@ public class LCIMConversationFragment extends Fragment {
    */
   public void onEvent(LCIMInputBottomBarTextEvent textEvent) {
     if (null != imConversation && null != textEvent) {
-      if (!TextUtils.isEmpty(textEvent.sendContent) && imConversation.getConversationId().equals(textEvent.tag)) {
+      if (!TextUtils.isEmpty(textEvent.sendContent) && imConversation.getConversationId()
+          .equals(textEvent.tag)) {
         sendText(textEvent.sendContent);
       }
     }
@@ -249,8 +273,8 @@ public class LCIMConversationFragment extends Fragment {
    * 同理，避免无效消息，此处加了 conversation id 判断
    */
   public void onEvent(LCIMIMTypeMessageEvent messageEvent) {
-    if (null != imConversation && null != messageEvent &&
-      imConversation.getConversationId().equals(messageEvent.conversation.getConversationId())) {
+    if (null != imConversation && null != messageEvent && imConversation.getConversationId()
+        .equals(messageEvent.conversation.getConversationId())) {
       itemAdapter.addMessage(messageEvent.message);
       itemAdapter.notifyDataSetChanged();
       scrollToBottom();
@@ -261,10 +285,13 @@ public class LCIMConversationFragment extends Fragment {
    * 重新发送已经发送失败的消息
    */
   public void onEvent(LCIMMessageResendEvent resendEvent) {
-    if (null != imConversation && null != resendEvent &&
-      null != resendEvent.message && imConversation.getConversationId().equals(resendEvent.message.getConversationId())) {
-      if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed == resendEvent.message.getMessageStatus()
+    if (null != imConversation
+        && null != resendEvent
+        && null != resendEvent.message
         && imConversation.getConversationId().equals(resendEvent.message.getConversationId())) {
+      if (AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed
+          == resendEvent.message.getMessageStatus() && imConversation.getConversationId()
+          .equals(resendEvent.message.getConversationId())) {
         sendMessage(resendEvent.message, false);
       }
     }
@@ -272,11 +299,10 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 处理输入栏发送过来的事件
-   *
-   * @param event
    */
   public void onEvent(LCIMInputBottomBarEvent event) {
-    if (null != imConversation && null != event && imConversation.getConversationId().equals(event.tag)) {
+    if (null != imConversation && null != event && imConversation.getConversationId()
+        .equals(event.tag)) {
       switch (event.eventAction) {
         case LCIMInputBottomBarEvent.INPUTBOTTOMBAR_IMAGE_ACTION:
           dispatchPickPictureIntent();
@@ -294,13 +320,12 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 处理录音事件
-   *
-   * @param recordEvent
    */
   public void onEvent(LCIMInputBottomBarRecordEvent recordEvent) {
-    if (null != imConversation && null != recordEvent &&
-      !TextUtils.isEmpty(recordEvent.audioPath) &&
-      imConversation.getConversationId().equals(recordEvent.tag)) {
+    if (null != imConversation
+        && null != recordEvent
+        && !TextUtils.isEmpty(recordEvent.audioPath)
+        && imConversation.getConversationId().equals(recordEvent.tag)) {
       sendAudio(recordEvent.audioPath);
     }
   }
@@ -328,8 +353,7 @@ public class LCIMConversationFragment extends Fragment {
     startActivityForResult(photoPickerIntent, REQUEST_IMAGE_PICK);
   }
 
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (Activity.RESULT_OK == resultCode) {
       switch (requestCode) {
@@ -343,6 +367,15 @@ public class LCIMConversationFragment extends Fragment {
           break;
       }
     }
+    if (requestCode == REQUEST_AT_PERSON_DETAIL) {
+      if(data != null) {
+        if(data.getExtras() != null) {
+          atPersonStr = data.getExtras().getString(ChatConstants.AT_PERSON_DETAIL);
+          inputBottomBar.addAtNameText(atPersonStr);
+          atPersonList.add(atPersonStr);
+        }
+      }
+    }
   }
 
   /**
@@ -354,10 +387,6 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 根据 Uri 获取文件所在的位置
-   *
-   * @param context
-   * @param contentUri
-   * @return
    */
   private String getRealPathFromURI(Context context, Uri contentUri) {
     if (contentUri.getScheme().equals("file")) {
@@ -365,7 +394,7 @@ public class LCIMConversationFragment extends Fragment {
     } else {
       Cursor cursor = null;
       try {
-        String[] proj = {MediaStore.Images.Media.DATA};
+        String[] proj = { MediaStore.Images.Media.DATA };
         cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
         if (null != cursor) {
           int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -384,20 +413,28 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 发送文本消息
-   *
-   * @param content
    */
   protected void sendText(String content) {
     AVIMTextMessage message = new AVIMTextMessage();
     message.setText(content);
+    if(!atPersonList.isEmpty()){
+      Map<String,Object> attributes = new HashMap<>();
+      attributes.put(ChatConstants.AT_PERSON_DETAIL,atPersonList.toArray(new String[atPersonList.size()]));
+      List<String> stringsList = new ArrayList<>();
+      for(Object object : imConversation.getMembers()){
+        stringsList.add(object.toString());
+      }
+      attributes.put("at_person_members",stringsList.toArray(new String[stringsList.size()]));
+      message.setAttrs(attributes);
+    }
     sendMessage(message);
+    atPersonList.clear();
+    atPersonStr = "";
   }
 
   /**
    * 发送图片消息
    * TODO 上传的图片最好要压缩一下
-   *
-   * @param imagePath
    */
   protected void sendImage(String imagePath) {
     try {
@@ -409,8 +446,6 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 发送语音消息
-   *
-   * @param audioPath
    */
   protected void sendAudio(String audioPath) {
     try {
@@ -427,8 +462,6 @@ public class LCIMConversationFragment extends Fragment {
 
   /**
    * 发送消息
-   *
-   * @param message
    */
   public void sendMessage(AVIMMessage message, boolean addToList) {
     if (addToList) {
@@ -437,8 +470,7 @@ public class LCIMConversationFragment extends Fragment {
     itemAdapter.notifyDataSetChanged();
     scrollToBottom();
     imConversation.sendMessage(message, new AVIMConversationCallback() {
-      @Override
-      public void done(AVIMException e) {
+      @Override public void done(AVIMException e) {
         itemAdapter.notifyDataSetChanged();
         if (null != e) {
           LCIMLogUtils.logException(e);

@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.leancloud.chatkit.LCChatKitUser;
 import cn.leancloud.chatkit.adapter.LCIMCommonListAdapter;
+import cn.leancloud.chatkit.cache.LCIMProfileCache;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -30,6 +31,7 @@ import com.im.chat.event.GroupItemClickEvent;
 import com.im.chat.event.MemberLetterEvent;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.ContactListModel;
+import com.im.chat.service.RequestContact;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.ChatUserProvider;
 import com.im.chat.util.ConversationUtils;
@@ -88,7 +90,7 @@ public class ContactFragment extends BaseFragment {
     refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        getMembers(false);
+        getRefreshMembers();
       }
     });
     return view;
@@ -102,17 +104,22 @@ public class ContactFragment extends BaseFragment {
     mSearchLayout.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(ctx, SearchActivity.class);
+        intent.putExtra(ChatConstants.WHICH_SEARCH,false);
         ctx.startActivity(intent);
       }
     });
-    EventBus.getDefault().register(this);
-    getMembers(false);
+    if (!EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().register(this);
+    }
+    getMembers();
   }
 
   @Override
   public void onDestroy() {
     super.onDestroy();
-    EventBus.getDefault().unregister(this);
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
+    }
   }
 
   @Override
@@ -120,7 +127,28 @@ public class ContactFragment extends BaseFragment {
     super.onResume();
   }
 
-  private void getMembers(final boolean isforce) {
+  private void getMembers(){
+    refreshLayout.setRefreshing(false);
+    //访问leancloud服务器拉取群聊列表
+    addGroupUsers();
+    //从缓存中读取通讯录
+    if(!ChatUserProvider.getInstance().getAllUsers().isEmpty()){
+      itemAdapter.setUserList(ChatUserProvider.getInstance().getAllUsers());
+      itemAdapter.notifyDataSetChanged();
+    }else{
+      Utils.toast(R.string.contact_error);
+    }
+  }
+
+  private void getRefreshMembers() {
+    refreshLayout.setRefreshing(false);
+    //访问leancloud服务器拉取群聊列表
+    addGroupUsers();
+    //访问自己的服务器拉去通讯录
+    addChatUsers();
+  }
+
+  private void addGroupUsers(){
     ConversationUtils.findGroupConversationsIncludeMe(new AVIMConversationQueryCallback() {
       @Override
       public void done(List<AVIMConversation> conversations, AVIMException e) {
@@ -131,58 +159,23 @@ public class ContactFragment extends BaseFragment {
         }
       }
     });
-    refreshLayout.setRefreshing(false);
-    //访问自己的服务器拉去通讯录
-    addChatUsers();
-//    FriendsManager.fetchFriends(isforce, new FindCallback<LeanchatUser>() {
-//      @Override
-//      public void done(List<LeanchatUser> list, AVException e) {
-//        refreshLayout.setRefreshing(false);
-//        itemAdapter.setUserList(list);
-//        itemAdapter.notifyDataSetChanged();
-//      }
-//    });
   }
 
   private void addChatUsers() {
     ChatUserProvider.getInstance().getAllUsers().clear();
-    ChatUserProvider.getInstance().getLcChatKitUsers().clear();
-    AppEngine.getInstance().getAppService().getContactList(1, -1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Subscriber<BaseBean<List<ContactListModel>>>() {
-          @Override public void onCompleted() {
-
-          }
-
-          @Override public void onError(Throwable e) {
-            Utils.toast(R.string.contact_error);
-            return;
-          }
-
-          @Override public void onNext(BaseBean<List<ContactListModel>> listBaseBean) {
-            if (listBaseBean.getStatus() == 1) {
-              if (listBaseBean.getData() != null) {
-                ChatUserProvider.getInstance().getAllUsers().addAll(listBaseBean.getData());
-                List<ContactListModel> contactListModels = listBaseBean.getData();
-                for(ContactListModel contactListModel : contactListModels){
-                  ChatUserProvider.getInstance().getLcChatKitUsers().add(new LCChatKitUser(contactListModel.getId(),contactListModel.getName(),contactListModel.getHead()));
-                  //HashMap<String,ContactListModel> hashMap = new HashMap<String, ContactListModel>();
-                  //hashMap.put(contactListModel.getId(),contactListModel);
-                  //idToPartUsers.add(hashMap);
-                }
-                if(!ChatUserProvider.getInstance().getAllUsers().isEmpty()){
-                  itemAdapter.setUserList(ChatUserProvider.getInstance().getAllUsers());
-                  itemAdapter.notifyDataSetChanged();
-                }else{
-                  Utils.toast(R.string.contact_error);
-                }
-              }
-            }
-          }
-        });
-  }
-
-  public void onEvent(ContactRefreshEvent event) {
-    getMembers(true);
+    //请求自家服务器
+    RequestContact.getInstance().getContactList();
+    RequestContact.getInstance().setRequestContactListener(new RequestContact.RequestContactImpl() {
+      @Override public void onRequestContactListCallback(List<ContactListModel> models) {
+        ChatUserProvider.getInstance().getAllUsers().addAll(models);
+        if(!ChatUserProvider.getInstance().getAllUsers().isEmpty()){
+          itemAdapter.setUserList(ChatUserProvider.getInstance().getAllUsers());
+          itemAdapter.notifyDataSetChanged();
+        }else{
+          Utils.toast(R.string.contact_error);
+        }
+      }
+    });
   }
 
   /**
@@ -190,9 +183,11 @@ public class ContactFragment extends BaseFragment {
    * @param event
      */
   public void onEvent(ContactItemClickEvent event) {
-    Intent intent = new Intent(getActivity(), ContactPersonInfoActivity.class);
-    intent.putExtra(ChatConstants.CONTACT_USER, event.contactListModel);
-    startActivity(intent);
+    if(event.contactListModel.getId() != null) {
+      Intent intent = new Intent(getActivity(), ContactPersonInfoActivity.class);
+      intent.putExtra(ChatConstants.CONTACT_USER, event.contactListModel);
+      startActivity(intent);
+    }
   }
 
   /**

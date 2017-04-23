@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.im.chat.R;
 
+import com.im.chat.fragment.LCIMConversationFragment;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.ChatUserProvider;
@@ -37,11 +38,15 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private List<String> mList = new ArrayList<String>();
     private String[] mStrArray;
     private ArrayAdapter<String> mArrayAdapter;
+    private Intent mIntent = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search_layout);
+        if(getIntent() != null){
+            mIntent = getIntent();
+        }
         mQuitTv.setOnClickListener(this);
         for(ContactListModel contactListModel : ChatUserProvider.getInstance().getAllUsers()){
             mList.add(contactListModel.getName());
@@ -79,9 +84,16 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 String str = textView.getText().toString();
                 for(ContactListModel contactListModel : ChatUserProvider.getInstance().getAllUsers()){
                     if(contactListModel.getName().toString().equals(str)){
-                        Intent intent = new Intent(SearchActivity.this, ContactPersonInfoActivity.class);
-                        intent.putExtra(ChatConstants.CONTACT_USER, contactListModel);
-                        startActivity(intent);
+                        if(getIntent().getExtras().getBoolean(ChatConstants.WHICH_SEARCH)){
+                            Intent intent = new Intent();
+                            intent.putExtra(ChatConstants.AT_PERSON_SEARCH, contactListModel.getName().toString());
+                            setResult(AtPersonListActivity.REQUEST_SEARCH,intent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(SearchActivity.this, ContactPersonInfoActivity.class);
+                            intent.putExtra(ChatConstants.CONTACT_USER, contactListModel);
+                            startActivity(intent);
+                        }
                         return;
                     }
                 }

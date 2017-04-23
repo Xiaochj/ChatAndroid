@@ -136,6 +136,10 @@
     <activity
         android:name="com.im.chat.activity.ConversationAddMembersActivity"/>
 
+    <activity
+        android:name="com.im.chat.activity.AtPersonListActivity"
+        android:theme="@style/LCIMActivity.NoActionBar"/>
+
     <service
         android:name="com.baidu.location.f"
         android:enabled="true"

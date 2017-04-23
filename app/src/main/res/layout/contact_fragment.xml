@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <include layout="@layout/common_header_layout" />
+    <include layout="@layout/common_header_layout"
+        android:id="@+id/title_layout"/>
 
     <LinearLayout
         android:id="@+id/contact_search_layout"
