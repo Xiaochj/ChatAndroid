@@ -31,6 +31,7 @@ import com.im.chat.event.GroupItemClickEvent;
 import com.im.chat.event.MemberLetterEvent;
 import com.im.chat.fragment.LCIMConversationFragment;
 import com.im.chat.model.BaseBean;
+import com.im.chat.model.ContactItem;
 import com.im.chat.model.ContactListModel;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.ChatUserProvider;
@@ -63,6 +64,7 @@ public class AtPersonListActivity extends BaseActivity {
   private ContactsAdapter itemAdapter;
   LinearLayout mHeaderLinearLayout;
   HeaderLayout headerLayout;
+  ArrayList<String> groupMembers = new ArrayList<>();
 
   @Override protected void onCreate(Bundle bundle) {
     super.onCreate(bundle);
@@ -81,6 +83,9 @@ public class AtPersonListActivity extends BaseActivity {
       @Override public void onClick(View view) {
         Intent intent = new Intent(AtPersonListActivity.this, SearchActivity.class);
         intent.putExtra(ChatConstants.WHICH_SEARCH,true);
+        if(!itemAdapter.getDataList().isEmpty()) {
+          intent.putStringArrayListExtra("groupmembers", groupMembers);
+        }
         startActivityForResult(intent,REQUEST_SEARCH);
       }
     });
@@ -91,9 +96,9 @@ public class AtPersonListActivity extends BaseActivity {
   private void getMembers() {
     if (getIntent() != null) {
       if (getIntent().getExtras() != null) {
-        List<String> idList = getIntent().getExtras().getStringArrayList(ChatConstants.AT_PERSON);
+        List<String> mebers = getIntent().getExtras().getStringArrayList(ChatConstants.AT_PERSON);
         LCIMProfileCache.getInstance()
-            .getCachedUsers(idList, new AVCallback<List<LCChatKitUser>>() {
+            .getCachedUsers(mebers, new AVCallback<List<LCChatKitUser>>() {
               @Override
               protected void internalDone0(List<LCChatKitUser> lcChatKitUsers, AVException e) {
                 List<ContactListModel> contactListModelList = new ArrayList<>();
@@ -102,6 +107,7 @@ public class AtPersonListActivity extends BaseActivity {
                   contactListModel.setHead(lcChatKitUser.getAvatarUrl());
                   contactListModel.setName(lcChatKitUser.getUserName());
                   contactListModelList.add(contactListModel);
+                  groupMembers.add(lcChatKitUser.getUserName());
                 }
                 itemAdapter.setUserList(contactListModelList);
                 itemAdapter.notifyDataSetChanged();
@@ -123,7 +129,10 @@ public class AtPersonListActivity extends BaseActivity {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == REQUEST_SEARCH) {
       Intent intent = new Intent();
-      intent.putExtra(ChatConstants.AT_PERSON_DETAIL, data.getStringExtra(ChatConstants.AT_PERSON_SEARCH)+"  ");
+      if(data != null) {
+        intent.putExtra(ChatConstants.AT_PERSON_DETAIL,
+            data.getStringExtra(ChatConstants.AT_PERSON_SEARCH) + "  ");
+      }
       setResult(LCIMConversationFragment.REQUEST_AT_PERSON_DETAIL,intent);
       finish();
     }
