@@ -1,16 +1,10 @@
 package com.im.chat.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import android.widget.Toast;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
@@ -30,6 +24,7 @@ public class ChatRoomActivity extends LCIMConversationActivity {
 
   @Override protected void onResume() {
     super.onResume();
+    getConvName(conversation);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

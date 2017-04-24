@@ -119,6 +119,27 @@ public class LCIMConversationActivity extends AppCompatActivity implements Senso
   }
 
   /**
+   * 拿到當前聊天名字
+   * @param conversation
+   */
+  public void getConvName(AVIMConversation conversation){
+    LCIMConversationUtils.getConversationName(conversation, new AVCallback<String>() {
+      @Override
+      protected void internalDone0(String s, AVException e) {
+        if (null != e) {
+          LCIMLogUtils.logException(e);
+        } else {
+          if (conversation.isTransient() || conversation.getMembers().size() > 2) {
+            initActionBar(s+"("+conversation.getMembers().size()+")");
+          }else {
+            initActionBar(s);
+          }
+        }
+      }
+    });
+  }
+
+  /**
    * 主动刷新 UI
    *
    * @param conversation
@@ -128,16 +149,7 @@ public class LCIMConversationActivity extends AppCompatActivity implements Senso
       conversationFragment.setConversation(conversation);
       //清空当前的未读消息数量
       LCIMConversationItemCache.getInstance().clearUnread(conversation.getConversationId());
-      LCIMConversationUtils.getConversationName(conversation, new AVCallback<String>() {
-        @Override
-        protected void internalDone0(String s, AVException e) {
-          if (null != e) {
-            LCIMLogUtils.logException(e);
-          } else {
-            initActionBar(s);
-          }
-        }
-      });
+      getConvName(conversation);
     }
   }
 

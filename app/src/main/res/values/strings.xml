@@ -109,7 +109,7 @@
     <string name="conversation_Members">群组成员</string>
     <string name="conversation_inviteSucceed">已发出邀请</string>
     <string name="conversation_inviteMembers">邀请群成员</string>
-    <string name="conversation_kickTips">确认要踢走该成员吗</string>
+    <string name="conversation_kickTips">确认要踢走该成员吗？</string>
     <string name="conversation_quitGroup">退群</string>
     <string name="conversation_quit_group_tip">确定要退出该群组？</string>
     

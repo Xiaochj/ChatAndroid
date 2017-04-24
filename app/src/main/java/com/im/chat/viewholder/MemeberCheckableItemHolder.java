@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.im.chat.R;
 import com.im.chat.model.ContactListModel;
-import com.im.chat.model.UserModel;
 import com.squareup.picasso.Picasso;
 
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import cn.leancloud.chatkit.view.RoundImageView;
 import cn.leancloud.chatkit.viewholder.LCIMCommonViewHolder;
 
@@ -54,6 +54,7 @@ public class MemeberCheckableItemHolder extends LCIMCommonViewHolder<ContactList
           .load(user.getHead())
           .error(R.drawable.lcim_default_avatar_icon)
           .placeholder(R.drawable.lcim_default_avatar_icon)
+          .resize(DenstiyUtil.dip2px(getContext(),45),DenstiyUtil.dip2px(getContext(),45))
           .into(avatarView);
       nameView.setText(user.getName());
     } else {

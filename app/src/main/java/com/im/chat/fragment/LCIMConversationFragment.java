@@ -33,15 +33,15 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.im.chat.activity.AtPersonListActivity;
 import com.im.chat.activity.LocationActivity;
 import com.im.chat.adapter.LCIMChatAdapter;
-
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.Utils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.event.LCIMIMTypeMessageEvent;
@@ -55,7 +55,6 @@ import cn.leancloud.chatkit.utils.LCIMNotificationUtils;
 import cn.leancloud.chatkit.utils.LCIMPathUtils;
 import cn.leancloud.chatkit.view.LCIMInputBottomBar;
 import de.greenrobot.event.EventBus;
-import java.util.Map;
 
 import static com.im.chat.fragment.ConversationFragment.LOCATION_REQUEST;
 
@@ -438,7 +437,8 @@ public class LCIMConversationFragment extends Fragment {
    */
   protected void sendImage(String imagePath) {
     try {
-      sendMessage(new AVIMImageMessage(imagePath));
+      if(imagePath != null)
+        sendMessage(new AVIMImageMessage(imagePath));
     } catch (IOException e) {
       LCIMLogUtils.logException(e);
     }

@@ -148,6 +148,7 @@ public class ConversationDetailActivity extends BaseActivity {
   }
 
   private void refresh() {
+    setTitle(getString(R.string.conversation_detail_title)+"("+conversation.getMembers().size()+")");
     List<ContactListModel> userList = new ArrayList<>();
     List<String> ids = conversation.getMembers();
     //从缓存中读
