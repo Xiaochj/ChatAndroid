@@ -11,11 +11,10 @@ import android.widget.ImageView;
 
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
+import com.im.chat.activity.LCIMImageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-
-import cn.leancloud.chatkit.activity.LCIMImageActivity;
 import cn.leancloud.chatkit.R;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 

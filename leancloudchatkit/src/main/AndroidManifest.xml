@@ -13,8 +13,6 @@
 
     <application>
 
-        <activity android:name="cn.leancloud.chatkit.activity.LCIMImageActivity"/>
-
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
