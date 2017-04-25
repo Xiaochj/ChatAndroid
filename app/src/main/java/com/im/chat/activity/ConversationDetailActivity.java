@@ -152,12 +152,24 @@ public class ConversationDetailActivity extends BaseActivity {
     List<ContactListModel> userList = new ArrayList<>();
     List<String> ids = conversation.getMembers();
     //从缓存中读
+    ContactListModel tempModel = new ContactListModel();
     List<ContactListModel> contactListModels = ChatUserProvider.getInstance().getAllUsers();
     for(String id : ids){
       for(ContactListModel contactListModel : contactListModels){
         if(id.equals(contactListModel.getId())){
           userList.add(contactListModel);
+          //如果是群主
+          if(id.equals(conversation.getCreator())){
+            tempModel = contactListModel;
+          }
         }
+      }
+    }
+    //如果群主在这个群里，把群主移到第一个位置
+    if(tempModel.getId() != null) {
+      if (tempModel.getId().equals(conversation.getCreator())) {
+        userList.remove(tempModel);
+        userList.add(0, tempModel);
       }
     }
     listAdapter.setDataList(userList);
