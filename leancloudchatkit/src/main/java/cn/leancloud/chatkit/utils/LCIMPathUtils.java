@@ -46,6 +46,26 @@ public class LCIMPathUtils {
     }
   }
 
+  public static File getPictureDir(Context context){
+    String path;
+    String secondpath;
+    if(isExternalStorageWritable()){
+      path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/imapp/";
+    }else{
+      path = "/mnt/sdcard/imapp/picture/";
+    }
+    File fileDir = new File(path);
+    if(!fileDir.exists()){
+      fileDir.mkdir();
+    }
+    secondpath = path+"picture/";
+    File secFileDir = new File(secondpath);
+    if(!secFileDir.exists()){
+      secFileDir.mkdir();
+    }
+    return new File(secondpath+"photo_" + System.currentTimeMillis()+".jpg");
+  }
+
   public static String getAudioCachePath(Context context, String id) {
     return (TextUtils.isEmpty(id) ? null : new File(getAvailableCacheDir(context), id).getAbsolutePath());
   }
@@ -65,7 +85,7 @@ public class LCIMPathUtils {
    * @return
    */
   public static String getPicturePathByCurrentTime(Context context) {
-    String path = new File(getAvailableCacheDir(context), "photo_" + System.currentTimeMillis()).getAbsolutePath()+".jpg";
+    String path = new File(getPictureDir(context), "photo_" + System.currentTimeMillis()+".jpg").getAbsolutePath();
     return path;
   }
 }

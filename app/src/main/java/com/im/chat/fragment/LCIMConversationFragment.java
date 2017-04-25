@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -329,18 +330,18 @@ public class LCIMConversationFragment extends Fragment {
     }
   }
 
+  Uri imageUri;
+
   /**
    * 发送 Intent 跳转到系统拍照页面
    */
   private void dispatchTakePictureIntent() {
-    localCameraPath = LCIMPathUtils.getPicturePathByCurrentTime(getContext());
+    File file = LCIMPathUtils.getPictureDir(getContext());
+    localCameraPath = file.getAbsolutePath();
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    Uri imageUri = Uri.fromFile(new File(localCameraPath));
-    takePictureIntent.putExtra("return-data", false);
-    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-      startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-    }
+//    imageUri = Uri.fromFile(file);
+//    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
   }
 
   /**
@@ -357,7 +358,20 @@ public class LCIMConversationFragment extends Fragment {
     if (Activity.RESULT_OK == resultCode) {
       switch (requestCode) {
         case REQUEST_IMAGE_CAPTURE:
-          sendImage(localCameraPath);
+          if(data != null && data.getExtras() != null){
+            Bundle bundle = data.getExtras();
+            Bitmap bitmap = (Bitmap) bundle.get("data");
+            Uri uriImageData;
+            if (data.getData() != null)
+            {
+              uriImageData = data.getData();
+            }
+            else
+            {
+              uriImageData  = Uri.parse(MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, null,null));
+            }
+              sendImage(getRealPathFromURI(getActivity(), uriImageData));
+          }
           break;
         case REQUEST_IMAGE_PICK:
           sendImage(getRealPathFromURI(getActivity(), data.getData()));

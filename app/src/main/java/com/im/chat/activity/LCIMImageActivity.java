@@ -7,23 +7,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
-import cn.leancloud.chatkit.utils.LCIMConstants;
-import cn.leancloud.chatkit.utils.LCIMPathUtils;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+
 import com.im.chat.R;
 import com.im.chat.util.Utils;
 import com.squareup.picasso.Picasso;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Arrays;
+
+import cn.leancloud.chatkit.utils.LCIMConstants;
+import cn.leancloud.chatkit.utils.LCIMPathUtils;
 
 /**
  * Created by cjxiao
@@ -57,8 +53,8 @@ public class LCIMImageActivity extends AppCompatActivity {
             if (imageView.getDrawingCache() != null) {
               final ProgressDialog progress = showSpinnerDialog();
               try {
-                String path = LCIMPathUtils.getPicturePathByCurrentTime(LCIMImageActivity.this);
-                File file = new File(path);
+//                String path = LCIMPathUtils.getPicturePathByCurrentTime(LCIMImageActivity.this);
+                File file = LCIMPathUtils.getPictureDir(LCIMImageActivity.this);
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 imageView.getDrawingCache()
                     .compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
@@ -71,6 +67,7 @@ public class LCIMImageActivity extends AppCompatActivity {
                 intent.setData(uri);
                 LCIMImageActivity.this.sendBroadcast(intent);
               } catch (Exception e) {
+                return;
               }
             }
           }
