@@ -93,11 +93,20 @@ public class LCIMConversationFragment extends Fragment {
 
   // 记录拍照等的文件路径
   protected String localCameraPath;
+  Uri imageUri;
 
   //@某人
   String atPersonStr = "";
   //@列表
   List<String> atPersonList = new ArrayList<>();
+
+  @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    //针对三星机型，拍完照屏幕会旋转，导致activity生命周期重新加载，数据都变成了null，顾此时将图片路径取出来
+    if(savedInstanceState != null){
+      localCameraPath = savedInstanceState.getString("filePath");
+    }
+  }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -122,6 +131,14 @@ public class LCIMConversationFragment extends Fragment {
     checkPermissionRecord();
 
     return view;
+  }
+
+  @Override public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    //针对三星机型，拍完照屏幕会旋转，导致activity生命周期重新加载，数据都变成了null，顾此时将图片路径存起来
+    if(imageUri != null){
+      outState.putString("filePath",getRealPathFromURI(getActivity(),imageUri));
+    }
   }
 
   class TextChangedListener implements LCIMInputBottomBar.OnTextChangedCallback {
@@ -330,8 +347,6 @@ public class LCIMConversationFragment extends Fragment {
     }
   }
 
-  Uri imageUri;
-
   /**
    * 发送 Intent 跳转到系统拍照页面
    */
@@ -339,8 +354,8 @@ public class LCIMConversationFragment extends Fragment {
     File file = LCIMPathUtils.getPictureDir(getContext());
     localCameraPath = file.getAbsolutePath();
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//    imageUri = Uri.fromFile(file);
-//    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+    imageUri = Uri.fromFile(file);
+    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
   }
 
@@ -358,20 +373,7 @@ public class LCIMConversationFragment extends Fragment {
     if (Activity.RESULT_OK == resultCode) {
       switch (requestCode) {
         case REQUEST_IMAGE_CAPTURE:
-          if(data != null && data.getExtras() != null){
-            Bundle bundle = data.getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");
-            Uri uriImageData;
-            if (data.getData() != null)
-            {
-              uriImageData = data.getData();
-            }
-            else
-            {
-              uriImageData  = Uri.parse(MediaStore.Images.Media.insertImage(getContext().getContentResolver(), bitmap, null,null));
-            }
-              sendImage(getRealPathFromURI(getActivity(), uriImageData));
-          }
+          sendImage(localCameraPath);
           break;
         case REQUEST_IMAGE_PICK:
           sendImage(getRealPathFromURI(getActivity(), data.getData()));
@@ -451,8 +453,11 @@ public class LCIMConversationFragment extends Fragment {
    */
   protected void sendImage(String imagePath) {
     try {
-      if(imagePath != null)
+      if(imagePath != null) {
         sendMessage(new AVIMImageMessage(imagePath));
+      } else{
+        Utils.toast(getActivity(),com.im.chat.R.string.send_picture_fail);
+      }
     } catch (IOException e) {
       LCIMLogUtils.logException(e);
     }

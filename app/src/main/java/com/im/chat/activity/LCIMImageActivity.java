@@ -53,7 +53,6 @@ public class LCIMImageActivity extends AppCompatActivity {
             if (imageView.getDrawingCache() != null) {
               final ProgressDialog progress = showSpinnerDialog();
               try {
-//                String path = LCIMPathUtils.getPicturePathByCurrentTime(LCIMImageActivity.this);
                 File file = LCIMPathUtils.getPictureDir(LCIMImageActivity.this);
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 imageView.getDrawingCache()

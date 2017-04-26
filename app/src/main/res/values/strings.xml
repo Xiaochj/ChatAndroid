@@ -22,6 +22,7 @@
     <string name="conversation_messages">聊天</string>
     <string name="is_save_pic">是否保存图片？</string>
     <string name="has_save_pic">图片已保存到本地</string>
+    <string name="send_picture_fail">发送图片失败</string>
     <string name="conversion_record_error">语音功能不可用</string>
     <string name="conversation_name">群聊名称：</string>
     <string name="conversation_name_nomaohao">群聊名称</string>
