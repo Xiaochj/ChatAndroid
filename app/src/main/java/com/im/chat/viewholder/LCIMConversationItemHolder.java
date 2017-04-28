@@ -145,7 +145,7 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
   private void updateIcon(AVIMConversation conversation) {
     if (null != conversation) {
       if (conversation.isTransient() || conversation.getMembers().size() > 2) {
-        avatarView.setImageResource(R.drawable.lcim_group_icon);
+        avatarView.setImageResource(com.im.chat.R.drawable.contact_group_icon);
       } else {
         LCIMConversationUtils.getConversationPeerIcon(conversation, new AVCallback<String>() {
           @Override protected void internalDone0(String s, AVException e) {

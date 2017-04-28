@@ -44,7 +44,7 @@ public class GroupItemHolder extends LCIMCommonViewHolder<AVIMConversation> {
   @Override
   public void bindData(AVIMConversation conversation) {
     this.conversation = conversation;
-    iconView.setImageResource(com.im.chat.R.drawable.lcim_group_icon);
+    iconView.setImageResource(com.im.chat.R.drawable.contact_group_icon);
     if (null != conversation) {
       ConversationUtils.getConversationName(conversation, new AVCallback<String>() {
         @Override
