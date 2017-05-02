@@ -88,12 +88,6 @@
         <item name="android:textColor">@color/base_color_text_gray</item>
     </style>
 
-
-    <style name="AnimStyle2">
-        <item name="android:windowEnterAnimation">@anim/push_top_in2</item>
-        <item name="android:windowExitAnimation">@anim/push_top_out2</item>
-    </style>
-
     <style name="conversation_detail_base_left_style">
         <item name="android:layout_marginLeft">30dp</item>
         <item name="android:textSize">20sp</item>

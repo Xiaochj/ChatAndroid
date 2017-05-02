@@ -101,7 +101,7 @@
 
     <activity android:name="com.im.chat.activity.UpdateContentActivity"/>
 
-    <activity android:name="com.im.chat.activity.LocationActivity" />
+    <activity android:name="com.im.chat.activity.LocationActivity"/>
 
     <activity
         android:name="com.im.chat.activity.EntryLoginActivity"
@@ -140,7 +140,8 @@
         android:name="com.im.chat.activity.AtPersonListActivity"
         android:theme="@style/LCIMActivity.NoActionBar"/>
 
-    <activity android:name="com.im.chat.activity.LCIMImageActivity"
+    <activity
+        android:name="com.im.chat.activity.LCIMImageActivity"
         android:theme="@style/LCIMActivity.NoActionBar"/>
 
     <service
