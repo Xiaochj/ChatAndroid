@@ -91,4 +91,5 @@
   <string name="load_more_footer_hint_normal">查看更多</string>
   <string name="chat_geoIsSame">获取坐标相同</string>
   <string name="chat_reverseGeoCodeResultIs">反编码得到的地址：</string>
+  <string name="sso_tip">注意！您的账号在多处登录，如果这不是本人操作，请及时修改密码！</string>
 </resources>

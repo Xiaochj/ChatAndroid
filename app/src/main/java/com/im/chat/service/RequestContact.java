@@ -1,5 +1,7 @@
 package com.im.chat.service;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import com.im.chat.R;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
@@ -39,7 +41,7 @@ public class RequestContact {
     return instance;
   }
 
-  public void getContactList() {
+  public void getContactList(Context context) {
     AppEngine.getInstance()
         .getAppService()
         .getContactList(1, -1)
@@ -55,12 +57,18 @@ public class RequestContact {
           }
 
           @Override public void onNext(BaseBean<List<ContactListModel>> listBaseBean) {
-            if (listBaseBean.getStatus() == 1) {
+            if (listBaseBean.getCode() == 1) {
               if (listBaseBean.getData() != null) {
                 if (requestContactImpl != null) {
                   requestContactImpl.onRequestContactListCallback(listBaseBean.getData());
                 }
               }
+            }else if(listBaseBean.getCode() == 400){
+              Utils.showInfoDialog(context, context.getString(R.string.sso_tip), new DialogInterface.OnClickListener() {
+                @Override public void onClick(DialogInterface dialog, int which) {
+                  RequestLogout.getInstance().logoutApp(context);
+                }
+              });
             }
           }
         });

@@ -164,7 +164,7 @@ public class ContactFragment extends BaseFragment {
   private void addChatUsers() {
     ChatUserProvider.getInstance().getAllUsers().clear();
     //请求自家服务器
-    RequestContact.getInstance().getContactList();
+    RequestContact.getInstance().getContactList(getActivity());
     RequestContact.getInstance().setRequestContactListener(new RequestContact.RequestContactImpl() {
       @Override public void onRequestContactListCallback(List<ContactListModel> models) {
         ChatUserProvider.getInstance().getAllUsers().addAll(models);

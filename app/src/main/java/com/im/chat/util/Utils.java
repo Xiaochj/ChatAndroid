@@ -2,6 +2,7 @@ package com.im.chat.util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.view.View;
 import android.widget.Toast;
 
 import com.im.chat.App;
@@ -25,15 +27,14 @@ public class Utils {
     Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
   }
 
-  public static void showInfoDialog(Activity cxt, String msg, String title) {
+  public static void showInfoDialog(Context cxt, String msg, Dialog.OnClickListener onClickListener) {
     AlertDialog.Builder builder = getBaseDialogBuilder(cxt);
     builder.setMessage(msg)
-        .setPositiveButton(cxt.getString(com.im.chat.R.string.chat_utils_right), null)
-        .setTitle(title)
+        .setPositiveButton(cxt.getString(com.im.chat.R.string.chat_utils_right), onClickListener)
         .show();
   }
 
-  public static AlertDialog.Builder getBaseDialogBuilder(Activity ctx) {
+  public static AlertDialog.Builder getBaseDialogBuilder(Context ctx) {
     return new AlertDialog.Builder(ctx).setTitle(com.im.chat.R.string.chat_utils_tips).setIcon(com.im.chat.R.drawable.utils_icon_info_2);
   }
 

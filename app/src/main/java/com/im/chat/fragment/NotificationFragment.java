@@ -1,5 +1,6 @@
 package com.im.chat.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import com.im.chat.adapter.HeaderListAdapter;
 import com.im.chat.engine.AppEngine;
 import com.im.chat.model.BaseBean;
 import com.im.chat.model.NotifyListModel;
+import com.im.chat.service.RequestLogout;
+import com.im.chat.util.Utils;
 import com.im.chat.view.RefreshableRecyclerView;
 import com.im.chat.viewholder.NotifyItemHolder;
 
@@ -77,7 +80,7 @@ public class NotificationFragment extends BaseFragment{
       }
 
       @Override public void onNext(BaseBean<List<NotifyListModel>> notifyListBean) {
-        if(notifyListBean.getStatus() == 1) {
+        if(notifyListBean.getCode() == 1) {
           if(notifyListBean.getData() != null && notifyListBean.getTotal() > 0) {
             totalItem = notifyListBean.getTotal();
             ArrayList<NotifyListModel> list = new ArrayList<>();
@@ -85,6 +88,12 @@ public class NotificationFragment extends BaseFragment{
             notificationAdapter.setDataList(notifyListModelList);
             notificationAdapter.notifyDataSetChanged();
           }
+        }else if(notifyListBean.getCode() == 400){
+          Utils.showInfoDialog(getActivity(), getString(R.string.sso_tip), new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+              RequestLogout.getInstance().logoutApp(getContext());
+            }
+          });
         }
       }
     });

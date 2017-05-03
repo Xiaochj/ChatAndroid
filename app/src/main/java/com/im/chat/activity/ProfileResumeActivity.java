@@ -1,6 +1,7 @@
 package com.im.chat.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.im.chat.engine.AppEngine;
 import com.im.chat.engine.AppService;
 import com.im.chat.fragment.ProfileFragment;
 import com.im.chat.model.BaseBean;
+import com.im.chat.service.RequestLogout;
 import com.im.chat.util.Utils;
 import com.im.chat.view.HeaderLayout;
 import rx.Subscriber;
@@ -139,6 +141,12 @@ public class ProfileResumeActivity extends BaseActivity implements View.OnClickL
             } else {
               if(baseBean.getCode() == 800) {//原密码输入有误
                 Utils.toast(R.string.profile_resume_pwd_original_error);
+              }else if(baseBean.getCode() == 400){
+                Utils.showInfoDialog(ProfileResumeActivity.this, getString(R.string.sso_tip), new DialogInterface.OnClickListener() {
+                  @Override public void onClick(DialogInterface dialog, int which) {
+                    RequestLogout.getInstance().logoutApp(ProfileResumeActivity.this);
+                  }
+                });
               }else {
                 Utils.toast(R.string.profile_resume_error);
               }

@@ -103,7 +103,7 @@ public class MainActivity extends BaseActivity {
   private void getContactList() {
     ChatUserProvider.getInstance().getLcChatKitUsers().clear();
     ChatUserProvider.getInstance().getAllUsers().clear();
-    RequestContact.getInstance().getContactList();
+    RequestContact.getInstance().getContactList(this);
     RequestContact.getInstance().setRequestContactListener(new RequestContact.RequestContactImpl() {
       @Override public void onRequestContactListCallback(List<ContactListModel> models) {
         List<ContactListModel> contactListModels = models;

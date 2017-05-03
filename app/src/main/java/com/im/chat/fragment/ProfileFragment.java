@@ -26,6 +26,7 @@ import com.im.chat.model.BaseBean;
 import com.im.chat.model.UploadImageModel;
 import com.im.chat.model.UserModel;
 import com.im.chat.service.PushManager;
+import com.im.chat.service.RequestLogout;
 import com.im.chat.util.Base64Utils;
 import com.im.chat.util.ChatConstants;
 import com.im.chat.util.Utils;
@@ -100,7 +101,7 @@ public class ProfileFragment extends BaseFragment {
       }
 
       @Override public void onNext(BaseBean<UserModel> profileInfoModelBaseBean) {
-        if (profileInfoModelBaseBean.getStatus() == 1) {
+        if (profileInfoModelBaseBean.getCode() == 1) {
           if (profileInfoModelBaseBean.getData() != null) {
             //获取用户信息
             profileInfoModel = profileInfoModelBaseBean.getData();
@@ -120,6 +121,12 @@ public class ProfileFragment extends BaseFragment {
             }
             if (profileInfoModel.getMail() != null) mEmailTv.setText(profileInfoModel.getMail());
           }
+        } else if(profileInfoModelBaseBean.getCode() == 400){
+          Utils.showInfoDialog(getActivity(), getString(R.string.sso_tip), new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+              RequestLogout.getInstance().logoutApp(getContext());
+            }
+          });
         }
       }
     });
@@ -302,14 +309,14 @@ public class ProfileFragment extends BaseFragment {
 
               @Override public void onNext(BaseBean<UploadImageModel> baseBean) {
                 dialog.dismiss();
-                mAvatarView.setImageBitmap(bitmap);
-                if (baseBean.getStatus() == 1) {
+                if (baseBean.getCode() == 1) {
                   Utils.toast(R.string.upload_avatar_success);
+                  mAvatarView.setImageBitmap(bitmap);
                   LCIMProfileCache.getInstance().cacheUser(new LCChatKitUser(LCChatKit.getInstance().getCurrentUserId(),mNameTv.getText().toString(),baseBean.getData().getUrl()));
 //                  if(path != null) {
 //                    profileInfoModel.saveAvatar(path, null);
 //                  }
-                } else {
+                }else{
                   Utils.toast(R.string.upload_avatar_error);
                 }
                 //if (bitmap != null && bitmap.isRecycled() == false) {
