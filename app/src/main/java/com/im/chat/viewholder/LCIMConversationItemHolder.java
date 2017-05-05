@@ -192,17 +192,6 @@ public class LCIMConversationItemHolder extends LCIMCommonViewHolder {
   }
 
   private void onConversationItemClick(AVIMConversation conversation) {
-    //try {
-    //  Intent intent = new Intent();
-    //  intent.setPackage(getContext().getPackageName());
-    //  intent.setAction(LCIMConstants.CONVERSATION_ITEM_CLICK_ACTION);
-    //  intent.addCategory(Intent.CATEGORY_DEFAULT);
-    //  intent.putExtra(LCIMConstants.CONVERSATION_ID, conversation.getConversationId());
-    //  getContext().startActivity(intent);
-    //} catch (ActivityNotFoundException exception) {
-    //  Log.i(LCIMConstants.LCIM_LOG_TAG, exception.toString());
-    //}
-
     Intent intent = new Intent(getContext(), ChatRoomActivity.class);
     intent.putExtra(LCIMConstants.CONVERSATION_ID, conversation.getConversationId());
     getContext().startActivity(intent);
