@@ -2,6 +2,7 @@ package com.im.chat.viewholder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -49,9 +50,9 @@ public class NotifyItemHolder extends LCIMCommonViewHolder<NotifyListModel> {
 
   @Override public void bindData(NotifyListModel notifyListModel) {
     if (notifyListModel != null) {
-      mTitleTv.setText(notifyListModel.getName());
+      mTitleTv.setText(Html.fromHtml(notifyListModel.getName()));
       mTimeTv.setText(notifyListModel.getCreate_time());
-      mContentTv.setText(notifyListModel.getDescription());
+      mContentTv.setText(Html.fromHtml(notifyListModel.getDescription()));
       mUrl = notifyListModel.getUrl();//通告详情页的url
     }
   }
