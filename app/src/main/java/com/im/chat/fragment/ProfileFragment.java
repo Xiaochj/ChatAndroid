@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
@@ -109,6 +110,7 @@ public class ProfileFragment extends BaseFragment {
               Picasso.with(getContext()).load(profileInfoModel.getHead())
                   .error(R.drawable.lcim_default_avatar_icon)
                   .placeholder(R.drawable.lcim_default_avatar_icon)
+                  .resize(DenstiyUtil.dip2px(getContext(), 75),DenstiyUtil.dip2px(getContext(),75))
                   .into(mAvatarView);
             }
             if (profileInfoModel.getName() != null) mNameTv.setText(profileInfoModel.getName());

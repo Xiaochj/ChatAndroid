@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
+import cn.leancloud.chatkit.utils.DenstiyUtil;
 import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.leancloud.chatkit.view.RoundImageView;
 import com.im.chat.R;
@@ -50,6 +51,7 @@ public class ContactPersonInfoActivity extends BaseActivity implements OnClickLi
         .load(contactListModel.getHead())
         .error(R.drawable.lcim_default_avatar_icon)
         .placeholder(R.drawable.lcim_default_avatar_icon)
+        .resize(DenstiyUtil.dip2px(this, 75),DenstiyUtil.dip2px(this,75))
         .into(mRoundImageView);
     mNameTv.setText(contactListModel.getName());
     mSexTv.setText("/" + contactListModel.getSex());
