@@ -42,6 +42,8 @@ public class EntrySplashActivity extends BaseActivity {
                         Intent intent = new Intent(EntrySplashActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+                      }else{
+                        Utils.toast(EntrySplashActivity.this, R.string.no_connection);
                       }
                     }
                   });
